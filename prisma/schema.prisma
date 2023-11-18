@@ -1,0 +1,264 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 
+
+model User {
+  id        Int      @id @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String
+  active    Boolean  @default(true)
+  avatar    String   @default("")
+  password  String
+  // Warranty  Warranty[]
+
+  ROLES UserRole[]
+}
+
+model Role {
+  id        Int        @id @unique @default(autoincrement())
+  label     String
+  alias     String     @unique
+  isActive  Boolean    @default(true)
+  deleted   Boolean    @default(false)
+  userRoles UserRole[]
+}
+
+model UserRole {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  role   Role @relation(fields: [roleId], references: [id])
+  userId Int
+  roleId Int
+
+  // Mối quan hệ 1-1 giữa UserRole và Role
+  @@unique([userId, roleId])
+}
+
+model Product {
+  id           Int                 @id @unique @default(autoincrement())
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @default(now())
+  searchString String
+  status       ProductStatus
+  categoryId   Int
+  category     Category?           @relation(fields: [categoryId], references: [id])
+  name         String
+  images       String
+  description  String
+  view         Int                 @default(0)
+  rate         Float               @default(0)
+  code         String              @default("")
+  overView     String
+  seo          String
+  keywords     String
+  configInfo   ProductConfigInfo[]
+  // classifications Classification[]
+  price        Int
+  salePrice    Int
+  active       Boolean             @default(true)
+  wareHouseId  Int?                @unique
+
+  OrderItem OrderItem[]
+  WareHouse WareHouse?
+}
+
+enum ProductStatus {
+  STOCKING
+  OUTOFSTOCK
+  COMMING
+  STOP_BUSSINESS
+}
+
+model ProductConfigInfo {
+  id        Int      @id @unique @default(autoincrement())
+  label     String
+  value     String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+}
+
+model OrderCustomerInfo {
+  id      Int    @id @unique @default(autoincrement()) //
+  name    String //Tên khách hàng
+  phone   String //Số điện thoại
+  address String // Địa chỉ nhận hàng
+  email   String //Email
+
+  Order Order[]
+}
+
+model OrderPayment {
+  id         Int                @id @unique @default(autoincrement())
+  status     OrderPaymentStatus @default(PROCESSING)
+  itemsPrice Int
+  method     OrderPaymentMethod
+  note       String             @default("")
+
+  hasPaid        Int
+  discountAmount Int      @default(0)
+  voucher        String?
+  Voucher        Voucher? @relation(fields: [voucher], references: [code])
+
+  paidAt DateTime @default(now())
+
+  Order Order[]
+}
+
+enum OrderPaymentStatus {
+  PROCESSING
+  DONE
+  CANCELED
+}
+
+enum OrderPaymentMethod {
+  COD
+  QR
+  BANKING
+  EWALLET
+}
+
+model OrderShipping {
+  id     Int     @id @unique @default(autoincrement())
+  status String
+  note   String
+  Order  Order[]
+}
+
+model OrderItem {
+  id        Int     @id @unique @default(autoincrement())
+  productId Int
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  Order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   Int
+}
+
+model Order {
+  id     Int         @id @unique @default(autoincrement())
+  note   String      @default("")
+  status OrderStatus @default(WAITING_CONFIRM)
+
+  payment OrderPayment? @relation(fields: [orderPaymentId], references: [id])
+
+  customerInfo OrderCustomerInfo @relation(fields: [orderCustomerInfoId], references: [id])
+
+  orderShipping OrderShipping? @relation(fields: [orderShippingId], references: [id])
+
+  cancelReason String          @default("")
+  WareHouseLog WareHouseBill[]
+
+  items OrderItem[]
+
+  Voucher             Voucher? @relation(fields: [voucherId], references: [id])
+  voucherId           Int?
+  orderPaymentId      Int?
+  orderCustomerInfoId Int
+  orderShippingId     Int?
+}
+
+enum OrderStatus {
+  WAITING_CONFIRM
+  PREPARE
+  DONE
+  CANCELED
+}
+
+model Category {
+  id          Int       @id @unique @default(autoincrement())
+  description String    @default("")
+  alias       String    @unique
+  label       String
+  active      Boolean   @default(true)
+  icon        String    @default("")
+  parentId    Int       @default(0)
+  Product     Product[]
+}
+
+//MODULE PROMOTIONS
+
+model Banner {
+  id          Int      @id @unique @default(autoincrement())
+  description String   @default("")
+  active      Boolean  @default(false)
+  img         String
+  link        String?
+  createdAt   DateTime @default(now())
+}
+
+model Voucher {
+  id           Int            @id @unique @default(autoincrement())
+  description  String         @default("")
+  activeAt     DateTime
+  dueAt        DateTime
+  code         String         @unique
+  usageCount   Int
+  priceMin     Int
+  discount     Int            @default(0)
+  Order        Order[]
+  OrderPayment OrderPayment[]
+}
+
+model Post {
+  id          Int      @id @unique @default(autoincrement())
+  type        PostType @default(NORMAL)
+  title       String
+  description String   @default("")
+  content     String
+}
+
+enum PostType {
+  PROMOTION
+  NORMAL
+}
+
+//WAREHOUSE MODEL
+
+model WareHouse {
+  id            Int             @id @unique @default(autoincrement())
+  productId     Int             @unique
+  quantity      Int             @default(0)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  WareHouseBill WareHouseBill[]
+  Product       Product?        @relation(fields: [productId], references: [id])
+}
+
+model WareHouseBill {
+  id              Int                  @id @unique @default(autoincrement())
+  warehouseItemId Int
+  WarehouseItem   WareHouse?           @relation(fields: [warehouseItemId], references: [id])
+  reason          WarehouseLogReason
+  quantity        Int
+  price           Int
+  note            String               @default("")
+  platformOrderId String               @default("")
+  platformSell    WarehouseLogPlatform @default(NO)
+  orderId         Int?
+  Order           Order?               @relation(fields: [orderId], references: [id])
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @default(now())
+}
+
+enum WarehouseLogReason {
+  SELL
+  IMPORT
+  DAMAGED
+}
+
+enum WarehouseLogPlatform {
+  NO
+  WEB
+  SHOPEE
+  LAZADA
+}
