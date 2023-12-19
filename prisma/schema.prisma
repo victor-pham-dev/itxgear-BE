@@ -64,8 +64,8 @@ model Product {
   keywords     String
   configInfo   ProductConfigInfo[]
   // classifications Classification[]
-  price        Int
-  salePrice    Int
+  price        BigInt
+  salePrice    BigInt
   active       Boolean             @default(true)
   wareHouseId  Int?                @unique
 
@@ -76,7 +76,7 @@ model Product {
 enum ProductStatus {
   STOCKING
   OUTOFSTOCK
-  COMMING
+  INCOMMING
   STOP_BUSSINESS
 }
 

@@ -85,4 +85,45 @@ export class PublicProductService {
       )
     }
   }
+
+  async getOutStandingExams() {
+    try {
+      const result = await this.prisma.product.findMany({
+        where: {
+          active: true,
+          WareHouse: {
+            quantity: {
+              gt: 0,
+            },
+          },
+        },
+        orderBy: {
+          view: 'desc',
+        },
+
+        select: {
+          name: true,
+          images: true,
+          categoryId: true,
+          category: true,
+          price: true,
+          salePrice: true,
+          code: true,
+          view: true,
+          status: true,
+        },
+        take: 5,
+      })
+
+      return {
+        success: true,
+        data: result,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
 }

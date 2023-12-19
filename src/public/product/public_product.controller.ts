@@ -4,7 +4,7 @@ import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
 @Controller('/api/v1/public/product')
-@ApiTags('Product')
+@ApiTags('Public / Product')
 export class PublicProductController {
   constructor(private readonly service: PublicProductService) {}
 
@@ -18,5 +18,11 @@ export class PublicProductController {
   @ApiOperation({ summary: 'SEARCH' })
   async search(@Req() req: Request) {
     return this.service.search(req)
+  }
+
+  @Get('/homepage/out-standing')
+  @ApiOperation({ summary: '5 Sản phẩm nổi bật' })
+  async getOutStandingExams() {
+    return this.service.getOutStandingExams()
   }
 }

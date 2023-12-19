@@ -26,7 +26,7 @@ export class PublicOrderService {
               quantity: true,
             },
           })
-          itemsPrice += quantity * (warehouseItem?.Product?.salePrice ?? 0)
+          // itemsPrice += quantity * (warehouseItem?.Product?.salePrice ?? 0)
           if (warehouseItem?.quantity && warehouseItem?.quantity >= quantity) {
             return true
           } else {

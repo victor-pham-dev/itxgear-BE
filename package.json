@@ -29,6 +29,8 @@
     "@prisma/client": "^5.5.2",
     "@types/bcrypt": "^5.0.2",
     "@types/moment": "^2.13.0",
+    "@types/multer": "^1.4.11",
+    "aws-sdk": "^2.1509.0",
     "bcrypt": "^5.1.1",
     "jose": "^5.1.0",
     "moment": "^2.29.4",
