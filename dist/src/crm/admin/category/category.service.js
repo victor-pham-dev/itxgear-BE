@@ -76,7 +76,7 @@ let CategoryService = class CategoryService {
         }
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const [parent, children] = await Promise.all([
                 this.prisma.category.findUnique({

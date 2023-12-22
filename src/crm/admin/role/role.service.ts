@@ -47,6 +47,10 @@ export class RoleService {
         data: result,
       }
     } catch (error: any) {
+      console.log(
+        '🚀 ~ file: role.service.ts:50 ~ RoleService ~ update ~ error:',
+        error,
+      )
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,

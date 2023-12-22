@@ -103,7 +103,7 @@ let ProductService = class ProductService {
         }
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const result = await this.prisma.product.findUnique({
                 where: { id: Number(id) },
@@ -118,6 +118,7 @@ let ProductService = class ProductService {
             };
         }
         catch (error) {
+            console.log('🚀 ~ file: product.service.ts:160 ~ ProductService ~ get ~ error:', error);
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

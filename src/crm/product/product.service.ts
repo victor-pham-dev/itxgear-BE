@@ -142,7 +142,7 @@ export class ProductService {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.product.findUnique({
@@ -157,6 +157,10 @@ export class ProductService {
         data: result,
       }
     } catch (error: any) {
+      console.log(
+        '🚀 ~ file: product.service.ts:160 ~ ProductService ~ get ~ error:',
+        error,
+      )
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,

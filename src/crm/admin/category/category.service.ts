@@ -86,7 +86,7 @@ export class CategoryService {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const [parent, children] = await Promise.all([

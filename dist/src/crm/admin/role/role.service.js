@@ -51,6 +51,7 @@ let RoleService = class RoleService {
             };
         }
         catch (error) {
+            console.log('🚀 ~ file: role.service.ts:50 ~ RoleService ~ update ~ error:', error);
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
