@@ -209,6 +209,10 @@ export class ProductService {
         },
       }
     } catch (error: any) {
+      console.log(
+        '🚀 ~ file: product.service.ts:212 ~ ProductService ~ search ~ error:',
+        error,
+      )
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
