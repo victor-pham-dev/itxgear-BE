@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, UpdateDto } from './voucher.dto'
+import { CreateVoucherDto, UpdateVoucherDto } from './voucher.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 
@@ -7,7 +7,7 @@ import { PrismaService } from 'services/prisma.service'
 export class VoucherService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
+  async create(createDto: CreateVoucherDto) {
     try {
       const result = await this.prisma.voucher.create({
         data: createDto,
@@ -25,7 +25,7 @@ export class VoucherService {
     }
   }
 
-  async update(updateDto: UpdateDto) {
+  async update(updateDto: UpdateVoucherDto) {
     const { id, ...data } = updateDto
 
     try {

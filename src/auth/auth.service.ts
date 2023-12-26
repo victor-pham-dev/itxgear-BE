@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, LoginUserDto } from './auth.dto'
+import { CreateUserDto, LoginUserDto } from './auth.dto'
 import * as bcrypt from 'bcrypt'
 import { Request } from 'express'
 import { JwtService } from '@nestjs/jwt'
@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   //CREATE NEW USER
-  async create(createUserDto: CreateDto) {
+  async create(createUserDto: CreateUserDto) {
     const { name, email, password } = createUserDto
 
     try {

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class CreateDto {
+export class CreateVoucherDto {
   @ApiProperty()
   readonly description: string
 
@@ -23,7 +23,7 @@ export class CreateDto {
   readonly discount: number
 }
 
-export class UpdateDto extends CreateDto {
+export class UpdateVoucherDto extends CreateVoucherDto {
   @ApiProperty()
   readonly id: number
 

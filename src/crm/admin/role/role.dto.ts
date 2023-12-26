@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class CreateDto {
+export class CreateRoleDto {
   @ApiProperty()
   readonly label: string;
 
@@ -8,7 +8,7 @@ export class CreateDto {
   readonly alias: string;
 }
 
-export class UpdateDto {
+export class UpdateRoleDto {
   @ApiProperty()
   readonly id: number;
 

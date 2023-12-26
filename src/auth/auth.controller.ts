@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { CreateDto, LoginUserDto } from "./auth.dto";
+import { CreateUserDto, LoginUserDto } from "./auth.dto";
 import { Request } from "express";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
@@ -11,7 +11,7 @@ export class AuthController {
 
   @Post("/register")
   @ApiOperation({ summary: "User đăng ký" })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateUserDto) {
     return this.userService.create(createDto);
   }
 

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, UpdateDto } from './category.dto'
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 
@@ -7,7 +7,7 @@ import { PrismaService } from 'services/prisma.service'
 export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
+  async create(createDto: CreateCategoryDto) {
     const { children, ...data } = createDto
     try {
       const result = await this.prisma.category.create({
@@ -34,7 +34,7 @@ export class CategoryService {
     }
   }
 
-  async update(updateDto: UpdateDto) {
+  async update(updateDto: UpdateCategoryDto) {
     const { id, children, ...data } = updateDto
 
     try {

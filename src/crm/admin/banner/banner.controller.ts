@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
 import { BannerSerivce } from './banner.service'
-import { CreateDto, UpdateDto } from './banner.dto'
+import { CreateBannerDto, UpdateBannerDto } from './banner.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
@@ -11,13 +11,13 @@ export class BannerController {
 
   @Post()
   @ApiOperation({ summary: 'Create ' })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateBannerDto) {
     return this.service.create(createDto)
   }
 
   @Put()
   @ApiOperation({ summary: 'UPDATE ' })
-  async update(@Body() updateDto: UpdateDto) {
+  async update(@Body() updateDto: UpdateBannerDto) {
     return this.service.update(updateDto)
   }
 

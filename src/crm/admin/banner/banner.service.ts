@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, UpdateDto } from './banner.dto'
+import { CreateBannerDto, UpdateBannerDto } from './banner.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 
@@ -7,7 +7,7 @@ import { PrismaService } from 'services/prisma.service'
 export class BannerSerivce {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
+  async create(createDto: CreateBannerDto) {
     try {
       const result = await this.prisma.banner.create({
         data: createDto,
@@ -25,7 +25,7 @@ export class BannerSerivce {
     }
   }
 
-  async update(updateDto: UpdateDto) {
+  async update(updateDto: UpdateBannerDto) {
     const { id, ...data } = updateDto
 
     try {

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { WarehouseLogReason } from '@prisma/client'
 
-export class CreateDto {
+export class CreateBillDto {
   @ApiProperty()
   readonly warehouseItemId: number
 
@@ -21,7 +21,7 @@ export class CreateDto {
   readonly platformOrderId?: string
 }
 
-export class UpdateDto extends CreateDto {
+export class UpdateBillDto extends CreateBillDto {
   @ApiProperty()
   readonly id: number
 

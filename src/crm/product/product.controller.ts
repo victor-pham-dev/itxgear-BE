@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
 import { ProductService } from './product.service'
-import { CreateDto, UpdateDto } from './product.dto'
+import { CreateProductDto, UpdateProductDto } from './product.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
@@ -11,13 +11,13 @@ export class ProductController {
 
   @Post()
   @ApiOperation({ summary: 'Create ROLE' })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateProductDto) {
     return this.service.create(createDto)
   }
 
   @Put()
   @ApiOperation({ summary: 'UPDATE ROLE' })
-  async update(@Body() updateDto: UpdateDto) {
+  async update(@Body() updateDto: UpdateProductDto) {
     return this.service.update(updateDto)
   }
 

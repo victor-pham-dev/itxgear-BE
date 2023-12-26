@@ -49,12 +49,12 @@ export class ProductDto {
   readonly salePrice: number
 }
 
-export class CreateDto extends ProductDto {
+export class CreateProductDto extends ProductDto {
   @ApiProperty()
   readonly configInfo: CreateProductConfigDto[]
 }
 
-export class UpdateDto extends ProductDto {
+export class UpdateProductDto extends ProductDto {
   @ApiProperty()
   readonly id: number
 

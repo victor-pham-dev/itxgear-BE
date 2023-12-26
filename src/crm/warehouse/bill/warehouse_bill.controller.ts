@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
 import { WarehouseBillService } from './warehouse_bill.service'
-import { CreateDto } from './warehouse_bill.dto'
+import { CreateBillDto } from './warehouse_bill.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { WareHouseBill } from '@prisma/client'
@@ -12,7 +12,7 @@ export class WarehouseBillController {
 
   @Post()
   @ApiOperation({ summary: 'Create ' })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateBillDto) {
     return this.service.create(createDto)
   }
 

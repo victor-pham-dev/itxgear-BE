@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, UpdateDto } from './warehouse_bill.dto'
+import { CreateBillDto, UpdateBillDto } from './warehouse_bill.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 import { WareHouseBill } from '@prisma/client'
@@ -8,7 +8,7 @@ import { WareHouseBill } from '@prisma/client'
 export class WarehouseBillService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
+  async create(createDto: CreateBillDto) {
     try {
       const result = await this.prisma.wareHouseBill.create({
         data: createDto,

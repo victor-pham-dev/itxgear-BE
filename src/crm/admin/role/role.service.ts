@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto, UpdateDto } from './role.dto'
+import { CreateRoleDto, UpdateRoleDto } from './role.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 
@@ -7,7 +7,7 @@ import { PrismaService } from 'services/prisma.service'
 export class RoleService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
+  async create(createDto: CreateRoleDto) {
     const { alias, label } = createDto
 
     try {
@@ -30,7 +30,7 @@ export class RoleService {
     }
   }
 
-  async update(updateDto: UpdateDto) {
+  async update(updateDto: UpdateRoleDto) {
     const { id, ...data } = updateDto
 
     try {
