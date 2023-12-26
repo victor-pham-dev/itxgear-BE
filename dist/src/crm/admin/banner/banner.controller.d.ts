@@ -1,10 +1,10 @@
 import { BannerSerivce } from './banner.service';
-import { CreateDto, UpdateDto } from './banner.dto';
+import { CreateBannerDto, UpdateBannerDto } from './banner.dto';
 import { Request } from 'express';
 export declare class BannerController {
     private readonly service;
     constructor(service: BannerSerivce);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateBannerDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -16,7 +16,7 @@ export declare class BannerController {
             createdAt: Date;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateBannerDto): Promise<{
         message: string;
         success: boolean;
         data: {

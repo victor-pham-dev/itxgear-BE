@@ -1,8 +1,8 @@
-export declare class CreateDto {
+export declare class CreateRoleDto {
     readonly label: string;
     readonly alias: string;
 }
-export declare class UpdateDto {
+export declare class UpdateRoleDto {
     readonly id: number;
     readonly label: string;
     readonly alias: string;

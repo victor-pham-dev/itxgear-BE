@@ -1,4 +1,4 @@
-export declare class CreateDto {
+export declare class CreateVoucherDto {
     readonly description: string;
     readonly dueAt: Date;
     readonly code: string;
@@ -7,7 +7,7 @@ export declare class CreateDto {
     readonly priceMin: number;
     readonly discount: number;
 }
-export declare class UpdateDto extends CreateDto {
+export declare class UpdateVoucherDto extends CreateVoucherDto {
     readonly id: number;
     readonly active: boolean;
 }

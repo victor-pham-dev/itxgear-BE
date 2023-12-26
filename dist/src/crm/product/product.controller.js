@@ -40,7 +40,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Create ROLE' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [product_dto_1.CreateDto]),
+    __metadata("design:paramtypes", [product_dto_1.CreateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "create", null);
 __decorate([
@@ -48,7 +48,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'UPDATE ROLE' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [product_dto_1.UpdateDto]),
+    __metadata("design:paramtypes", [product_dto_1.UpdateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "update", null);
 __decorate([

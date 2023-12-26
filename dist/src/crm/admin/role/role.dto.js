@@ -9,36 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDto = exports.CreateDto = void 0;
+exports.UpdateRoleDto = exports.CreateRoleDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateDto {
+class CreateRoleDto {
 }
-exports.CreateDto = CreateDto;
+exports.CreateRoleDto = CreateRoleDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "label", void 0);
+], CreateRoleDto.prototype, "label", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "alias", void 0);
-class UpdateDto {
+], CreateRoleDto.prototype, "alias", void 0);
+class UpdateRoleDto {
 }
-exports.UpdateDto = UpdateDto;
+exports.UpdateRoleDto = UpdateRoleDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], UpdateDto.prototype, "id", void 0);
+], UpdateRoleDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateDto.prototype, "label", void 0);
+], UpdateRoleDto.prototype, "label", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateDto.prototype, "alias", void 0);
+], UpdateRoleDto.prototype, "alias", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
-], UpdateDto.prototype, "isActive", void 0);
+], UpdateRoleDto.prototype, "isActive", void 0);
 //# sourceMappingURL=role.dto.js.map

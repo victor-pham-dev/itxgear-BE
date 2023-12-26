@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDto = exports.CreateDto = exports.ProductDto = exports.UpdateProductConfigDto = exports.CreateProductConfigDto = void 0;
+exports.UpdateProductDto = exports.CreateProductDto = exports.ProductDto = exports.UpdateProductConfigDto = exports.CreateProductConfigDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const client_1 = require("@prisma/client");
 class CreateProductConfigDto {
@@ -77,26 +77,26 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], ProductDto.prototype, "salePrice", void 0);
-class CreateDto extends ProductDto {
+class CreateProductDto extends ProductDto {
 }
-exports.CreateDto = CreateDto;
+exports.CreateProductDto = CreateProductDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Array)
-], CreateDto.prototype, "configInfo", void 0);
-class UpdateDto extends ProductDto {
+], CreateProductDto.prototype, "configInfo", void 0);
+class UpdateProductDto extends ProductDto {
 }
-exports.UpdateDto = UpdateDto;
+exports.UpdateProductDto = UpdateProductDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], UpdateDto.prototype, "id", void 0);
+], UpdateProductDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Array)
-], UpdateDto.prototype, "configInfo", void 0);
+], UpdateProductDto.prototype, "configInfo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
-], UpdateDto.prototype, "active", void 0);
+], UpdateProductDto.prototype, "active", void 0);
 //# sourceMappingURL=product.dto.js.map

@@ -19,10 +19,10 @@ export declare class ProductDto {
     readonly price: number;
     readonly salePrice: number;
 }
-export declare class CreateDto extends ProductDto {
+export declare class CreateProductDto extends ProductDto {
     readonly configInfo: CreateProductConfigDto[];
 }
-export declare class UpdateDto extends ProductDto {
+export declare class UpdateProductDto extends ProductDto {
     readonly id: number;
     readonly configInfo: UpdateProductConfigDto[];
     readonly active: boolean;

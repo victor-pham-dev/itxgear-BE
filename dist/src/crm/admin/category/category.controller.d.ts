@@ -1,10 +1,10 @@
 import { CategoryService } from './category.service';
-import { CreateDto, UpdateDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
 import { Request } from 'express';
 export declare class CategoryController {
     private readonly service;
     constructor(service: CategoryService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateCategoryDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -17,7 +17,7 @@ export declare class CategoryController {
             parentId: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateCategoryDto): Promise<{
         message: string;
         success: boolean;
         data: boolean;

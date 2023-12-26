@@ -9,45 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDto = exports.CreateDto = void 0;
+exports.UpdateBillDto = exports.CreateBillDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const client_1 = require("@prisma/client");
-class CreateDto {
+class CreateBillDto {
 }
-exports.CreateDto = CreateDto;
+exports.CreateBillDto = CreateBillDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "warehouseItemId", void 0);
+], CreateBillDto.prototype, "warehouseItemId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "reason", void 0);
+], CreateBillDto.prototype, "reason", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "quantity", void 0);
+], CreateBillDto.prototype, "quantity", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "price", void 0);
+], CreateBillDto.prototype, "price", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "note", void 0);
+], CreateBillDto.prototype, "note", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "platformOrderId", void 0);
-class UpdateDto extends CreateDto {
+], CreateBillDto.prototype, "platformOrderId", void 0);
+class UpdateBillDto extends CreateBillDto {
 }
-exports.UpdateDto = UpdateDto;
+exports.UpdateBillDto = UpdateBillDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], UpdateDto.prototype, "id", void 0);
+], UpdateBillDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
-], UpdateDto.prototype, "active", void 0);
+], UpdateBillDto.prototype, "active", void 0);
 //# sourceMappingURL=warehouse_bill.dto.js.map

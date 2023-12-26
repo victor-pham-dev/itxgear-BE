@@ -40,7 +40,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Create ' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [warehouse_bill_dto_1.CreateDto]),
+    __metadata("design:paramtypes", [warehouse_bill_dto_1.CreateBillDto]),
     __metadata("design:returntype", Promise)
 ], WarehouseBillController.prototype, "create", null);
 __decorate([

@@ -1,10 +1,10 @@
 import { UserRoleService } from './user_role.service';
-import { CreateDto, UpdateDto } from './user_role.dto';
+import { CreateUserRoleDto, UpdateUserRoleDto } from './user_role.dto';
 import { Request } from 'express';
 export declare class UserRoleController {
     private readonly service;
     constructor(service: UserRoleService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateUserRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -13,7 +13,7 @@ export declare class UserRoleController {
             roleId: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateUserRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {

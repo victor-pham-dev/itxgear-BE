@@ -5,12 +5,12 @@ export declare class CategoryProps {
     readonly icon: string;
     readonly parentId?: number;
 }
-export declare class CreateDto extends CategoryProps {
+export declare class CreateCategoryDto extends CategoryProps {
     children: CategoryProps[];
 }
 export declare class EditCategoryProps extends CategoryProps {
     readonly id: number;
 }
-export declare class UpdateDto extends EditCategoryProps {
+export declare class UpdateCategoryDto extends EditCategoryProps {
     children: EditCategoryProps[];
 }

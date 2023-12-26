@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDto = exports.EditCategoryProps = exports.CreateDto = exports.CategoryProps = void 0;
+exports.UpdateCategoryDto = exports.EditCategoryProps = exports.CreateCategoryDto = exports.CategoryProps = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class CategoryProps {
 }
@@ -34,9 +34,9 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], CategoryProps.prototype, "parentId", void 0);
-class CreateDto extends CategoryProps {
+class CreateCategoryDto extends CategoryProps {
 }
-exports.CreateDto = CreateDto;
+exports.CreateCategoryDto = CreateCategoryDto;
 class EditCategoryProps extends CategoryProps {
 }
 exports.EditCategoryProps = EditCategoryProps;
@@ -44,7 +44,7 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], EditCategoryProps.prototype, "id", void 0);
-class UpdateDto extends EditCategoryProps {
+class UpdateCategoryDto extends EditCategoryProps {
 }
-exports.UpdateDto = UpdateDto;
+exports.UpdateCategoryDto = UpdateCategoryDto;
 //# sourceMappingURL=category.dto.js.map

@@ -1,10 +1,10 @@
-import { CreateDto, UpdateDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class CategoryService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateCategoryDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -17,7 +17,7 @@ export declare class CategoryService {
             parentId: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateCategoryDto): Promise<{
         message: string;
         success: boolean;
         data: boolean;

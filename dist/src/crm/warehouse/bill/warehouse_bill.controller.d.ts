@@ -1,11 +1,11 @@
 import { WarehouseBillService } from './warehouse_bill.service';
-import { CreateDto } from './warehouse_bill.dto';
+import { CreateBillDto } from './warehouse_bill.dto';
 import { Request } from 'express';
 import { WareHouseBill } from '@prisma/client';
 export declare class WarehouseBillController {
     private readonly service;
     constructor(service: WarehouseBillService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateBillDto): Promise<{
         message: string;
         success: boolean;
         data: {

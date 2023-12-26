@@ -1,10 +1,10 @@
-import { CreateDto, UpdateDto } from './voucher.dto';
+import { CreateVoucherDto, UpdateVoucherDto } from './voucher.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class VoucherService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateVoucherDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -18,7 +18,7 @@ export declare class VoucherService {
             discount: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateVoucherDto): Promise<{
         message: string;
         success: boolean;
         data: {

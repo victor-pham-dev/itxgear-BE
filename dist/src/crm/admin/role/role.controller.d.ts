@@ -1,10 +1,10 @@
 import { RoleService } from './role.service';
-import { CreateDto, UpdateDto } from './role.dto';
+import { CreateRoleDto, UpdateRoleDto } from './role.dto';
 import { Request } from 'express';
 export declare class RoleController {
     private readonly roleService;
     constructor(roleService: RoleService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -15,7 +15,7 @@ export declare class RoleController {
             deleted: boolean;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {

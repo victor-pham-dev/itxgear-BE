@@ -1,10 +1,10 @@
-import { CreateDto, UpdateDto } from './banner.dto';
+import { CreateBannerDto, UpdateBannerDto } from './banner.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class BannerSerivce {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateBannerDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -16,7 +16,7 @@ export declare class BannerSerivce {
             createdAt: Date;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateBannerDto): Promise<{
         message: string;
         success: boolean;
         data: {

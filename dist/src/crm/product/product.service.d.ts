@@ -1,10 +1,10 @@
-import { CreateDto, UpdateDto } from './product.dto';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class ProductService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateProductDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -29,7 +29,7 @@ export declare class ProductService {
             wareHouseId: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateProductDto): Promise<{
         message: string;
         success: boolean;
         data: boolean;

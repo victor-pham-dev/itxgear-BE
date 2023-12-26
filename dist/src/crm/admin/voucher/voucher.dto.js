@@ -9,48 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDto = exports.CreateDto = void 0;
+exports.UpdateVoucherDto = exports.CreateVoucherDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateDto {
+class CreateVoucherDto {
 }
-exports.CreateDto = CreateDto;
+exports.CreateVoucherDto = CreateVoucherDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "description", void 0);
+], CreateVoucherDto.prototype, "description", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Date)
-], CreateDto.prototype, "dueAt", void 0);
+], CreateVoucherDto.prototype, "dueAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateDto.prototype, "code", void 0);
+], CreateVoucherDto.prototype, "code", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "usageCount", void 0);
+], CreateVoucherDto.prototype, "usageCount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Date)
-], CreateDto.prototype, "activeAt", void 0);
+], CreateVoucherDto.prototype, "activeAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "priceMin", void 0);
+], CreateVoucherDto.prototype, "priceMin", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateDto.prototype, "discount", void 0);
-class UpdateDto extends CreateDto {
+], CreateVoucherDto.prototype, "discount", void 0);
+class UpdateVoucherDto extends CreateVoucherDto {
 }
-exports.UpdateDto = UpdateDto;
+exports.UpdateVoucherDto = UpdateVoucherDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], UpdateDto.prototype, "id", void 0);
+], UpdateVoucherDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
-], UpdateDto.prototype, "active", void 0);
+], UpdateVoucherDto.prototype, "active", void 0);
 //# sourceMappingURL=voucher.dto.js.map

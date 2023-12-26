@@ -1,10 +1,10 @@
 import { VoucherService } from './voucher.service';
-import { CreateDto, UpdateDto } from './voucher.dto';
+import { CreateVoucherDto, UpdateVoucherDto } from './voucher.dto';
 import { Request } from 'express';
 export declare class VoucherController {
     private readonly service;
     constructor(service: VoucherService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateVoucherDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -18,7 +18,7 @@ export declare class VoucherController {
             discount: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateVoucherDto): Promise<{
         message: string;
         success: boolean;
         data: {

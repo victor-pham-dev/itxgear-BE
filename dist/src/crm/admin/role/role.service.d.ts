@@ -1,10 +1,10 @@
-import { CreateDto, UpdateDto } from './role.dto';
+import { CreateRoleDto, UpdateRoleDto } from './role.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class RoleService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -15,7 +15,7 @@ export declare class RoleService {
             deleted: boolean;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {

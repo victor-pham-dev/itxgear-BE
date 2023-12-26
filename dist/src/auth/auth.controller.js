@@ -37,7 +37,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: "User đăng ký" }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.CreateDto]),
+    __metadata("design:paramtypes", [auth_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
 __decorate([

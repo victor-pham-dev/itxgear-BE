@@ -1,10 +1,10 @@
 import { AuthService } from "./auth.service";
-import { CreateDto, LoginUserDto } from "./auth.dto";
+import { CreateUserDto, LoginUserDto } from "./auth.dto";
 import { Request } from "express";
 export declare class AuthController {
     private readonly userService;
     constructor(userService: AuthService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateUserDto): Promise<{
         message: string;
         success: boolean;
         data: {

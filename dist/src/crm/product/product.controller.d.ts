@@ -1,10 +1,10 @@
 import { ProductService } from './product.service';
-import { CreateDto, UpdateDto } from './product.dto';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { Request } from 'express';
 export declare class ProductController {
     private readonly service;
     constructor(service: ProductService);
-    create(createDto: CreateDto): Promise<{
+    create(createDto: CreateProductDto): Promise<{
         message: string;
         success: boolean;
         data: {
@@ -29,7 +29,7 @@ export declare class ProductController {
             wareHouseId: number;
         };
     }>;
-    update(updateDto: UpdateDto): Promise<{
+    update(updateDto: UpdateProductDto): Promise<{
         message: string;
         success: boolean;
         data: boolean;

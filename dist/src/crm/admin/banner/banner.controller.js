@@ -40,7 +40,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Create ' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [banner_dto_1.CreateDto]),
+    __metadata("design:paramtypes", [banner_dto_1.CreateBannerDto]),
     __metadata("design:returntype", Promise)
 ], BannerController.prototype, "create", null);
 __decorate([
@@ -48,7 +48,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'UPDATE ' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [banner_dto_1.UpdateDto]),
+    __metadata("design:paramtypes", [banner_dto_1.UpdateBannerDto]),
     __metadata("design:returntype", Promise)
 ], BannerController.prototype, "update", null);
 __decorate([
