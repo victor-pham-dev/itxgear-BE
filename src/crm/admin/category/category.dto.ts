@@ -13,7 +13,7 @@ export class CategoryProps {
   readonly parentId?: number
 }
 
-export class CreateDto extends CategoryProps {
+export class CreateCategoryDto extends CategoryProps {
   children: CategoryProps[]
 }
 
@@ -22,6 +22,6 @@ export class EditCategoryProps extends CategoryProps {
   readonly id: number
 }
 
-export class UpdateDto extends EditCategoryProps {
+export class UpdateCategoryDto extends EditCategoryProps {
   children: EditCategoryProps[]
 }

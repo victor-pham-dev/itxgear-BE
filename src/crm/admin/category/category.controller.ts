@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
 import { CategoryService } from './category.service'
-import { CreateDto, UpdateDto } from './category.dto'
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
@@ -11,13 +11,13 @@ export class CategoryController {
 
   @Post()
   @ApiOperation({ summary: 'Create ' })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateCategoryDto) {
     return this.service.create(createDto)
   }
 
   @Put()
   @ApiOperation({ summary: 'UPDATE ' })
-  async update(@Body() updateDto: UpdateDto) {
+  async update(@Body() updateDto: UpdateCategoryDto) {
     return this.service.update(updateDto)
   }
 

@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
 import { VoucherService } from './voucher.service'
-import { CreateDto, UpdateDto } from './voucher.dto'
+import { CreateVoucherDto, UpdateVoucherDto } from './voucher.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
@@ -11,13 +11,13 @@ export class VoucherController {
 
   @Post()
   @ApiOperation({ summary: 'Create ' })
-  async create(@Body() createDto: CreateDto) {
+  async create(@Body() createDto: CreateVoucherDto) {
     return this.service.create(createDto)
   }
 
   @Put()
   @ApiOperation({ summary: 'UPDATE ' })
-  async update(@Body() updateDto: UpdateDto) {
+  async update(@Body() updateDto: UpdateVoucherDto) {
     return this.service.update(updateDto)
   }
 

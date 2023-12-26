@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class CreateDto {
+export class CreateBannerDto {
   @ApiProperty()
   readonly description: string
 
@@ -11,7 +11,7 @@ export class CreateDto {
   readonly link: string
 }
 
-export class UpdateDto extends CreateDto {
+export class UpdateBannerDto extends CreateBannerDto {
   @ApiProperty()
   readonly id: number
 
