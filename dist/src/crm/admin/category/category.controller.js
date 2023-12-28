@@ -54,6 +54,11 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL BY ID' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'id',
+        required: true,
+        type: Number,
+    }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -62,6 +67,18 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'page',
+        description: 'Trang hiện tại',
+        required: true,
+        type: Number,
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'pageSize',
+        description: 'Số lượng data / 1 trang',
+        required: true,
+        type: Number,
+    }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

@@ -23,8 +23,8 @@ export declare class WarehouseItemService {
                 overView: string;
                 seo: string;
                 keywords: string;
-                price: number;
-                salePrice: number;
+                price: bigint;
+                salePrice: bigint;
                 active: boolean;
                 wareHouseId: number;
             };
@@ -57,8 +57,8 @@ export declare class WarehouseItemService {
                     overView: string;
                     seo: string;
                     keywords: string;
-                    price: number;
-                    salePrice: number;
+                    price: bigint;
+                    salePrice: bigint;
                     active: boolean;
                     wareHouseId: number;
                 };

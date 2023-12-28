@@ -12,58 +12,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BannerController = void 0;
+exports.WhiteListController = void 0;
 const common_1 = require("@nestjs/common");
-const banner_service_1 = require("./banner.service");
-const banner_dto_1 = require("./banner.dto");
+const whitelist_service_1 = require("./whitelist.service");
+const whitelist_dto_1 = require("./whitelist.dto");
 const swagger_1 = require("@nestjs/swagger");
-let BannerController = class BannerController {
+let WhiteListController = class WhiteListController {
     constructor(service) {
         this.service = service;
     }
     async create(createDto) {
         return this.service.create(createDto);
     }
-    async update(updateDto) {
-        return this.service.update(updateDto);
-    }
-    async get(req) {
-        return this.service.get(req);
-    }
     async search(req) {
         return this.service.search(req);
     }
 };
-exports.BannerController = BannerController;
+exports.WhiteListController = WhiteListController;
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create ' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [banner_dto_1.CreateBannerDto]),
+    __metadata("design:paramtypes", [whitelist_dto_1.CreateWhiteListDto]),
     __metadata("design:returntype", Promise)
-], BannerController.prototype, "create", null);
-__decorate([
-    (0, common_1.Put)(),
-    (0, swagger_1.ApiOperation)({ summary: 'UPDATE ' }),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [banner_dto_1.UpdateBannerDto]),
-    __metadata("design:returntype", Promise)
-], BannerController.prototype, "update", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL BY ID' }),
-    (0, swagger_1.ApiQuery)({
-        name: 'id',
-        required: true,
-        type: Number,
-    }),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], BannerController.prototype, "get", null);
+], WhiteListController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),
@@ -80,8 +53,8 @@ __decorate([
         type: Number,
     }),
     (0, swagger_1.ApiQuery)({
-        name: 'name',
-        description: 'Tên sản phẩm',
+        name: 'email',
+        description: 'Email',
         required: false,
         type: String,
     }),
@@ -94,10 +67,10 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], BannerController.prototype, "search", null);
-exports.BannerController = BannerController = __decorate([
-    (0, common_1.Controller)('/api/v1/admin/banner'),
-    (0, swagger_1.ApiTags)('Banner'),
-    __metadata("design:paramtypes", [banner_service_1.BannerSerivce])
-], BannerController);
-//# sourceMappingURL=banner.controller.js.map
+], WhiteListController.prototype, "search", null);
+exports.WhiteListController = WhiteListController = __decorate([
+    (0, common_1.Controller)('/api/v1/admin/whitelist/email'),
+    (0, swagger_1.ApiTags)('Admin/ promote Email  for allow user register'),
+    __metadata("design:paramtypes", [whitelist_service_1.WhiteListService])
+], WhiteListController);
+//# sourceMappingURL=whitelist.controller.js.map

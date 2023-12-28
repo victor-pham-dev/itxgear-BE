@@ -262,3 +262,9 @@ enum WarehouseLogPlatform {
   SHOPEE
   LAZADA
 }
+
+model EmailUserWhiteList {
+  id       Int     @id @unique @default(autoincrement())
+  email    String  @unique
+  registed Boolean @default(false)
+}

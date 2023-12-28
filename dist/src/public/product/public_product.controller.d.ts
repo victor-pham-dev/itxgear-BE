@@ -29,8 +29,8 @@ export declare class PublicProductController {
             overView: string;
             seo: string;
             keywords: string;
-            price: number;
-            salePrice: number;
+            price: bigint;
+            salePrice: bigint;
             active: boolean;
             wareHouseId: number;
         };
@@ -53,8 +53,8 @@ export declare class PublicProductController {
                 code: string;
                 categoryId: number;
                 images: string;
-                price: number;
-                salePrice: number;
+                price: bigint;
+                salePrice: bigint;
                 WareHouse: {
                     id: number;
                     productId: number;
@@ -87,8 +87,8 @@ export declare class PublicProductController {
             categoryId: number;
             status: import(".prisma/client").$Enums.ProductStatus;
             images: string;
-            price: number;
-            salePrice: number;
+            price: bigint;
+            salePrice: bigint;
             view: number;
         }[];
     }>;

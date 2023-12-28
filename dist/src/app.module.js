@@ -40,6 +40,8 @@ const public_product_controller_1 = require("./public/product/public_product.con
 const public_product_service_1 = require("./public/product/public_product.service");
 const file_controller_1 = require("./crm/file/file.controller");
 const file_service_1 = require("./crm/file/file.service");
+const whitelist_controller_1 = require("./crm/admin/whitelist/whitelist.controller");
+const whitelist_service_1 = require("./crm/admin/whitelist/whitelist.service");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -61,6 +63,7 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [
             app_controller_1.AppController,
+            whitelist_controller_1.WhiteListController,
             auth_controller_1.AuthController,
             role_controller_1.RoleController,
             user_role_controller_1.UserRoleController,
@@ -77,6 +80,7 @@ exports.AppModule = AppModule = __decorate([
         ],
         providers: [
             app_service_1.AppService,
+            whitelist_service_1.WhiteListService,
             prisma_service_1.PrismaService,
             auth_service_1.AuthService,
             role_service_1.RoleService,

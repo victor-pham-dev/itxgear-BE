@@ -1,35 +1,18 @@
 import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
-import { BannerSerivce } from './banner.service'
-import { CreateBannerDto, UpdateBannerDto } from './banner.dto'
+import { WhiteListService } from './whitelist.service'
+import { CreateWhiteListDto } from './whitelist.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 
-@Controller('/api/v1/admin/banner')
-@ApiTags('Banner')
-export class BannerController {
-  constructor(private readonly service: BannerSerivce) {}
+@Controller('/api/v1/admin/whitelist/email')
+@ApiTags('Admin/ promote Email  for allow user register')
+export class WhiteListController {
+  constructor(private readonly service: WhiteListService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create ' })
-  async create(@Body() createDto: CreateBannerDto) {
+  async create(@Body() createDto: CreateWhiteListDto) {
     return this.service.create(createDto)
-  }
-
-  @Put()
-  @ApiOperation({ summary: 'UPDATE ' })
-  async update(@Body() updateDto: UpdateBannerDto) {
-    return this.service.update(updateDto)
-  }
-
-  @Get(':id')
-  @ApiOperation({ summary: 'GET DETAIL BY ID' })
-  @ApiQuery({
-    name: 'id',
-    required: true,
-    type: Number,
-  })
-  async get(@Req() req: Request) {
-    return this.service.get(req)
   }
 
   //
@@ -48,8 +31,8 @@ export class BannerController {
     type: Number,
   })
   @ApiQuery({
-    name: 'name',
-    description: 'Tên sản phẩm',
+    name: 'email',
+    description: 'Email',
     required: false,
     type: String,
   })

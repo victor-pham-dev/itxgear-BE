@@ -31,6 +31,8 @@ import { PublicProductController } from './public/product/public_product.control
 import { PublicProductService } from './public/product/public_product.service'
 import { FileController } from './crm/file/file.controller'
 import { FileService } from './crm/file/file.service'
+import { WhiteListController } from './crm/admin/whitelist/whitelist.controller'
+import { WhiteListService } from './crm/admin/whitelist/whitelist.service'
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { FileService } from './crm/file/file.service'
   ],
   controllers: [
     AppController,
+    WhiteListController,
     AuthController,
     RoleController,
     UserRoleController,
@@ -61,6 +64,7 @@ import { FileService } from './crm/file/file.service'
   ],
   providers: [
     AppService,
+    WhiteListService,
     PrismaService,
     AuthService,
     RoleService,
