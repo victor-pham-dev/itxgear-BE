@@ -103,6 +103,10 @@ export class AuthService {
         data: { accessToken },
       }
     } catch (error: any) {
+      console.log(
+        '🚀 ~ file: auth.service.ts:106 ~ AuthService ~ loginUser ~ error:',
+        error,
+      )
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,

@@ -86,6 +86,7 @@ let AuthService = class AuthService {
             };
         }
         catch (error) {
+            console.log('🚀 ~ file: auth.service.ts:106 ~ AuthService ~ loginUser ~ error:', error);
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
