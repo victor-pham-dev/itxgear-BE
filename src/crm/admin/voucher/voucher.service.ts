@@ -50,7 +50,7 @@ export class VoucherService {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.voucher.findUnique({

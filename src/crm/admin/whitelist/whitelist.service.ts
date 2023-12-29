@@ -27,6 +27,24 @@ export class WhiteListService {
       )
     }
   }
+  async delete(req: Request) {
+    const { id } = req.params
+    try {
+      await this.prisma.emailUserWhiteList.delete({
+        where: { id: Number(id) },
+      })
+      return {
+        message: 'Xoá thành công',
+        success: true,
+        data: null,
+      }
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
 
   async search(req: Request) {
     const { page = 1, pageSize = 10, email = '' } = req.query

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
+import { Controller, Post, Body, Get, Req, Put, Delete } from '@nestjs/common'
 import { WhiteListService } from './whitelist.service'
 import { CreateWhiteListDto } from './whitelist.dto'
 import { Request } from 'express'
@@ -45,5 +45,11 @@ export class WhiteListController {
   //
   async search(@Req() req: Request) {
     return this.service.search(req)
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete BY ID' })
+  async delete(@Req() req: Request) {
+    return this.service.delete(req)
   }
 }

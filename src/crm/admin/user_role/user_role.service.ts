@@ -7,7 +7,7 @@ import { PrismaService } from 'services/prisma.service'
 export class UserRoleService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateUserRoleDto ) {
+  async create(createDto: CreateUserRoleDto) {
     try {
       const result = await this.prisma.userRole.create({
         data: createDto,
@@ -50,7 +50,7 @@ export class UserRoleService {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.userRole.findUnique({

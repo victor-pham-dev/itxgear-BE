@@ -7,7 +7,7 @@ export class WarehouseItemService {
   constructor(private readonly prisma: PrismaService) {}
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.wareHouse.findUnique({

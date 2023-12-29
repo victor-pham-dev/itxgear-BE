@@ -27,6 +27,9 @@ let WhiteListController = class WhiteListController {
     async search(req) {
         return this.service.search(req);
     }
+    async delete(req) {
+        return this.service.delete(req);
+    }
 };
 exports.WhiteListController = WhiteListController;
 __decorate([
@@ -68,6 +71,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], WhiteListController.prototype, "search", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete BY ID' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], WhiteListController.prototype, "delete", null);
 exports.WhiteListController = WhiteListController = __decorate([
     (0, common_1.Controller)('/api/v1/admin/whitelist/email'),
     (0, swagger_1.ApiTags)('Admin/ promote Email  for allow user register'),

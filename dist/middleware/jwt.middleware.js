@@ -19,11 +19,13 @@ let JwtMiddleware = class JwtMiddleware {
     use(req, res, next) {
         const token = req.headers['x-access-token'];
         const originUrl = req.originalUrl;
+        if (!token || token?.trim()?.length === 0) {
+            throw new common_1.UnauthorizedException('No token provided');
+        }
         if (token) {
             try {
                 const decoded = this.jwtService.verify(token);
-                if (!decoded?.roles?.some((role) => originUrl?.includes(`/${role}`)) &&
-                    !originUrl.includes('/auth/me')) {
+                if (!decoded?.roles?.some((role) => originUrl?.includes(`v1/${role}`))) {
                     throw new common_1.UnauthorizedException('No permission');
                 }
                 req['user'] = decoded;

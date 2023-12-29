@@ -51,7 +51,7 @@ let UserRoleService = class UserRoleService {
         }
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const result = await this.prisma.userRole.findUnique({
                 where: { id: Number(id) },

@@ -50,7 +50,7 @@ export class BannerSerivce {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.banner.findUnique({

@@ -29,4 +29,9 @@ export declare class WhiteListController {
             totalCount: number;
         };
     }>;
+    delete(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
+    }>;
 }

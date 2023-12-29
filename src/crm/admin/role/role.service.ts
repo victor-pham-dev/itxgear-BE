@@ -59,7 +59,7 @@ export class RoleService {
   }
 
   async get(req: Request) {
-    const { id } = req.query
+    const { id } = req.params
 
     try {
       const result = await this.prisma.role.findUnique({

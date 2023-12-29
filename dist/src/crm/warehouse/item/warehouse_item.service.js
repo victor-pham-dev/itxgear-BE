@@ -17,7 +17,7 @@ let WarehouseItemService = class WarehouseItemService {
         this.prisma = prisma;
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const result = await this.prisma.wareHouse.findUnique({
                 where: { id: Number(id) },

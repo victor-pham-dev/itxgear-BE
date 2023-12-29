@@ -33,6 +33,22 @@ let WhiteListService = class WhiteListService {
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async delete(req) {
+        const { id } = req.params;
+        try {
+            await this.prisma.emailUserWhiteList.delete({
+                where: { id: Number(id) },
+            });
+            return {
+                message: 'Xoá thành công',
+                success: true,
+                data: null,
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     async search(req) {
         const { page = 1, pageSize = 10, email = '' } = req.query;
         const lowercaseEmail = email?.toString()?.toLowerCase() ?? '';

@@ -57,7 +57,7 @@ let WarehouseBillService = class WarehouseBillService {
         }
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const result = await this.prisma.wareHouseBill.findUnique({
                 where: { id: Number(id) },

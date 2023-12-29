@@ -13,6 +13,11 @@ export declare class WhiteListService {
             registed: boolean;
         };
     }>;
+    delete(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
+    }>;
     search(req: Request): Promise<{
         message: string;
         success: boolean;

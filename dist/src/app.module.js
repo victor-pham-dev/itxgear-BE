@@ -46,7 +46,17 @@ let AppModule = class AppModule {
     configure(consumer) {
         consumer
             .apply(jwt_middleware_1.JwtMiddleware)
-            .forRoutes('/api/v1/auth/me', '/api/v1/product', '/api/v1/order', '/api/v1/admin');
+            .exclude({
+            path: '/api',
+            method: common_1.RequestMethod.GET,
+        }, {
+            path: '/api/v1/auth/register',
+            method: common_1.RequestMethod.POST,
+        }, {
+            path: '/api/v1/auth/login',
+            method: common_1.RequestMethod.POST,
+        })
+            .forRoutes('*');
     }
 };
 exports.AppModule = AppModule;

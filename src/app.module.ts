@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { JwtMiddleware } from 'middleware/jwt.middleware'
 import { AppController } from './app.controller'
@@ -85,11 +90,20 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtMiddleware)
-      .forRoutes(
-        '/api/v1/auth/me',
-        '/api/v1/product',
-        '/api/v1/order',
-        '/api/v1/admin',
+      .exclude(
+        {
+          path: '/api',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/api/v1/auth/register',
+          method: RequestMethod.POST,
+        },
+        {
+          path: '/api/v1/auth/login',
+          method: RequestMethod.POST,
+        },
       )
+      .forRoutes('*')
   }
 }

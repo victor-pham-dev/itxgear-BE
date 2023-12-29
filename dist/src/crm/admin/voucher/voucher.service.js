@@ -51,7 +51,7 @@ let VoucherService = class VoucherService {
         }
     }
     async get(req) {
-        const { id } = req.query;
+        const { id } = req.params;
         try {
             const result = await this.prisma.voucher.findUnique({
                 where: { id: Number(id) },

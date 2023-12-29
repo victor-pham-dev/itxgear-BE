@@ -15,15 +15,18 @@ export class JwtMiddleware implements NestMiddleware {
     const token = req.headers['x-access-token'] as string | undefined
     const originUrl = req.originalUrl
 
+    if (!token || token?.trim()?.length === 0) {
+      throw new UnauthorizedException('No token provided')
+    }
+
     if (token) {
       try {
         const decoded = this.jwtService.verify(token)
 
         if (
           !decoded?.roles?.some(
-            (role: string) => originUrl?.includes(`/${role}`),
-          ) &&
-          !originUrl.includes('/auth/me')
+            (role: string) => originUrl?.includes(`v1/${role}`),
+          )
         ) {
           throw new UnauthorizedException('No permission')
         }
