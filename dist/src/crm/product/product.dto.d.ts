@@ -20,6 +20,7 @@ export declare class ProductDto {
     readonly salePrice: number;
 }
 export declare class CreateProductDto extends ProductDto {
+    readonly id?: number;
     readonly configInfo: CreateProductConfigDto[];
 }
 export declare class UpdateProductDto extends ProductDto {

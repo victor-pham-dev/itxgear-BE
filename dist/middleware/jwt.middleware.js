@@ -25,7 +25,9 @@ let JwtMiddleware = class JwtMiddleware {
         if (token) {
             try {
                 const decoded = this.jwtService.verify(token);
-                if (!decoded?.roles?.some((role) => originUrl?.includes(`v1/${role}`))) {
+                console.log('🚀 ~ file: jwt.middleware.ts:29 ~ JwtMiddleware ~ use ~ decoded:', decoded, originUrl);
+                if (!decoded?.roles?.some((role) => originUrl?.includes(`v1/${role}`)) &&
+                    originUrl !== '/api/v1/auth/me') {
                     throw new common_1.UnauthorizedException('No permission');
                 }
                 req['user'] = decoded;

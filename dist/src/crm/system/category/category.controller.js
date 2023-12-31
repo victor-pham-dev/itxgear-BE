@@ -85,7 +85,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "search", null);
 exports.CategoryController = CategoryController = __decorate([
-    (0, common_1.Controller)('/api/v1/admin/category'),
+    (0, common_1.Controller)('/api/v1/system/category'),
     (0, swagger_1.ApiTags)('Category'),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryController);

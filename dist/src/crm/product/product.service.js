@@ -17,24 +17,19 @@ let ProductService = class ProductService {
         this.prisma = prisma;
     }
     async create(createDto) {
-        const { name, categoryId, status, keywords, images, description, configInfo, seo, overView, price, salePrice, } = createDto;
+        const { id, images, overView, name, keywords, configInfo, ...data } = createDto;
         try {
             const result = await this.prisma.product.create({
                 data: {
                     name,
-                    status,
-                    categoryId,
-                    seo,
                     keywords,
                     images: JSON.stringify(images),
-                    description,
                     overView: JSON.stringify(overView),
-                    price,
-                    salePrice,
                     configInfo: {
                         create: configInfo.map((item) => item),
                     },
                     searchString: `${name} ${keywords} ${JSON.stringify(overView)}`,
+                    ...data,
                 },
             });
             const warehouse = await this.prisma.wareHouse.create({

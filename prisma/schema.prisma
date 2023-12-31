@@ -52,6 +52,7 @@ model Product {
   searchString String
   status       ProductStatus
   categoryId   Int
+  categoryIds  Int[]               @default([])
   category     Category?           @relation(fields: [categoryId], references: [id])
   name         String
   images       String
@@ -64,8 +65,8 @@ model Product {
   keywords     String
   configInfo   ProductConfigInfo[]
   // classifications Classification[]
-  price        BigInt
-  salePrice    BigInt
+  price        Int
+  salePrice    Int
   active       Boolean             @default(true)
   wareHouseId  Int?                @unique
 

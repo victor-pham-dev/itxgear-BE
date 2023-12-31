@@ -82,6 +82,13 @@ export class AuthService {
         )
       }
 
+      if (user && !user?.active) {
+        throw new HttpException(
+          'Tài khoản của bạn đang bị tắt quyền truy cập hệ thống',
+          HttpStatus.UNAUTHORIZED,
+        )
+      }
+
       const comparePassword = await bcrypt.compare(password, user.password)
       if (!comparePassword) {
         throw new HttpException(

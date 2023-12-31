@@ -14,6 +14,7 @@ export declare class WarehouseItemService {
                 searchString: string;
                 status: import(".prisma/client").$Enums.ProductStatus;
                 categoryId: number;
+                categoryIds: number[];
                 name: string;
                 images: string;
                 description: string;
@@ -23,8 +24,8 @@ export declare class WarehouseItemService {
                 overView: string;
                 seo: string;
                 keywords: string;
-                price: bigint;
-                salePrice: bigint;
+                price: number;
+                salePrice: number;
                 active: boolean;
                 wareHouseId: number;
             };
@@ -48,6 +49,7 @@ export declare class WarehouseItemService {
                     searchString: string;
                     status: import(".prisma/client").$Enums.ProductStatus;
                     categoryId: number;
+                    categoryIds: number[];
                     name: string;
                     images: string;
                     description: string;
@@ -57,8 +59,8 @@ export declare class WarehouseItemService {
                     overView: string;
                     seo: string;
                     keywords: string;
-                    price: bigint;
-                    salePrice: bigint;
+                    price: number;
+                    salePrice: number;
                     active: boolean;
                     wareHouseId: number;
                 };

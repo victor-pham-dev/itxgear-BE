@@ -11,19 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateCategoryDto = exports.EditCategoryProps = exports.CreateCategoryDto = exports.CategoryProps = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class CategoryProps {
 }
 exports.CategoryProps = CategoryProps;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CategoryProps.prototype, "alias", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
 ], CategoryProps.prototype, "description", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CategoryProps.prototype, "label", void 0);
 __decorate([
@@ -34,6 +33,10 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], CategoryProps.prototype, "parentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], CategoryProps.prototype, "active", void 0);
 class CreateCategoryDto extends CategoryProps {
 }
 exports.CreateCategoryDto = CreateCategoryDto;

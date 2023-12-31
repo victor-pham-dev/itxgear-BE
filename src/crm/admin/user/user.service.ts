@@ -12,6 +12,13 @@ export class UserService {
 
     try {
       const dataTable = await this.prisma.user.findMany({
+        include: {
+          ROLES: {
+            include: {
+              role: true,
+            },
+          },
+        },
         skip: (Number(page) - 1) * Number(pageSize),
         take: Number(pageSize),
       })

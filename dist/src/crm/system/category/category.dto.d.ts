@@ -1,12 +1,11 @@
 export declare class CategoryProps {
-    readonly alias: string;
-    readonly description: string;
+    readonly description?: string;
     readonly label: string;
-    readonly icon: string;
+    readonly icon?: string;
     readonly parentId?: number;
+    readonly active?: boolean;
 }
 export declare class CreateCategoryDto extends CategoryProps {
-    children: CategoryProps[];
 }
 export declare class EditCategoryProps extends CategoryProps {
     readonly id: number;

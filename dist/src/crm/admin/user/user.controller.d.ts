@@ -7,7 +7,21 @@ export declare class UserController {
         message: string;
         success: boolean;
         data: {
-            dataTable: {
+            dataTable: ({
+                ROLES: ({
+                    role: {
+                        id: number;
+                        label: string;
+                        alias: string;
+                        isActive: boolean;
+                        deleted: boolean;
+                    };
+                } & {
+                    id: number;
+                    userId: number;
+                    roleId: number;
+                })[];
+            } & {
                 id: number;
                 createdAt: Date;
                 email: string;
@@ -15,7 +29,7 @@ export declare class UserController {
                 active: boolean;
                 avatar: string;
                 password: string;
-            }[];
+            })[];
             paging: {
                 page: number;
                 pageSize: number;

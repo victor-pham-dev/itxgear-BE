@@ -2,24 +2,18 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
+import { removeMarkUrl } from 'helper/string'
 
 @Injectable()
 export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createDto: CreateCategoryDto) {
-    const { children, ...data } = createDto
+    const { label, ...data } = createDto
     try {
       const result = await this.prisma.category.create({
-        data,
+        data: { label, alias: removeMarkUrl(label), ...data },
       })
-
-      const addIdToChildren = children.map((item) => ({
-        ...item,
-        parentId: result.id,
-      }))
-
-      await this.prisma.category.createMany({ data: addIdToChildren })
 
       return {
         message: 'Tạo thành công',
@@ -35,7 +29,7 @@ export class CategoryService {
   }
 
   async update(updateDto: UpdateCategoryDto) {
-    const { id, children, ...data } = updateDto
+    const { id, ...data } = updateDto
 
     try {
       await this.prisma.category.update({
@@ -43,35 +37,6 @@ export class CategoryService {
         data,
       })
 
-      const currentChildren = await this.prisma.category.findMany({
-        where: { parentId: Number(id) },
-      })
-      const idsToRemove = currentChildren.filter(
-        (item) => !children?.find((current) => current.id === item.id),
-      )
-      await Promise.all(
-        idsToRemove.map(
-          async (id) =>
-            await this.prisma.category.delete({
-              where: { id: Number(id) },
-            }),
-        ),
-      )
-      await Promise.all(
-        children.map(async (item) => {
-          const { id, ...data } = item
-          if (id) {
-            return await this.prisma.category.update({
-              where: { id },
-              data,
-            })
-          } else {
-            return await this.prisma.category.create({
-              data,
-            })
-          }
-        }),
-      )
       return {
         message: 'Update thành công',
         success: true,

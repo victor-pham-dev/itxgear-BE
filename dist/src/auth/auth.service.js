@@ -69,6 +69,9 @@ let AuthService = class AuthService {
             if (!user) {
                 throw new common_1.HttpException('Tài khoản hoặc mật khẩu không chính xác', common_1.HttpStatus.UNPROCESSABLE_ENTITY);
             }
+            if (user && !user?.active) {
+                throw new common_1.HttpException('Tài khoản của bạn đang bị tắt quyền truy cập hệ thống', common_1.HttpStatus.UNAUTHORIZED);
+            }
             const comparePassword = await bcrypt.compare(password, user.password);
             if (!comparePassword) {
                 throw new common_1.HttpException('Tài khoản hoặc mật khẩu không chính xác', common_1.HttpStatus.UNPROCESSABLE_ENTITY);

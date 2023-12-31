@@ -20,6 +20,13 @@ let UserService = class UserService {
         const { page = 1, pageSize = 10 } = req.query;
         try {
             const dataTable = await this.prisma.user.findMany({
+                include: {
+                    ROLES: {
+                        include: {
+                            role: true,
+                        },
+                    },
+                },
                 skip: (Number(page) - 1) * Number(pageSize),
                 take: Number(pageSize),
             });

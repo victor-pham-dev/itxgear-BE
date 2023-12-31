@@ -4,7 +4,7 @@ import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger'
 
-@Controller('/api/v1/admin/category')
+@Controller('/api/v1/system/category')
 @ApiTags('Category')
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
