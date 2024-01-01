@@ -38,16 +38,30 @@ import { FileController } from './crm/file/file.controller'
 import { FileService } from './crm/file/file.service'
 import { WhiteListController } from './crm/admin/whitelist/whitelist.controller'
 import { WhiteListService } from './crm/admin/whitelist/whitelist.service'
+import { CacheModule } from '@nestjs/cache-manager'
+import { tokenExpireTime } from 'configs/app-config'
+import { CacheService } from 'services/cache.service'
+import { redisStore } from 'cache-manager-redis-yet'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => ({
+        store: await redisStore({
+          socket: {
+            host: 'localhost',
+            port: 6379,
+          },
+        }),
+      }),
+    }),
     JwtModule.register({
       secret: process.env.TOKEN_KEY,
-      signOptions: { expiresIn: '72h' },
+      signOptions: { expiresIn: tokenExpireTime },
     }),
   ],
   controllers: [
@@ -84,6 +98,7 @@ import { WhiteListService } from './crm/admin/whitelist/whitelist.service'
     PublicOrderService,
     PublicProductService,
     FileService,
+    CacheService,
   ],
 })
 export class AppModule implements NestModule {
@@ -102,6 +117,14 @@ export class AppModule implements NestModule {
         {
           path: '/api/v1/auth/login',
           method: RequestMethod.POST,
+        },
+        {
+          path: '/api/v1/auth/logout',
+          method: RequestMethod.POST,
+        },
+        {
+          path: '/api/v1/wish',
+          method: RequestMethod.ALL,
         },
       )
       .forRoutes('*')

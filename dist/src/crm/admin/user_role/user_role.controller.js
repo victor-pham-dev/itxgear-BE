@@ -30,6 +30,9 @@ let UserRoleController = class UserRoleController {
     async get(req) {
         return this.service.get(req);
     }
+    async hardDelete(req) {
+        return this.service.hardDelete(req);
+    }
     async search(req) {
         return this.service.search(req);
     }
@@ -59,6 +62,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserRoleController.prototype, "get", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'DELETE BY ID' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserRoleController.prototype, "hardDelete", null);
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),

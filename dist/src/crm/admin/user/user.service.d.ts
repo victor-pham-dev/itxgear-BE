@@ -1,8 +1,11 @@
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
+import { UpdateUserStatusDto } from './user.dto';
+import { CacheService } from 'services/cache.service';
 export declare class UserService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly cacheManager;
+    constructor(prisma: PrismaService, cacheManager: CacheService);
     search(req: Request): Promise<{
         message: string;
         success: boolean;
@@ -35,6 +38,19 @@ export declare class UserService {
                 pageSize: number;
             };
             totalCount: number;
+        };
+    }>;
+    changeStatus(data: UpdateUserStatusDto): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            createdAt: Date;
+            email: string;
+            name: string;
+            active: boolean;
+            avatar: string;
+            password: string;
         };
     }>;
 }

@@ -2,10 +2,12 @@ import { CreateUserDto, LoginUserDto } from './auth.dto';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'services/prisma.service';
+import { CacheService } from 'services/cache.service';
 export declare class AuthService {
+    private cacheService;
     private readonly prisma;
     private readonly jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
+    constructor(cacheService: CacheService, prisma: PrismaService, jwtService: JwtService);
     create(createUserDto: CreateUserDto): Promise<{
         message: string;
         success: boolean;
@@ -40,5 +42,10 @@ export declare class AuthService {
             avatar: string;
             password: string;
         };
+    }>;
+    logout(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
     }>;
 }

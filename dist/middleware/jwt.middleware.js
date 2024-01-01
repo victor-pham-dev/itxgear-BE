@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtMiddleware = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const cache_service_1 = require("../services/cache.service");
 let JwtMiddleware = class JwtMiddleware {
-    constructor(jwtService) {
+    constructor(jwtService, cacheService) {
         this.jwtService = jwtService;
+        this.cacheService = cacheService;
     }
-    use(req, res, next) {
+    async use(req, res, next) {
         const token = req.headers['x-access-token'];
         const originUrl = req.originalUrl;
         if (!token || token?.trim()?.length === 0) {
@@ -25,7 +27,11 @@ let JwtMiddleware = class JwtMiddleware {
         if (token) {
             try {
                 const decoded = this.jwtService.verify(token);
-                console.log('🚀 ~ file: jwt.middleware.ts:29 ~ JwtMiddleware ~ use ~ decoded:', decoded, originUrl);
+                const cachedToken = await this.cacheService.getAuthToken(decoded?.id);
+                console.log('🚀 ~ file: jwt.middleware.ts:32 ~ JwtMiddleware ~ use ~ cachedToken:', cachedToken);
+                if (!cachedToken || cachedToken !== token) {
+                    throw new common_1.UnauthorizedException('Invalid token');
+                }
                 if (!decoded?.roles?.some((role) => originUrl?.includes(`v1/${role}`)) &&
                     originUrl !== '/api/v1/auth/me') {
                     throw new common_1.UnauthorizedException('No permission');
@@ -42,6 +48,7 @@ let JwtMiddleware = class JwtMiddleware {
 exports.JwtMiddleware = JwtMiddleware;
 exports.JwtMiddleware = JwtMiddleware = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [jwt_1.JwtService])
+    __metadata("design:paramtypes", [jwt_1.JwtService,
+        cache_service_1.CacheService])
 ], JwtMiddleware);
 //# sourceMappingURL=jwt.middleware.js.map

@@ -1,5 +1,6 @@
 import { UserService } from './user.service';
 import { Request } from 'express';
+import { UpdateUserStatusDto } from './user.dto';
 export declare class UserController {
     private readonly service;
     constructor(service: UserService);
@@ -35,6 +36,19 @@ export declare class UserController {
                 pageSize: number;
             };
             totalCount: number;
+        };
+    }>;
+    updateUserStatus(updateDto: UpdateUserStatusDto): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            createdAt: Date;
+            email: string;
+            name: string;
+            active: boolean;
+            avatar: string;
+            password: string;
         };
     }>;
 }

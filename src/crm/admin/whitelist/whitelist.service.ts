@@ -10,6 +10,28 @@ export class WhiteListService {
 
   async create(createDto: CreateWhiteListDto) {
     try {
+      const existedEmail = await this.prisma.user.findFirst({
+        where: {
+          email: createDto.email,
+        },
+      })
+      if (existedEmail) {
+        throw new HttpException(
+          'Email này đã được người dùng đăng ký rồi',
+          HttpStatus.CONFLICT,
+        )
+      }
+
+      const existed = await this.prisma.emailUserWhiteList.findFirst({
+        where: {
+          email: createDto.email,
+        },
+      })
+
+      if (existed) {
+        throw new HttpException('Email này đã tồn tại', HttpStatus.OK)
+      }
+
       const result = await this.prisma.emailUserWhiteList.create({
         data: createDto,
       })
@@ -30,8 +52,9 @@ export class WhiteListService {
   async delete(req: Request) {
     const { id } = req.params
     try {
-      await this.prisma.emailUserWhiteList.delete({
+      await this.prisma.emailUserWhiteList.update({
         where: { id: Number(id) },
+        data: { deleted: true },
       })
       return {
         message: 'Xoá thành công',
@@ -54,6 +77,7 @@ export class WhiteListService {
       const dataTable = await this.prisma.emailUserWhiteList.findMany({
         where: {
           email: { contains: lowercaseEmail },
+          deleted: false,
         },
         skip: (Number(page) - 1) * Number(pageSize),
         take: Number(pageSize),
@@ -62,6 +86,7 @@ export class WhiteListService {
       const totalCount = await this.prisma.emailUserWhiteList.count({
         where: {
           email: { contains: lowercaseEmail },
+          deleted: false,
         },
       })
 

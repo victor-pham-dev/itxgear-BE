@@ -12,19 +12,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoleService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../../../services/prisma.service");
+const cache_service_1 = require("../../../../services/cache.service");
 let UserRoleService = class UserRoleService {
-    constructor(prisma) {
+    constructor(prisma, cacheService) {
         this.prisma = prisma;
+        this.cacheService = cacheService;
     }
     async create(createDto) {
         try {
+            const existed = await this.prisma.userRole.findFirst({
+                where: {
+                    ...createDto,
+                },
+            });
+            if (existed) {
+                throw new common_1.HttpException('User đã có quyền truy cập này rồi', common_1.HttpStatus.BAD_REQUEST);
+            }
             const result = await this.prisma.userRole.create({
                 data: createDto,
+            });
+            const role = await this.prisma.role.findUnique({
+                where: {
+                    id: createDto?.roleId,
+                },
             });
             return {
                 message: 'Tạo thành công',
                 success: true,
-                data: result,
+                data: { ...result, role },
             };
         }
         catch (error) {
@@ -95,10 +110,28 @@ let UserRoleService = class UserRoleService {
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async hardDelete(req) {
+        const { id } = req.params;
+        try {
+            const result = await this.prisma.userRole.delete({
+                where: { id: Number(id) },
+            });
+            await this.cacheService.deleteAuthToken(result.userId);
+            return {
+                message: 'Xoá Thành công',
+                success: true,
+                data: result,
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 };
 exports.UserRoleService = UserRoleService;
 exports.UserRoleService = UserRoleService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        cache_service_1.CacheService])
 ], UserRoleService);
 //# sourceMappingURL=user_role.service.js.map

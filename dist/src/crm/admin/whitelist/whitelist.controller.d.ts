@@ -11,6 +11,7 @@ export declare class WhiteListController {
             id: number;
             email: string;
             registed: boolean;
+            deleted: boolean;
         };
     }>;
     search(req: Request): Promise<{
@@ -21,6 +22,7 @@ export declare class WhiteListController {
                 id: number;
                 email: string;
                 registed: boolean;
+                deleted: boolean;
             }[];
             paging: {
                 page: number;

@@ -2,20 +2,43 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { CreateUserRoleDto, UpdateUserRoleDto } from './user_role.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
+import { CacheService } from 'services/cache.service'
 
 @Injectable()
 export class UserRoleService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private cacheService: CacheService,
+  ) {}
 
   async create(createDto: CreateUserRoleDto) {
     try {
+      const existed = await this.prisma.userRole.findFirst({
+        where: {
+          ...createDto,
+        },
+      })
+
+      if (existed) {
+        throw new HttpException(
+          'User đã có quyền truy cập này rồi',
+          HttpStatus.BAD_REQUEST,
+        )
+      }
+
       const result = await this.prisma.userRole.create({
         data: createDto,
       })
+      const role = await this.prisma.role.findUnique({
+        where: {
+          id: createDto?.roleId,
+        },
+      })
+
       return {
         message: 'Tạo thành công',
         success: true,
-        data: result,
+        data: { ...result, role },
       }
     } catch (error: any) {
       throw new HttpException(
@@ -96,6 +119,29 @@ export class UserRoleService {
           },
           totalCount,
         },
+      }
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async hardDelete(req: Request) {
+    const { id } = req.params
+
+    try {
+      const result = await this.prisma.userRole.delete({
+        where: { id: Number(id) },
+      })
+
+      await this.cacheService.deleteAuthToken(result.userId)
+
+      return {
+        message: 'Xoá Thành công',
+        success: true,
+        data: result,
       }
     } catch (error: any) {
       throw new HttpException(

@@ -30,35 +30,46 @@ let AuthController = class AuthController {
     async getProfileUser(req) {
         return this.userService.getProfileUser(req);
     }
+    async logout(req) {
+        return this.userService.logout(req);
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)("/register"),
-    (0, swagger_1.ApiOperation)({ summary: "User đăng ký" }),
+    (0, common_1.Post)('/register'),
+    (0, swagger_1.ApiOperation)({ summary: 'User đăng ký' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [auth_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)("/login"),
-    (0, swagger_1.ApiOperation)({ summary: "User đăng Nhập" }),
+    (0, common_1.Post)('/login'),
+    (0, swagger_1.ApiOperation)({ summary: 'User đăng Nhập' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [auth_dto_1.LoginUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "loginUser", null);
 __decorate([
-    (0, common_1.Get)("/me"),
-    (0, swagger_1.ApiOperation)({ summary: "User Lấy thông tin cá nhân" }),
+    (0, common_1.Get)('/me'),
+    (0, swagger_1.ApiOperation)({ summary: 'User Lấy thông tin cá nhân' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getProfileUser", null);
+__decorate([
+    (0, common_1.Post)('/logout'),
+    (0, swagger_1.ApiOperation)({ summary: 'User đăng xuất' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "logout", null);
 exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)("/api/v1/auth"),
-    (0, swagger_1.ApiTags)("Auth"),
+    (0, common_1.Controller)('/api/v1/auth'),
+    (0, swagger_1.ApiTags)('Auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

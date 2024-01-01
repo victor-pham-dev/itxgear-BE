@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../../../services/prisma.service");
+const cache_service_1 = require("../../../../services/cache.service");
 let UserService = class UserService {
-    constructor(prisma) {
+    constructor(prisma, cacheManager) {
         this.prisma = prisma;
+        this.cacheManager = cacheManager;
     }
     async search(req) {
         const { page = 1, pageSize = 10 } = req.query;
@@ -48,10 +50,31 @@ let UserService = class UserService {
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async changeStatus(data) {
+        const { active, id } = data;
+        try {
+            if (!active) {
+                await this.cacheManager.deleteAuthToken(id);
+            }
+            const result = await this.prisma.user.update({
+                where: { id: Number(id) },
+                data: { active },
+            });
+            return {
+                message: 'Cập nhật thành công',
+                success: true,
+                data: result,
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        cache_service_1.CacheService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

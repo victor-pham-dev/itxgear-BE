@@ -1,6 +1,6 @@
-import { AuthService } from "./auth.service";
-import { CreateUserDto, LoginUserDto } from "./auth.dto";
-import { Request } from "express";
+import { AuthService } from './auth.service';
+import { CreateUserDto, LoginUserDto } from './auth.dto';
+import { Request } from 'express';
 export declare class AuthController {
     private readonly userService;
     constructor(userService: AuthService);
@@ -37,5 +37,10 @@ export declare class AuthController {
             avatar: string;
             password: string;
         };
+    }>;
+    logout(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
     }>;
 }

@@ -42,6 +42,10 @@ const file_controller_1 = require("./crm/file/file.controller");
 const file_service_1 = require("./crm/file/file.service");
 const whitelist_controller_1 = require("./crm/admin/whitelist/whitelist.controller");
 const whitelist_service_1 = require("./crm/admin/whitelist/whitelist.service");
+const cache_manager_1 = require("@nestjs/cache-manager");
+const app_config_1 = require("../configs/app-config");
+const cache_service_1 = require("../services/cache.service");
+const cache_manager_redis_yet_1 = require("cache-manager-redis-yet");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -55,6 +59,12 @@ let AppModule = class AppModule {
         }, {
             path: '/api/v1/auth/login',
             method: common_1.RequestMethod.POST,
+        }, {
+            path: '/api/v1/auth/logout',
+            method: common_1.RequestMethod.POST,
+        }, {
+            path: '/api/v1/wish',
+            method: common_1.RequestMethod.ALL,
         })
             .forRoutes('*');
     }
@@ -66,9 +76,20 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            cache_manager_1.CacheModule.registerAsync({
+                isGlobal: true,
+                useFactory: async () => ({
+                    store: await (0, cache_manager_redis_yet_1.redisStore)({
+                        socket: {
+                            host: 'localhost',
+                            port: 6379,
+                        },
+                    }),
+                }),
+            }),
             jwt_1.JwtModule.register({
                 secret: process.env.TOKEN_KEY,
-                signOptions: { expiresIn: '72h' },
+                signOptions: { expiresIn: app_config_1.tokenExpireTime },
             }),
         ],
         controllers: [
@@ -105,6 +126,7 @@ exports.AppModule = AppModule = __decorate([
             public_order_service_1.PublicOrderService,
             public_product_service_1.PublicProductService,
             file_service_1.FileService,
+            cache_service_1.CacheService,
         ],
     })
 ], AppModule);

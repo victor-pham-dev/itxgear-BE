@@ -1,10 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
+import { UpdateUserStatusDto } from './user.dto'
+import { CacheService } from 'services/cache.service'
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cacheManager: CacheService,
+  ) {}
 
   async search(req: Request) {
     const { page = 1, pageSize = 10 } = req.query
@@ -36,6 +41,32 @@ export class UserService {
           },
           totalCount,
         },
+      }
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async changeStatus(data: UpdateUserStatusDto) {
+    const { active, id } = data
+
+    try {
+      if (!active) {
+        await this.cacheManager.deleteAuthToken(id)
+      }
+
+      const result = await this.prisma.user.update({
+        where: { id: Number(id) },
+        data: { active },
+      })
+
+      return {
+        message: 'Cập nhật thành công',
+        success: true,
+        data: result,
       }
     } catch (error: any) {
       throw new HttpException(

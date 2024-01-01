@@ -1,13 +1,22 @@
 import { CreateUserRoleDto, UpdateUserRoleDto } from './user_role.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
+import { CacheService } from 'services/cache.service';
 export declare class UserRoleService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private cacheService;
+    constructor(prisma: PrismaService, cacheService: CacheService);
     create(createDto: CreateUserRoleDto): Promise<{
         message: string;
         success: boolean;
         data: {
+            role: {
+                id: number;
+                label: string;
+                alias: string;
+                isActive: boolean;
+                deleted: boolean;
+            };
             id: number;
             userId: number;
             roleId: number;
@@ -62,6 +71,15 @@ export declare class UserRoleService {
                 pageSize: number;
             };
             totalCount: number;
+        };
+    }>;
+    hardDelete(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            userId: number;
+            roleId: number;
         };
     }>;
 }

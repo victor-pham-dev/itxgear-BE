@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
+import { Controller, Post, Body, Get, Req, Put, Delete } from '@nestjs/common'
 import { UserRoleService } from './user_role.service'
 import { CreateUserRoleDto, UpdateUserRoleDto } from './user_role.dto'
 import { Request } from 'express'
@@ -25,6 +25,12 @@ export class UserRoleController {
   @ApiOperation({ summary: 'GET DETAIL BY ID' })
   async get(@Req() req: Request) {
     return this.service.get(req)
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'DELETE BY ID' })
+  async hardDelete(@Req() req: Request) {
+    return this.service.hardDelete(req)
   }
 
   @Get()

@@ -11,6 +11,7 @@ export declare class WhiteListService {
             id: number;
             email: string;
             registed: boolean;
+            deleted: boolean;
         };
     }>;
     delete(req: Request): Promise<{
@@ -26,6 +27,7 @@ export declare class WhiteListService {
                 id: number;
                 email: string;
                 registed: boolean;
+                deleted: boolean;
             }[];
             paging: {
                 page: number;

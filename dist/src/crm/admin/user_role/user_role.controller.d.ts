@@ -8,6 +8,13 @@ export declare class UserRoleController {
         message: string;
         success: boolean;
         data: {
+            role: {
+                id: number;
+                label: string;
+                alias: string;
+                isActive: boolean;
+                deleted: boolean;
+            };
             id: number;
             userId: number;
             roleId: number;
@@ -23,6 +30,15 @@ export declare class UserRoleController {
         };
     }>;
     get(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            userId: number;
+            roleId: number;
+        };
+    }>;
+    hardDelete(req: Request): Promise<{
         message: string;
         success: boolean;
         data: {

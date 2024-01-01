@@ -16,12 +16,16 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const swagger_1 = require("@nestjs/swagger");
+const user_dto_1 = require("./user.dto");
 let UserController = class UserController {
     constructor(service) {
         this.service = service;
     }
     async search(req) {
         return this.service.search(req);
+    }
+    async updateUserStatus(updateDto) {
+        return this.service.changeStatus(updateDto);
     }
 };
 exports.UserController = UserController;
@@ -33,9 +37,17 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "search", null);
+__decorate([
+    (0, common_1.Patch)('/active-status'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update active status' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_dto_1.UpdateUserStatusDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUserStatus", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('/api/v1/admin/user'),
-    (0, swagger_1.ApiTags)('User ADMIN'),
+    (0, swagger_1.ApiTags)('ADMIN / USER - (User management)'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

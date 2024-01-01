@@ -268,4 +268,11 @@ model EmailUserWhiteList {
   id       Int     @id @unique @default(autoincrement())
   email    String  @unique
   registed Boolean @default(false)
+  deleted  Boolean @default(false)
+}
+
+model Wish {
+  id      Int    @id @unique @default(autoincrement())
+  name    String
+  content String
 }

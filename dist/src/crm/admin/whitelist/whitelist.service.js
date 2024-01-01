@@ -19,6 +19,22 @@ let WhiteListService = class WhiteListService {
     }
     async create(createDto) {
         try {
+            const existedEmail = await this.prisma.user.findFirst({
+                where: {
+                    email: createDto.email,
+                },
+            });
+            if (existedEmail) {
+                throw new common_1.HttpException('Email này đã được người dùng đăng ký rồi', common_1.HttpStatus.CONFLICT);
+            }
+            const existed = await this.prisma.emailUserWhiteList.findFirst({
+                where: {
+                    email: createDto.email,
+                },
+            });
+            if (existed) {
+                throw new common_1.HttpException('Email này đã tồn tại', common_1.HttpStatus.OK);
+            }
             const result = await this.prisma.emailUserWhiteList.create({
                 data: createDto,
             });
@@ -36,8 +52,9 @@ let WhiteListService = class WhiteListService {
     async delete(req) {
         const { id } = req.params;
         try {
-            await this.prisma.emailUserWhiteList.delete({
+            await this.prisma.emailUserWhiteList.update({
                 where: { id: Number(id) },
+                data: { deleted: true },
             });
             return {
                 message: 'Xoá thành công',
@@ -56,6 +73,7 @@ let WhiteListService = class WhiteListService {
             const dataTable = await this.prisma.emailUserWhiteList.findMany({
                 where: {
                     email: { contains: lowercaseEmail },
+                    deleted: false,
                 },
                 skip: (Number(page) - 1) * Number(pageSize),
                 take: Number(pageSize),
@@ -63,6 +81,7 @@ let WhiteListService = class WhiteListService {
             const totalCount = await this.prisma.emailUserWhiteList.count({
                 where: {
                     email: { contains: lowercaseEmail },
+                    deleted: false,
                 },
             });
             return {

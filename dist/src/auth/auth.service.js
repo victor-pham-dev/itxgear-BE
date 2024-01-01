@@ -14,14 +14,24 @@ const common_1 = require("@nestjs/common");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 const prisma_service_1 = require("../../services/prisma.service");
+const cache_service_1 = require("../../services/cache.service");
 let AuthService = class AuthService {
-    constructor(prisma, jwtService) {
+    constructor(cacheService, prisma, jwtService) {
+        this.cacheService = cacheService;
         this.prisma = prisma;
         this.jwtService = jwtService;
     }
     async create(createUserDto) {
         const { name, email, password } = createUserDto;
         try {
+            const isInWhiteList = await this.prisma.emailUserWhiteList.findFirst({
+                where: {
+                    email,
+                },
+            });
+            if (!isInWhiteList || (isInWhiteList && isInWhiteList.deleted)) {
+                throw new common_1.HttpException('Email của bạn chưa được cấp quyền đăng ký', common_1.HttpStatus.OK);
+            }
             const findExisted = await this.prisma.user.findFirst({
                 where: {
                     email: email.toLowerCase(),
@@ -37,6 +47,10 @@ let AuthService = class AuthService {
                     email: email.toLowerCase(),
                     password: encryptedPassword,
                 },
+            });
+            await this.prisma.emailUserWhiteList.update({
+                where: { email },
+                data: { registed: true },
             });
             return {
                 message: 'Đăng ký tài khoản mới thành công',
@@ -82,6 +96,11 @@ let AuthService = class AuthService {
                 id: user.id,
                 roles,
             });
+            const oldToken = await this.cacheService.getAuthToken(user.id);
+            if (oldToken) {
+                await this.cacheService.deleteAuthToken(user.id);
+            }
+            await this.cacheService.setAuthToken(user.id, accessToken);
             return {
                 message: 'Login thành công',
                 success: true,
@@ -103,6 +122,7 @@ let AuthService = class AuthService {
                     id: true,
                     name: true,
                     email: true,
+                    password: false,
                     ROLES: {
                         include: {
                             role: true,
@@ -125,11 +145,26 @@ let AuthService = class AuthService {
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async logout(req) {
+        const user = req['user'];
+        try {
+            await this.cacheService.deleteAuthToken(user?.id);
+            return {
+                message: 'Thành công',
+                success: true,
+                data: null,
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+    __metadata("design:paramtypes", [cache_service_1.CacheService,
+        prisma_service_1.PrismaService,
         jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
