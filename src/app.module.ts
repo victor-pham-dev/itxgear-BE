@@ -42,6 +42,8 @@ import { CacheModule } from '@nestjs/cache-manager'
 import { tokenExpireTime } from 'configs/app-config'
 import { CacheService } from 'services/cache.service'
 import { redisStore } from 'cache-manager-redis-yet'
+import { WishService } from './wishs/wish.service'
+import { WishController } from './wishs/wish.controller'
 
 @Module({
   imports: [
@@ -66,6 +68,7 @@ import { redisStore } from 'cache-manager-redis-yet'
   ],
   controllers: [
     AppController,
+    WishController,
     WhiteListController,
     AuthController,
     RoleController,
@@ -83,6 +86,7 @@ import { redisStore } from 'cache-manager-redis-yet'
   ],
   providers: [
     AppService,
+    WishService,
     WhiteListService,
     PrismaService,
     AuthService,

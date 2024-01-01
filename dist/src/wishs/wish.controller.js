@@ -12,12 +12,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.WishController = void 0;
 const common_1 = require("@nestjs/common");
 const wish_service_1 = require("./wish.service");
 const wish_dto_1 = require("./wish.dto");
 const swagger_1 = require("@nestjs/swagger");
-let AuthController = class AuthController {
+let WishController = class WishController {
     constructor(wishService) {
         this.wishService = wishService;
     }
@@ -28,7 +28,7 @@ let AuthController = class AuthController {
         return this.wishService.search(req);
     }
 };
-exports.AuthController = AuthController;
+exports.WishController = WishController;
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create Wish' }),
@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [wish_dto_1.CreateWishDto]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "create", null);
+], WishController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),
@@ -44,10 +44,10 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "search", null);
-exports.AuthController = AuthController = __decorate([
+], WishController.prototype, "search", null);
+exports.WishController = WishController = __decorate([
     (0, common_1.Controller)('/api/v1/wish'),
     (0, swagger_1.ApiTags)(' :)) dont touch this '),
     __metadata("design:paramtypes", [wish_service_1.WishService])
-], AuthController);
+], WishController);
 //# sourceMappingURL=wish.controller.js.map

@@ -46,6 +46,8 @@ const cache_manager_1 = require("@nestjs/cache-manager");
 const app_config_1 = require("../configs/app-config");
 const cache_service_1 = require("../services/cache.service");
 const cache_manager_redis_yet_1 = require("cache-manager-redis-yet");
+const wish_service_1 = require("./wishs/wish.service");
+const wish_controller_1 = require("./wishs/wish.controller");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -94,6 +96,7 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [
             app_controller_1.AppController,
+            wish_controller_1.WishController,
             whitelist_controller_1.WhiteListController,
             auth_controller_1.AuthController,
             role_controller_1.RoleController,
@@ -111,6 +114,7 @@ exports.AppModule = AppModule = __decorate([
         ],
         providers: [
             app_service_1.AppService,
+            wish_service_1.WishService,
             whitelist_service_1.WhiteListService,
             prisma_service_1.PrismaService,
             auth_service_1.AuthService,

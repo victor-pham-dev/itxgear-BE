@@ -6,7 +6,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
 @Controller('/api/v1/wish')
 @ApiTags(' :)) dont touch this ')
-export class AuthController {
+export class WishController {
   constructor(private readonly wishService: WishService) {}
 
   @Post()

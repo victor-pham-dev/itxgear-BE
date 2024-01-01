@@ -1,7 +1,7 @@
 import { WishService } from './wish.service';
 import { CreateWishDto } from './wish.dto';
 import { Request } from 'express';
-export declare class AuthController {
+export declare class WishController {
     private readonly wishService;
     constructor(wishService: WishService);
     create(createDto: CreateWishDto): Promise<{
