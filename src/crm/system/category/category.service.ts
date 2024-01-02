@@ -8,8 +8,30 @@ import { removeMarkUrl } from 'helper/string'
 export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getSubcategories(parentId: number) {
+    const subcategories = await this.prisma.category.findMany({
+      where: { parentId: parentId, deleted: false },
+    })
+
+    if (subcategories.length === 0) {
+      return []
+    }
+
+    const organizedSubcategories = await Promise.all(
+      subcategories.map(async (subcategory) => {
+        const nestedSubcategories = await this.getSubcategories(subcategory.id)
+        return {
+          ...subcategory,
+          children: nestedSubcategories,
+        }
+      }),
+    )
+
+    return organizedSubcategories
+  }
+
   async create(createDto: CreateCategoryDto) {
-    const { label, ...data } = createDto
+    const { id, label, ...data } = createDto
     try {
       const result = await this.prisma.category.create({
         data: { label, alias: removeMarkUrl(label), ...data },
@@ -34,7 +56,7 @@ export class CategoryService {
     try {
       await this.prisma.category.update({
         where: { id: id },
-        data,
+        data: { ...data, alias: removeMarkUrl(data.label) },
       })
 
       return {
@@ -54,21 +76,16 @@ export class CategoryService {
     const { id } = req.params
 
     try {
-      const [parent, children] = await Promise.all([
+      const [result] = await Promise.all([
         this.prisma.category.findUnique({
-          where: { id: Number(id) },
-        }),
-        this.prisma.category.findMany({
-          where: {
-            parentId: Number(id),
-          },
+          where: { id: Number(id), deleted: false },
         }),
       ])
 
       return {
         message: 'Thành công',
         success: true,
-        data: { ...parent, children },
+        data: result,
       }
     } catch (error: any) {
       throw new HttpException(
@@ -89,6 +106,7 @@ export class CategoryService {
             contains: lowercaseLabel,
             mode: 'insensitive',
           },
+          deleted: false,
           parentId: 0,
         },
         skip: (Number(page) - 1) * Number(pageSize),
@@ -101,6 +119,7 @@ export class CategoryService {
             contains: lowercaseLabel,
             mode: 'insensitive',
           },
+          deleted: false,
           parentId: 0,
         },
       })
@@ -116,6 +135,58 @@ export class CategoryService {
           },
           totalCount,
         },
+      }
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async getCategoryDetail(req: Request) {
+    const { id } = req.params
+    try {
+      const root = await this.prisma.category.findUnique({
+        where: { id: Number(id) },
+      })
+
+      if (!root) {
+        throw new HttpException(
+          'Không tìm thấy danh mục này',
+          HttpStatus.NOT_FOUND,
+        )
+      }
+
+      const children = await this.getSubcategories(root.id)
+
+      return {
+        message: 'Thành công',
+        success: true,
+        data: {
+          root,
+          children,
+        },
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async delete(req: Request) {
+    const { id } = req.params
+    try {
+      await this.prisma.category.update({
+        where: { id: Number(id) },
+        data: { deleted: true },
+      })
+      return {
+        message: 'Xoá thành công',
+        success: true,
+        data: null,
       }
     } catch (error: any) {
       throw new HttpException(

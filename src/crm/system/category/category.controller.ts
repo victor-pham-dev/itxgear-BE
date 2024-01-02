@@ -49,4 +49,15 @@ export class CategoryController {
   async search(@Req() req: Request) {
     return this.service.search(req)
   }
+
+  @Get('/category-detail/:id')
+  @ApiOperation({ summary: 'GET DETAIL & LIST CHILDREN CATEGORY BY ID' })
+  @ApiQuery({
+    name: 'id',
+    required: true,
+    type: Number,
+  })
+  async getCategoryDetail(@Req() req: Request) {
+    return this.service.getCategoryDetail(req)
+  }
 }

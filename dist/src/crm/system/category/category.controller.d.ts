@@ -15,6 +15,8 @@ export declare class CategoryController {
             active: boolean;
             icon: string;
             parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
         };
     }>;
     update(updateDto: UpdateCategoryDto): Promise<{
@@ -26,15 +28,6 @@ export declare class CategoryController {
         message: string;
         success: boolean;
         data: {
-            children: {
-                id: number;
-                description: string;
-                alias: string;
-                label: string;
-                active: boolean;
-                icon: string;
-                parentId: number;
-            }[];
             id: number;
             description: string;
             alias: string;
@@ -42,6 +35,8 @@ export declare class CategoryController {
             active: boolean;
             icon: string;
             parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
         };
     }>;
     search(req: Request): Promise<{
@@ -56,12 +51,32 @@ export declare class CategoryController {
                 active: boolean;
                 icon: string;
                 parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
             }[];
             paging: {
                 page: number;
                 pageSize: number;
             };
             totalCount: number;
+        };
+    }>;
+    getCategoryDetail(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            root: {
+                id: number;
+                description: string;
+                alias: string;
+                label: string;
+                active: boolean;
+                icon: string;
+                parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
+            };
+            children: any;
         };
     }>;
 }

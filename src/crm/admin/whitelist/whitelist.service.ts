@@ -49,6 +49,7 @@ export class WhiteListService {
       )
     }
   }
+
   async delete(req: Request) {
     const { id } = req.params
     try {

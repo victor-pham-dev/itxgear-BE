@@ -1,4 +1,5 @@
 export declare class CategoryProps {
+    readonly id?: any;
     readonly description?: string;
     readonly label: string;
     readonly icon?: string;

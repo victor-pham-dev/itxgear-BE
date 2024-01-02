@@ -17,8 +17,24 @@ let CategoryService = class CategoryService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async getSubcategories(parentId) {
+        const subcategories = await this.prisma.category.findMany({
+            where: { parentId: parentId, deleted: false },
+        });
+        if (subcategories.length === 0) {
+            return [];
+        }
+        const organizedSubcategories = await Promise.all(subcategories.map(async (subcategory) => {
+            const nestedSubcategories = await this.getSubcategories(subcategory.id);
+            return {
+                ...subcategory,
+                children: nestedSubcategories,
+            };
+        }));
+        return organizedSubcategories;
+    }
     async create(createDto) {
-        const { label, ...data } = createDto;
+        const { id, label, ...data } = createDto;
         try {
             const result = await this.prisma.category.create({
                 data: { label, alias: (0, string_1.removeMarkUrl)(label), ...data },
@@ -38,7 +54,7 @@ let CategoryService = class CategoryService {
         try {
             await this.prisma.category.update({
                 where: { id: id },
-                data,
+                data: { ...data, alias: (0, string_1.removeMarkUrl)(data.label) },
             });
             return {
                 message: 'Update thành công',
@@ -53,20 +69,15 @@ let CategoryService = class CategoryService {
     async get(req) {
         const { id } = req.params;
         try {
-            const [parent, children] = await Promise.all([
+            const [result] = await Promise.all([
                 this.prisma.category.findUnique({
-                    where: { id: Number(id) },
-                }),
-                this.prisma.category.findMany({
-                    where: {
-                        parentId: Number(id),
-                    },
+                    where: { id: Number(id), deleted: false },
                 }),
             ]);
             return {
                 message: 'Thành công',
                 success: true,
-                data: { ...parent, children },
+                data: result,
             };
         }
         catch (error) {
@@ -83,6 +94,7 @@ let CategoryService = class CategoryService {
                         contains: lowercaseLabel,
                         mode: 'insensitive',
                     },
+                    deleted: false,
                     parentId: 0,
                 },
                 skip: (Number(page) - 1) * Number(pageSize),
@@ -94,6 +106,7 @@ let CategoryService = class CategoryService {
                         contains: lowercaseLabel,
                         mode: 'insensitive',
                     },
+                    deleted: false,
                     parentId: 0,
                 },
             });
@@ -108,6 +121,46 @@ let CategoryService = class CategoryService {
                     },
                     totalCount,
                 },
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async getCategoryDetail(req) {
+        const { id } = req.params;
+        try {
+            const root = await this.prisma.category.findUnique({
+                where: { id: Number(id) },
+            });
+            if (!root) {
+                throw new common_1.HttpException('Không tìm thấy danh mục này', common_1.HttpStatus.NOT_FOUND);
+            }
+            const children = await this.getSubcategories(root.id);
+            return {
+                message: 'Thành công',
+                success: true,
+                data: {
+                    root,
+                    children,
+                },
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async delete(req) {
+        const { id } = req.params;
+        try {
+            await this.prisma.category.update({
+                where: { id: Number(id) },
+                data: { deleted: true },
+            });
+            return {
+                message: 'Xoá thành công',
+                success: true,
+                data: null,
             };
         }
         catch (error) {

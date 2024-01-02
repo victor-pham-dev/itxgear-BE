@@ -49,6 +49,8 @@ export declare class PublicProductController {
                     active: boolean;
                     icon: string;
                     parentId: number;
+                    childrenIds: number[];
+                    deleted: boolean;
                 };
                 name: string;
                 code: string;
@@ -82,6 +84,8 @@ export declare class PublicProductController {
                 active: boolean;
                 icon: string;
                 parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
             };
             name: string;
             code: string;

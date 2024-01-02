@@ -183,7 +183,9 @@ model Category {
   active      Boolean   @default(true)
   icon        String    @default("")
   parentId    Int       @default(0)
+  childrenIds Int[]     @default([])
   Product     Product[]
+  deleted     Boolean   @default(false)
 }
 
 //MODULE PROMOTIONS

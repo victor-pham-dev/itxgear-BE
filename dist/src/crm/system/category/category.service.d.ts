@@ -4,6 +4,7 @@ import { PrismaService } from 'services/prisma.service';
 export declare class CategoryService {
     private readonly prisma;
     constructor(prisma: PrismaService);
+    getSubcategories(parentId: number): any;
     create(createDto: CreateCategoryDto): Promise<{
         message: string;
         success: boolean;
@@ -15,6 +16,8 @@ export declare class CategoryService {
             active: boolean;
             icon: string;
             parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
         };
     }>;
     update(updateDto: UpdateCategoryDto): Promise<{
@@ -26,15 +29,6 @@ export declare class CategoryService {
         message: string;
         success: boolean;
         data: {
-            children: {
-                id: number;
-                description: string;
-                alias: string;
-                label: string;
-                active: boolean;
-                icon: string;
-                parentId: number;
-            }[];
             id: number;
             description: string;
             alias: string;
@@ -42,6 +36,8 @@ export declare class CategoryService {
             active: boolean;
             icon: string;
             parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
         };
     }>;
     search(req: Request): Promise<{
@@ -56,6 +52,8 @@ export declare class CategoryService {
                 active: boolean;
                 icon: string;
                 parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
             }[];
             paging: {
                 page: number;
@@ -63,5 +61,28 @@ export declare class CategoryService {
             };
             totalCount: number;
         };
+    }>;
+    getCategoryDetail(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            root: {
+                id: number;
+                description: string;
+                alias: string;
+                label: string;
+                active: boolean;
+                icon: string;
+                parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
+            };
+            children: any;
+        };
+    }>;
+    delete(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
     }>;
 }

@@ -33,6 +33,9 @@ let CategoryController = class CategoryController {
     async search(req) {
         return this.service.search(req);
     }
+    async getCategoryDetail(req) {
+        return this.service.getCategoryDetail(req);
+    }
 };
 exports.CategoryController = CategoryController;
 __decorate([
@@ -84,6 +87,19 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "search", null);
+__decorate([
+    (0, common_1.Get)('/category-detail/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL & LIST CHILDREN CATEGORY BY ID' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'id',
+        required: true,
+        type: Number,
+    }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "getCategoryDetail", null);
 exports.CategoryController = CategoryController = __decorate([
     (0, common_1.Controller)('/api/v1/system/category'),
     (0, swagger_1.ApiTags)('Category'),
