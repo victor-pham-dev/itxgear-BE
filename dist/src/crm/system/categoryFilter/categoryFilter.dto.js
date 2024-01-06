@@ -9,40 +9,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUserDto = exports.CreateUserDto = void 0;
+exports.UpdateCategoryFilterDto = exports.CreateCategoryFilterDto = exports.ProductProptertyFilterDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class CreateUserDto {
+class ProductProptertyFilterDto {
 }
-exports.CreateUserDto = CreateUserDto;
+exports.ProductProptertyFilterDto = ProductProptertyFilterDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], ProductProptertyFilterDto.prototype, "label", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], ProductProptertyFilterDto.prototype, "valueType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], ProductProptertyFilterDto.prototype, "options", void 0);
+class CreateCategoryFilterDto {
+}
+exports.CreateCategoryFilterDto = CreateCategoryFilterDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "name", void 0);
+], CreateCategoryFilterDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "email", void 0);
+], CreateCategoryFilterDto.prototype, "description", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
-class LoginUserDto {
+    (0, swagger_1.ApiProperty)({ type: [ProductProptertyFilterDto] }),
+    __metadata("design:type", Array)
+], CreateCategoryFilterDto.prototype, "filters", void 0);
+class UpdateCategoryFilterDto extends CreateCategoryFilterDto {
 }
-exports.LoginUserDto = LoginUserDto;
+exports.UpdateCategoryFilterDto = UpdateCategoryFilterDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LoginUserDto.prototype, "email", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LoginUserDto.prototype, "password", void 0);
-//# sourceMappingURL=auth.dto.js.map
+    __metadata("design:type", Number)
+], UpdateCategoryFilterDto.prototype, "id", void 0);
+//# sourceMappingURL=categoryFilter.dto.js.map

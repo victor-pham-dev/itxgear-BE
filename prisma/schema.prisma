@@ -70,6 +70,8 @@ model Product {
   active       Boolean             @default(true)
   wareHouseId  Int?                @unique
 
+  properties Json
+
   OrderItem OrderItem[]
   WareHouse WareHouse?
 }
@@ -176,16 +178,29 @@ enum OrderStatus {
 }
 
 model Category {
-  id          Int       @id @unique @default(autoincrement())
-  description String    @default("")
-  alias       String    @unique
-  label       String
-  active      Boolean   @default(true)
-  icon        String    @default("")
-  parentId    Int       @default(0)
-  childrenIds Int[]     @default([])
-  Product     Product[]
-  deleted     Boolean   @default(false)
+  id                Int              @id @unique @default(autoincrement())
+  description       String           @default("")
+  alias             String           @unique
+  label             String
+  active            Boolean          @default(true)
+  icon              String           @default("")
+  parentId          Int              @default(0)
+  CategoryFilters   CategoryFilters? @relation(fields: [categoryFiltersId], references: [id])
+  childrenIds       Int[]            @default([])
+  Product           Product[]
+  deleted           Boolean          @default(false)
+  categoryFiltersId Int?
+}
+
+model CategoryFilters {
+  id          Int        @id @unique @default(autoincrement())
+  name        String
+  description String     @default("")
+  filters     Json[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+  deleted     Boolean    @default(false)
+  Category    Category[]
 }
 
 //MODULE PROMOTIONS

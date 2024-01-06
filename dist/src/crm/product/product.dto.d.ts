@@ -18,6 +18,7 @@ export declare class ProductDto {
     readonly keywords: string;
     readonly price: number;
     readonly salePrice: number;
+    readonly properties: object;
 }
 export declare class CreateProductDto extends ProductDto {
     readonly id?: number;

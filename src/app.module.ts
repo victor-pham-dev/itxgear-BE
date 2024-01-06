@@ -12,38 +12,17 @@ import { ConfigModule } from '@nestjs/config'
 import { AuthController } from './auth/auth.controller'
 import { PrismaService } from 'services/prisma.service'
 import { AuthService } from './auth/auth.service'
-import { RoleService } from './crm/admin/role/role.service'
-import { RoleController } from './crm/admin/role/role.controller'
-import { UserRoleService } from './crm/admin/user_role/user_role.service'
-import { UserRoleController } from './crm/admin/user_role/user_role.controller'
-import { BannerController } from './crm/system/banner/banner.controller'
-import { BannerSerivce } from './crm/system/banner/banner.service'
-import { VoucherController } from './crm/system/voucher/voucher.controller'
-import { VoucherService } from './crm/system/voucher/voucher.service'
-import { CategoryController } from './crm/system/category/category.controller'
-import { CategoryService } from './crm/system/category/category.service'
-import { UserService } from './crm/admin/user/user.service'
-import { UserController } from './crm/admin/user/user.controller'
-import { ProductController } from './crm/product/product.controller'
-import { ProductService } from './crm/product/product.service'
-import { WarehouseItemController } from './crm/warehouse/item/warehouse_item.controller'
-import { WarehouseItemService } from './crm/warehouse/item/warehouse_item.service'
-import { WarehouseBillController } from './crm/warehouse/bill/warehouse_bill.controller'
-import { WarehouseBillService } from './crm/warehouse/bill/warehouse_bill.service'
-import { PublicOrderController } from './public/order/public_order.controller'
-import { PublicOrderService } from './public/order/public_order.service'
-import { PublicProductController } from './public/product/public_product.controller'
-import { PublicProductService } from './public/product/public_product.service'
 import { FileController } from './crm/file/file.controller'
 import { FileService } from './crm/file/file.service'
 import { WhiteListController } from './crm/admin/whitelist/whitelist.controller'
-import { WhiteListService } from './crm/admin/whitelist/whitelist.service'
 import { CacheModule } from '@nestjs/cache-manager'
 import { tokenExpireTime } from 'configs/app-config'
 import { CacheService } from 'services/cache.service'
 import { redisStore } from 'cache-manager-redis-yet'
 import { WishService } from './wishs/wish.service'
 import { WishController } from './wishs/wish.controller'
+import { SystemControllers, SystemServices } from './crm/system/systemConfig'
+import { AdminControllers, AdminServices } from './crm/admin/adminConfig'
 
 @Module({
   imports: [
@@ -71,38 +50,19 @@ import { WishController } from './wishs/wish.controller'
     WishController,
     WhiteListController,
     AuthController,
-    RoleController,
-    UserRoleController,
-    BannerController,
-    VoucherController,
-    CategoryController,
-    UserController,
-    ProductController,
-    WarehouseItemController,
-    WarehouseBillController,
-    PublicOrderController,
-    PublicProductController,
     FileController,
+    ...SystemControllers,
+    ...AdminControllers,
   ],
   providers: [
     AppService,
     WishService,
-    WhiteListService,
     PrismaService,
     AuthService,
-    RoleService,
-    UserRoleService,
-    BannerSerivce,
-    VoucherService,
-    CategoryService,
-    UserService,
-    ProductService,
-    WarehouseItemService,
-    WarehouseBillService,
-    PublicOrderService,
-    PublicProductService,
     FileService,
     CacheService,
+    ...SystemServices,
+    ...AdminServices,
   ],
 })
 export class AppModule implements NestModule {

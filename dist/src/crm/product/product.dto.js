@@ -102,6 +102,11 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], ProductDto.prototype, "salePrice", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], ProductDto.prototype, "properties", void 0);
 class CreateProductDto extends ProductDto {
 }
 exports.CreateProductDto = CreateProductDto;

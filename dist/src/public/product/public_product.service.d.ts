@@ -34,6 +34,7 @@ export declare class PublicProductService {
             salePrice: number;
             active: boolean;
             wareHouseId: number;
+            properties: import(".prisma/client").Prisma.JsonValue;
         };
     }>;
     search(req: Request): Promise<{
@@ -51,6 +52,7 @@ export declare class PublicProductService {
                     parentId: number;
                     childrenIds: number[];
                     deleted: boolean;
+                    categoryFiltersId: number;
                 };
                 name: string;
                 code: string;
@@ -86,6 +88,7 @@ export declare class PublicProductService {
                 parentId: number;
                 childrenIds: number[];
                 deleted: boolean;
+                categoryFiltersId: number;
             };
             name: string;
             code: string;

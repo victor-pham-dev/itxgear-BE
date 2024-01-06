@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsString,
 } from 'class-validator'
 
@@ -80,6 +81,10 @@ export class ProductDto {
   @ApiProperty()
   @IsNumber()
   readonly salePrice: number
+
+  @ApiProperty()
+  @IsObject()
+  readonly properties: object
 }
 
 export class CreateProductDto extends ProductDto {

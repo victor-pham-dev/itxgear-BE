@@ -28,6 +28,7 @@ export declare class WarehouseItemService {
                 salePrice: number;
                 active: boolean;
                 wareHouseId: number;
+                properties: import(".prisma/client").Prisma.JsonValue;
             };
         } & {
             id: number;
@@ -63,10 +64,12 @@ export declare class WarehouseItemService {
                     salePrice: number;
                     active: boolean;
                     wareHouseId: number;
+                    properties: import(".prisma/client").Prisma.JsonValue;
                 };
                 WareHouseBill: {
                     id: number;
                     createdAt: Date;
+                    updatedAt: Date;
                     Order: {
                         id: number;
                         note: string;
@@ -77,7 +80,6 @@ export declare class WarehouseItemService {
                         orderCustomerInfoId: number;
                         orderShippingId: number;
                     };
-                    updatedAt: Date;
                     quantity: number;
                     warehouseItemId: number;
                     reason: import(".prisma/client").$Enums.WarehouseLogReason;

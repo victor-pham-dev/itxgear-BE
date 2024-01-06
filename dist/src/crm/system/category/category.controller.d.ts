@@ -17,6 +17,7 @@ export declare class CategoryController {
             parentId: number;
             childrenIds: number[];
             deleted: boolean;
+            categoryFiltersId: number;
         };
     }>;
     update(updateDto: UpdateCategoryDto): Promise<{
@@ -37,6 +38,7 @@ export declare class CategoryController {
             parentId: number;
             childrenIds: number[];
             deleted: boolean;
+            categoryFiltersId: number;
         };
     }>;
     search(req: Request): Promise<{
@@ -53,6 +55,7 @@ export declare class CategoryController {
                 parentId: number;
                 childrenIds: number[];
                 deleted: boolean;
+                categoryFiltersId: number;
             }[];
             paging: {
                 page: number;
@@ -75,6 +78,7 @@ export declare class CategoryController {
                 parentId: number;
                 childrenIds: number[];
                 deleted: boolean;
+                categoryFiltersId: number;
             };
             children: any;
         };

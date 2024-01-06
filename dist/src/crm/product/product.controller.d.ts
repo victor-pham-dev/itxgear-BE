@@ -28,6 +28,7 @@ export declare class ProductController {
             salePrice: number;
             active: boolean;
             wareHouseId: number;
+            properties: import(".prisma/client").Prisma.JsonValue;
         };
     }>;
     update(updateDto: UpdateProductDto): Promise<{
@@ -66,6 +67,7 @@ export declare class ProductController {
             salePrice: number;
             active: boolean;
             wareHouseId: number;
+            properties: import(".prisma/client").Prisma.JsonValue;
         };
     }>;
     search(req: Request): Promise<{
@@ -101,6 +103,7 @@ export declare class ProductController {
                 salePrice: number;
                 active: boolean;
                 wareHouseId: number;
+                properties: import(".prisma/client").Prisma.JsonValue;
             })[];
             paging: {
                 page: number;
