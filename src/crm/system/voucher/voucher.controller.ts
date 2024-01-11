@@ -4,7 +4,7 @@ import { CreateVoucherDto, UpdateVoucherDto } from './voucher.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
-@Controller('/api/v1/admin/promotion/voucher')
+@Controller('/api/v1/system/promotion/voucher')
 @ApiTags('Promotion Voucher')
 export class VoucherController {
   constructor(private readonly service: VoucherService) {}

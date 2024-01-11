@@ -68,7 +68,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], VoucherController.prototype, "search", null);
 exports.VoucherController = VoucherController = __decorate([
-    (0, common_1.Controller)('/api/v1/admin/promotion/voucher'),
+    (0, common_1.Controller)('/api/v1/system/promotion/voucher'),
     (0, swagger_1.ApiTags)('Promotion Voucher'),
     __metadata("design:paramtypes", [voucher_service_1.VoucherService])
 ], VoucherController);
