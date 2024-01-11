@@ -55,4 +55,9 @@ export declare class CategoryFilterController {
             totalCount: number;
         };
     }>;
+    delete(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: any;
+    }>;
 }

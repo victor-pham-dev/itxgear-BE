@@ -33,6 +33,9 @@ let CategoryFilterController = class CategoryFilterController {
     async search(req) {
         return this.service.search(req);
     }
+    async delete(req) {
+        return this.service.delete(req);
+    }
 };
 exports.CategoryFilterController = CategoryFilterController;
 __decorate([
@@ -90,6 +93,19 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CategoryFilterController.prototype, "search", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete Category filter BY ID' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'id',
+        required: true,
+        type: Number,
+    }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CategoryFilterController.prototype, "delete", null);
 exports.CategoryFilterController = CategoryFilterController = __decorate([
     (0, common_1.Controller)('/api/v1/system/category-filter'),
     (0, swagger_1.ApiTags)('Category-Filter'),

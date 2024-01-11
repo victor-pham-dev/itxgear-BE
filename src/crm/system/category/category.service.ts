@@ -1,5 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+  UpdateCategoryFilter,
+} from './category.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
 import { removeMarkUrl } from 'helper/string'
@@ -195,4 +199,38 @@ export class CategoryService {
       )
     }
   }
+
+  // async updateAllChildrenFilter(categoryId: number, categoryFilterId: number){
+  //   const childrenCategory = await this.prisma.category.findMany({
+  //     where: {
+  //       id: categoryId
+  //     }
+  //   })
+
+  //   await Promise.all(childrenCategory.map(item => {
+
+  //   }))
+
+  // }
+
+  // async updateFilters(data: UpdateCategoryFilter){
+  //   try {
+  //     const {categoryId,categoryFilterId, applyForChildren = true} = data
+  //     const result = await this.prisma.category.update({
+  //       where: {
+  //         id: categoryId
+  //       },
+  //       data: {
+  //         categoryFiltersId: categoryFilterId
+  //       }
+  //     })
+
+  //     if(applyForChildren){
+  //       await
+  //     }
+
+  //   } catch (error) {
+
+  //   }
+  // }
 }

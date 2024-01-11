@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
+import { Controller, Post, Body, Get, Req, Put, Delete } from '@nestjs/common'
 import { CategoryFilterService } from './categoryFilter.service'
 import {
   CreateCategoryFilterDto,
@@ -57,5 +57,16 @@ export class CategoryFilterController {
   })
   async search(@Req() req: Request) {
     return this.service.search(req)
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete Category filter BY ID' })
+  @ApiQuery({
+    name: 'id',
+    required: true,
+    type: Number,
+  })
+  async delete(@Req() req: Request) {
+    return this.service.delete(req)
   }
 }

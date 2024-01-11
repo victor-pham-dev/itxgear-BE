@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString } from 'class-validator'
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator'
 
 export class CategoryProps {
   readonly id?: any
@@ -33,4 +39,21 @@ export class EditCategoryProps extends CategoryProps {
 
 export class UpdateCategoryDto extends EditCategoryProps {
   children: EditCategoryProps[]
+}
+
+export class UpdateCategoryFilter {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  readonly categoryId: number
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  readonly categoryFilterId: number
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  readonly applyForChildren?: boolean
 }

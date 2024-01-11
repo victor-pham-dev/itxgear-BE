@@ -14,3 +14,8 @@ export declare class EditCategoryProps extends CategoryProps {
 export declare class UpdateCategoryDto extends EditCategoryProps {
     children: EditCategoryProps[];
 }
+export declare class UpdateCategoryFilter {
+    readonly categoryId: number;
+    readonly categoryFilterId: number;
+    readonly applyForChildren?: boolean;
+}
