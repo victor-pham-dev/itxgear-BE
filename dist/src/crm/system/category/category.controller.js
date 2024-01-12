@@ -106,8 +106,9 @@ __decorate([
 __decorate([
     (0, common_1.Patch)('/filter'),
     (0, swagger_1.ApiOperation)({ summary: 'UPDATE Filters for Category' }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [category_dto_1.UpdateCategoryFilterDto]),
+    __metadata("design:paramtypes", [category_dto_1.UpdateFilterForCategoryDto]),
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "updateFilter", null);
 exports.CategoryController = CategoryController = __decorate([

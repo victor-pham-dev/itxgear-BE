@@ -1,5 +1,5 @@
 import { CategoryService } from './category.service';
-import { CreateCategoryDto, UpdateCategoryDto, UpdateCategoryFilterDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto, UpdateFilterForCategoryDto } from './category.dto';
 import { Request } from 'express';
 export declare class CategoryController {
     private readonly service;
@@ -83,7 +83,7 @@ export declare class CategoryController {
             children: any;
         };
     }>;
-    updateFilter(updateFilterDto: UpdateCategoryFilterDto): Promise<{
+    updateFilter(updateFilterDto: UpdateFilterForCategoryDto): Promise<{
         message: string;
         success: boolean;
         data: {

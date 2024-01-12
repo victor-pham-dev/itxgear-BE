@@ -27,6 +27,8 @@ const wish_service_1 = require("./wishs/wish.service");
 const wish_controller_1 = require("./wishs/wish.controller");
 const systemConfig_1 = require("./crm/system/systemConfig");
 const adminConfig_1 = require("./crm/admin/adminConfig");
+const product_controller_1 = require("./crm/product/product.controller");
+const product_service_1 = require("./crm/product/product.service");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -79,11 +81,13 @@ exports.AppModule = AppModule = __decorate([
             whitelist_controller_1.WhiteListController,
             auth_controller_1.AuthController,
             file_controller_1.FileController,
+            product_controller_1.ProductController,
             ...systemConfig_1.SystemControllers,
             ...adminConfig_1.AdminControllers,
         ],
         providers: [
             app_service_1.AppService,
+            product_service_1.ProductService,
             wish_service_1.WishService,
             prisma_service_1.PrismaService,
             auth_service_1.AuthService,

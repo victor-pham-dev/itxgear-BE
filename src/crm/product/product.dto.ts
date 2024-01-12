@@ -80,10 +80,12 @@ export class ProductDto {
 
   @ApiProperty()
   @IsNumber()
+  @IsNotEmpty()
   readonly salePrice: number
 
   @ApiProperty()
   @IsObject()
+  @IsNotEmpty()
   readonly properties: object
 }
 

@@ -23,6 +23,8 @@ import { WishService } from './wishs/wish.service'
 import { WishController } from './wishs/wish.controller'
 import { SystemControllers, SystemServices } from './crm/system/systemConfig'
 import { AdminControllers, AdminServices } from './crm/admin/adminConfig'
+import { ProductController } from './crm/product/product.controller'
+import { ProductService } from './crm/product/product.service'
 
 @Module({
   imports: [
@@ -51,11 +53,13 @@ import { AdminControllers, AdminServices } from './crm/admin/adminConfig'
     WhiteListController,
     AuthController,
     FileController,
+    ProductController,
     ...SystemControllers,
     ...AdminControllers,
   ],
   providers: [
     AppService,
+    ProductService,
     WishService,
     PrismaService,
     AuthService,

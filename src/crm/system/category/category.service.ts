@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
-  UpdateCategoryFilterDto,
+  UpdateFilterForCategoryDto,
 } from './category.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
@@ -226,9 +226,13 @@ export class CategoryService {
     return false
   }
 
-  async updateFilters(data: UpdateCategoryFilterDto) {
+  async updateFilters(updateFilterForCategory: UpdateFilterForCategoryDto) {
     try {
-      const { categoryId, categoryFilterId, applyForChildren = true } = data
+      const {
+        categoryId,
+        categoryFilterId,
+        applyForChildren = true,
+      } = updateFilterForCategory
       const result = await this.prisma.category.update({
         where: {
           id: categoryId,

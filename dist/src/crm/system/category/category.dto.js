@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateCategoryFilterDto = exports.UpdateCategoryDto = exports.EditCategoryProps = exports.CreateCategoryDto = exports.CategoryProps = void 0;
+exports.UpdateFilterForCategoryDto = exports.UpdateCategoryDto = exports.EditCategoryProps = exports.CreateCategoryDto = exports.CategoryProps = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CategoryProps {
@@ -50,25 +50,25 @@ __decorate([
 class UpdateCategoryDto extends EditCategoryProps {
 }
 exports.UpdateCategoryDto = UpdateCategoryDto;
-class UpdateCategoryFilterDto {
+class UpdateFilterForCategoryDto {
 }
-exports.UpdateCategoryFilterDto = UpdateCategoryFilterDto;
+exports.UpdateFilterForCategoryDto = UpdateFilterForCategoryDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], UpdateCategoryFilterDto.prototype, "categoryId", void 0);
+], UpdateFilterForCategoryDto.prototype, "categoryId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], UpdateCategoryFilterDto.prototype, "categoryFilterId", void 0);
+], UpdateFilterForCategoryDto.prototype, "categoryFilterId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
-], UpdateCategoryFilterDto.prototype, "applyForChildren", void 0);
+], UpdateFilterForCategoryDto.prototype, "applyForChildren", void 0);
 //# sourceMappingURL=category.dto.js.map

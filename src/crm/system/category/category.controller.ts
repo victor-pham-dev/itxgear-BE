@@ -3,7 +3,7 @@ import { CategoryService } from './category.service'
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
-  UpdateCategoryFilterDto,
+  UpdateFilterForCategoryDto,
 } from './category.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger'
@@ -67,7 +67,7 @@ export class CategoryController {
 
   @Patch('/filter')
   @ApiOperation({ summary: 'UPDATE Filters for Category' })
-  async updateFilter(updateFilterDto: UpdateCategoryFilterDto) {
+  async updateFilter(@Body() updateFilterDto: UpdateFilterForCategoryDto) {
     return this.service.updateFilters(updateFilterDto)
   }
 }

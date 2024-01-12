@@ -37,7 +37,7 @@ let ProductController = class ProductController {
 exports.ProductController = ProductController;
 __decorate([
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Create ROLE' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Create product' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [product_dto_1.CreateProductDto]),
@@ -45,7 +45,7 @@ __decorate([
 ], ProductController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(),
-    (0, swagger_1.ApiOperation)({ summary: 'UPDATE ROLE' }),
+    (0, swagger_1.ApiOperation)({ summary: 'UPDATE Product' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [product_dto_1.UpdateProductDto]),
@@ -54,6 +54,12 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL BY ID' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'id',
+        description: 'Id sản phẩm',
+        required: true,
+        type: Number,
+    }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -61,6 +67,24 @@ __decorate([
 ], ProductController.prototype, "get", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiQuery)({
+        name: 'page',
+        description: 'Trang hiện tại',
+        required: true,
+        type: Number,
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'pageSize',
+        description: 'Số lượng data / 1 trang',
+        required: true,
+        type: Number,
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'name',
+        description: 'Tên sản phẩm',
+        required: false,
+        type: String,
+    }),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),

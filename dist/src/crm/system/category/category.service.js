@@ -189,9 +189,9 @@ let CategoryService = class CategoryService {
         }
         return false;
     }
-    async updateFilters(data) {
+    async updateFilters(updateFilterForCategory) {
         try {
-            const { categoryId, categoryFilterId, applyForChildren = true } = data;
+            const { categoryId, categoryFilterId, applyForChildren = true, } = updateFilterForCategory;
             const result = await this.prisma.category.update({
                 where: {
                     id: categoryId,
