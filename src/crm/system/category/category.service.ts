@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
-  UpdateCategoryFilter,
+  UpdateCategoryFilterDto,
 } from './category.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
@@ -200,37 +200,58 @@ export class CategoryService {
     }
   }
 
-  // async updateAllChildrenFilter(categoryId: number, categoryFilterId: number){
-  //   const childrenCategory = await this.prisma.category.findMany({
-  //     where: {
-  //       id: categoryId
-  //     }
-  //   })
+  async updateAllChildrenFilter(categoryId: number, categoryFilterId: number) {
+    const childrenCategory = await this.prisma.category.findMany({
+      where: {
+        id: categoryId,
+      },
+    })
 
-  //   await Promise.all(childrenCategory.map(item => {
+    if (childrenCategory.length > 0) {
+      await this.prisma.category.updateMany({
+        where: {
+          parentId: categoryId,
+        },
+        data: {
+          categoryFiltersId: categoryFilterId,
+        },
+      })
+      await Promise.all(
+        childrenCategory.map((item) => {
+          this.updateAllChildrenFilter(item.id, categoryFilterId)
+        }),
+      )
+      return true
+    }
+    return false
+  }
 
-  //   }))
+  async updateFilters(data: UpdateCategoryFilterDto) {
+    try {
+      const { categoryId, categoryFilterId, applyForChildren = true } = data
+      const result = await this.prisma.category.update({
+        where: {
+          id: categoryId,
+        },
+        data: {
+          categoryFiltersId: categoryFilterId,
+        },
+      })
 
-  // }
+      if (applyForChildren) {
+        await this.updateAllChildrenFilter(categoryId, categoryFilterId)
+      }
 
-  // async updateFilters(data: UpdateCategoryFilter){
-  //   try {
-  //     const {categoryId,categoryFilterId, applyForChildren = true} = data
-  //     const result = await this.prisma.category.update({
-  //       where: {
-  //         id: categoryId
-  //       },
-  //       data: {
-  //         categoryFiltersId: categoryFilterId
-  //       }
-  //     })
-
-  //     if(applyForChildren){
-  //       await
-  //     }
-
-  //   } catch (error) {
-
-  //   }
-  // }
+      return {
+        message: 'Cập nhật thành công',
+        success: true,
+        data: result,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
 }

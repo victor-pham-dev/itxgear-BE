@@ -167,6 +167,52 @@ let CategoryService = class CategoryService {
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async updateAllChildrenFilter(categoryId, categoryFilterId) {
+        const childrenCategory = await this.prisma.category.findMany({
+            where: {
+                id: categoryId,
+            },
+        });
+        if (childrenCategory.length > 0) {
+            await this.prisma.category.updateMany({
+                where: {
+                    parentId: categoryId,
+                },
+                data: {
+                    categoryFiltersId: categoryFilterId,
+                },
+            });
+            await Promise.all(childrenCategory.map((item) => {
+                this.updateAllChildrenFilter(item.id, categoryFilterId);
+            }));
+            return true;
+        }
+        return false;
+    }
+    async updateFilters(data) {
+        try {
+            const { categoryId, categoryFilterId, applyForChildren = true } = data;
+            const result = await this.prisma.category.update({
+                where: {
+                    id: categoryId,
+                },
+                data: {
+                    categoryFiltersId: categoryFilterId,
+                },
+            });
+            if (applyForChildren) {
+                await this.updateAllChildrenFilter(categoryId, categoryFilterId);
+            }
+            return {
+                message: 'Cập nhật thành công',
+                success: true,
+                data: result,
+            };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 };
 exports.CategoryService = CategoryService;
 exports.CategoryService = CategoryService = __decorate([

@@ -1,5 +1,5 @@
 import { CategoryService } from './category.service';
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto, UpdateCategoryFilterDto } from './category.dto';
 import { Request } from 'express';
 export declare class CategoryController {
     private readonly service;
@@ -81,6 +81,22 @@ export declare class CategoryController {
                 categoryFiltersId: number;
             };
             children: any;
+        };
+    }>;
+    updateFilter(updateFilterDto: UpdateCategoryFilterDto): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            description: string;
+            alias: string;
+            label: string;
+            active: boolean;
+            icon: string;
+            parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
+            categoryFiltersId: number;
         };
     }>;
 }

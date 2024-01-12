@@ -1,4 +1,4 @@
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto, UpdateCategoryFilterDto } from './category.dto';
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
 export declare class CategoryService {
@@ -88,5 +88,22 @@ export declare class CategoryService {
         message: string;
         success: boolean;
         data: any;
+    }>;
+    updateAllChildrenFilter(categoryId: number, categoryFilterId: number): Promise<boolean>;
+    updateFilters(data: UpdateCategoryFilterDto): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            id: number;
+            description: string;
+            alias: string;
+            label: string;
+            active: boolean;
+            icon: string;
+            parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
+            categoryFiltersId: number;
+        };
     }>;
 }

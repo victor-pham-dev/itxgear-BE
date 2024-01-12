@@ -41,7 +41,7 @@ export class UpdateCategoryDto extends EditCategoryProps {
   children: EditCategoryProps[]
 }
 
-export class UpdateCategoryFilter {
+export class UpdateCategoryFilterDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()

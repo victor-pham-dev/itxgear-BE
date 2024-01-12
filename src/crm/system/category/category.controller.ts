@@ -1,6 +1,10 @@
-import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
+import { Controller, Post, Body, Get, Req, Put, Patch } from '@nestjs/common'
 import { CategoryService } from './category.service'
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto'
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+  UpdateCategoryFilterDto,
+} from './category.dto'
 import { Request } from 'express'
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger'
 
@@ -59,5 +63,11 @@ export class CategoryController {
   })
   async getCategoryDetail(@Req() req: Request) {
     return this.service.getCategoryDetail(req)
+  }
+
+  @Patch('/filter')
+  @ApiOperation({ summary: 'UPDATE Filters for Category' })
+  async updateFilter(updateFilterDto: UpdateCategoryFilterDto) {
+    return this.service.updateFilters(updateFilterDto)
   }
 }
