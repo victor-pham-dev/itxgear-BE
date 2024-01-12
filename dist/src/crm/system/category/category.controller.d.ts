@@ -69,6 +69,16 @@ export declare class CategoryController {
         success: boolean;
         data: {
             root: {
+                CategoryFilters: {
+                    id: number;
+                    name: string;
+                    description: string;
+                    filters: import(".prisma/client").Prisma.JsonValue[];
+                    createdAt: Date;
+                    updatedAt: Date;
+                    deleted: boolean;
+                };
+            } & {
                 id: number;
                 description: string;
                 alias: string;

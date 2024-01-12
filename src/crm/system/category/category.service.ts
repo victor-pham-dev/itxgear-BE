@@ -15,6 +15,9 @@ export class CategoryService {
   async getSubcategories(parentId: number) {
     const subcategories = await this.prisma.category.findMany({
       where: { parentId: parentId, deleted: false },
+      include: {
+        CategoryFilters: true,
+      },
     })
 
     if (subcategories.length === 0) {
@@ -153,6 +156,9 @@ export class CategoryService {
     try {
       const root = await this.prisma.category.findUnique({
         where: { id: Number(id) },
+        include: {
+          CategoryFilters: true,
+        },
       })
 
       if (!root) {
@@ -203,7 +209,7 @@ export class CategoryService {
   async updateAllChildrenFilter(categoryId: number, categoryFilterId: number) {
     const childrenCategory = await this.prisma.category.findMany({
       where: {
-        id: categoryId,
+        parentId: categoryId,
       },
     })
 
@@ -216,12 +222,12 @@ export class CategoryService {
           categoryFiltersId: categoryFilterId,
         },
       })
+
       await Promise.all(
-        childrenCategory.map((item) => {
-          this.updateAllChildrenFilter(item.id, categoryFilterId)
+        childrenCategory.map(async (item) => {
+          return await this.updateAllChildrenFilter(item.id, categoryFilterId)
         }),
       )
-      return true
     }
     return false
   }

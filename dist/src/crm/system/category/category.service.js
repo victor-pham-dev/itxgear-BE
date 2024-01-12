@@ -20,6 +20,9 @@ let CategoryService = class CategoryService {
     async getSubcategories(parentId) {
         const subcategories = await this.prisma.category.findMany({
             where: { parentId: parentId, deleted: false },
+            include: {
+                CategoryFilters: true,
+            },
         });
         if (subcategories.length === 0) {
             return [];
@@ -132,6 +135,9 @@ let CategoryService = class CategoryService {
         try {
             const root = await this.prisma.category.findUnique({
                 where: { id: Number(id) },
+                include: {
+                    CategoryFilters: true,
+                },
             });
             if (!root) {
                 throw new common_1.HttpException('Không tìm thấy danh mục này', common_1.HttpStatus.NOT_FOUND);
@@ -170,7 +176,7 @@ let CategoryService = class CategoryService {
     async updateAllChildrenFilter(categoryId, categoryFilterId) {
         const childrenCategory = await this.prisma.category.findMany({
             where: {
-                id: categoryId,
+                parentId: categoryId,
             },
         });
         if (childrenCategory.length > 0) {
@@ -182,10 +188,9 @@ let CategoryService = class CategoryService {
                     categoryFiltersId: categoryFilterId,
                 },
             });
-            await Promise.all(childrenCategory.map((item) => {
-                this.updateAllChildrenFilter(item.id, categoryFilterId);
+            await Promise.all(childrenCategory.map(async (item) => {
+                return await this.updateAllChildrenFilter(item.id, categoryFilterId);
             }));
-            return true;
         }
         return false;
     }
