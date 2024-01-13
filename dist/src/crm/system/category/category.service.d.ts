@@ -30,6 +30,16 @@ export declare class CategoryService {
         message: string;
         success: boolean;
         data: {
+            CategoryFilters: {
+                id: number;
+                name: string;
+                description: string;
+                filters: import(".prisma/client").Prisma.JsonValue[];
+                createdAt: Date;
+                updatedAt: Date;
+                deleted: boolean;
+            };
+        } & {
             id: number;
             description: string;
             alias: string;
@@ -115,5 +125,22 @@ export declare class CategoryService {
             deleted: boolean;
             categoryFiltersId: number;
         };
+    }>;
+    getAllCategoryWithChildren(): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            children: any;
+            id: number;
+            description: string;
+            alias: string;
+            label: string;
+            active: boolean;
+            icon: string;
+            parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
+            categoryFiltersId: number;
+        }[];
     }>;
 }

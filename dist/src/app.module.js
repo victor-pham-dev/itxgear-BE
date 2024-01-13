@@ -29,6 +29,7 @@ const systemConfig_1 = require("./crm/system/systemConfig");
 const adminConfig_1 = require("./crm/admin/adminConfig");
 const product_controller_1 = require("./crm/product/product.controller");
 const product_service_1 = require("./crm/product/product.service");
+const warehouseConfig_1 = require("./crm/warehouse/warehouseConfig");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -84,6 +85,7 @@ exports.AppModule = AppModule = __decorate([
             product_controller_1.ProductController,
             ...systemConfig_1.SystemControllers,
             ...adminConfig_1.AdminControllers,
+            ...warehouseConfig_1.WarehouseListController,
         ],
         providers: [
             app_service_1.AppService,
@@ -95,6 +97,7 @@ exports.AppModule = AppModule = __decorate([
             cache_service_1.CacheService,
             ...systemConfig_1.SystemServices,
             ...adminConfig_1.AdminServices,
+            ...warehouseConfig_1.WarehouseListService,
         ],
     })
 ], AppModule);

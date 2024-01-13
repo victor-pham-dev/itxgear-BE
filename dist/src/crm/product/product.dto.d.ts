@@ -22,10 +22,8 @@ export declare class ProductDto {
 }
 export declare class CreateProductDto extends ProductDto {
     readonly id?: number;
-    readonly configInfo: CreateProductConfigDto[];
 }
 export declare class UpdateProductDto extends ProductDto {
     readonly id: number;
-    readonly configInfo: UpdateProductConfigDto[];
     readonly active: boolean;
 }

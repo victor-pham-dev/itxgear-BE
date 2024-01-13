@@ -3,6 +3,8 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
+  Delete,
+  Query,
   // Get,
   // Param,
   // Res,
@@ -12,14 +14,20 @@ import { memoryStorage } from 'multer'
 import { editFileName, imageFileFilter } from './upload.utils'
 // import { Response } from 'express';
 import { FileService } from './file.service'
-import { ApiBody, ApiConsumes, ApiHeader, ApiTags } from '@nestjs/swagger'
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiHeader,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger'
 // import { readFileSync } from 'fs';
-@Controller()
+@Controller('/api/v1/file')
 @ApiTags('files')
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
-  @Post('/api/v1/product-file')
+  @Post('/image')
   @UseInterceptors(
     FileInterceptor('image', {
       // storage: diskStorage({
@@ -49,11 +57,12 @@ export class FileController {
     },
   })
   //
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    // const fileContent = readFileSync(file.path);
-
+  uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Query('b') bucket: string,
+  ) {
     const params = {
-      Bucket: 'product',
+      Bucket: bucket,
       Key: editFileName(file),
       Body: file.buffer,
     }
@@ -61,8 +70,12 @@ export class FileController {
     return this.fileService.uploadToS3(params)
   }
 
-  // @Get(':fileName')
-  // async getFile(@Param('fileName') fileName: string, @Res() res: Response) {
-  //   return this.fileService.getFile(fileName, res);
-  // }
+  @Delete('/image')
+  @ApiOperation({ summary: 'Upload file' })
+  async deleteImage(
+    @Query('b') bucket: string,
+    @Query('name') fileName: string,
+  ) {
+    return this.fileService.deleteFileFromS3(bucket, fileName)
+  }
 }

@@ -29,6 +29,16 @@ export declare class CategoryController {
         message: string;
         success: boolean;
         data: {
+            CategoryFilters: {
+                id: number;
+                name: string;
+                description: string;
+                filters: import(".prisma/client").Prisma.JsonValue[];
+                createdAt: Date;
+                updatedAt: Date;
+                deleted: boolean;
+            };
+        } & {
             id: number;
             description: string;
             alias: string;
@@ -108,5 +118,22 @@ export declare class CategoryController {
             deleted: boolean;
             categoryFiltersId: number;
         };
+    }>;
+    getAllWithChildren(): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            children: any;
+            id: number;
+            description: string;
+            alias: string;
+            label: string;
+            active: boolean;
+            icon: string;
+            parentId: number;
+            childrenIds: number[];
+            deleted: boolean;
+            categoryFiltersId: number;
+        }[];
     }>;
 }

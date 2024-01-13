@@ -25,6 +25,10 @@ import { SystemControllers, SystemServices } from './crm/system/systemConfig'
 import { AdminControllers, AdminServices } from './crm/admin/adminConfig'
 import { ProductController } from './crm/product/product.controller'
 import { ProductService } from './crm/product/product.service'
+import {
+  WarehouseListController,
+  WarehouseListService,
+} from './crm/warehouse/warehouseConfig'
 
 @Module({
   imports: [
@@ -56,6 +60,7 @@ import { ProductService } from './crm/product/product.service'
     ProductController,
     ...SystemControllers,
     ...AdminControllers,
+    ...WarehouseListController,
   ],
   providers: [
     AppService,
@@ -67,6 +72,7 @@ import { ProductService } from './crm/product/product.service'
     CacheService,
     ...SystemServices,
     ...AdminServices,
+    ...WarehouseListService,
   ],
 })
 export class AppModule implements NestModule {

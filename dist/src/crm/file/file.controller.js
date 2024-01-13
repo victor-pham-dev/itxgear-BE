@@ -23,18 +23,21 @@ let FileController = class FileController {
     constructor(fileService) {
         this.fileService = fileService;
     }
-    uploadFile(file) {
+    uploadFile(file, bucket) {
         const params = {
-            Bucket: 'product',
+            Bucket: bucket,
             Key: (0, upload_utils_1.editFileName)(file),
             Body: file.buffer,
         };
         return this.fileService.uploadToS3(params);
     }
+    async deleteImage(bucket, fileName) {
+        return this.fileService.deleteFileFromS3(bucket, fileName);
+    }
 };
 exports.FileController = FileController;
 __decorate([
-    (0, common_1.Post)('/api/v1/product-file'),
+    (0, common_1.Post)('/image'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
         storage: (0, multer_1.memoryStorage)(),
         fileFilter: upload_utils_1.imageFileFilter,
@@ -55,12 +58,22 @@ __decorate([
         },
     }),
     __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Query)('b')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "uploadFile", null);
+__decorate([
+    (0, common_1.Delete)('/image'),
+    (0, swagger_1.ApiOperation)({ summary: 'Upload file' }),
+    __param(0, (0, common_1.Query)('b')),
+    __param(1, (0, common_1.Query)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], FileController.prototype, "deleteImage", null);
 exports.FileController = FileController = __decorate([
-    (0, common_1.Controller)(),
+    (0, common_1.Controller)('/api/v1/file'),
     (0, swagger_1.ApiTags)('files'),
     __metadata("design:paramtypes", [file_service_1.FileService])
 ], FileController);

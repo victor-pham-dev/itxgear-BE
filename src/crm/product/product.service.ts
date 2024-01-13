@@ -8,8 +8,7 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createDto: CreateProductDto) {
-    const { id, images, overView, name, keywords, configInfo, ...data } =
-      createDto
+    const { id, images, overView, name, keywords, ...data } = createDto
 
     try {
       const result = await this.prisma.product.create({
@@ -18,9 +17,6 @@ export class ProductService {
           keywords,
           images: JSON.stringify(images),
           overView: JSON.stringify(overView),
-          configInfo: {
-            create: configInfo.map((item) => item),
-          },
           searchString: `${name} ${keywords} ${JSON.stringify(overView)}`,
           ...data,
         },
@@ -56,7 +52,6 @@ export class ProductService {
       name,
 
       images,
-      configInfo,
       overView,
 
       keywords,
@@ -75,41 +70,6 @@ export class ProductService {
           ...data,
         },
       })
-
-      const currentConfig = await this.prisma.productConfigInfo.findMany({
-        where: { productId: Number(id) },
-      })
-
-      const configIdsToRemove = currentConfig.filter(
-        (item) => !configInfo?.find((current) => current.id === item.id),
-      )
-      await Promise.all(
-        configIdsToRemove.map(
-          async (id) =>
-            await this.prisma.productConfigInfo.delete({
-              where: {
-                id: Number(id),
-              },
-            }),
-        ),
-      )
-      await Promise.all(
-        configInfo.map(async (item) => {
-          const { label, value } = item
-          if (item?.id) {
-            await this.prisma.productConfigInfo.update({
-              where: { id: item.id },
-              data: { label, value },
-            })
-            return
-          } else {
-            await this.prisma.productConfigInfo.create({
-              data: { label, value, productId: Number(id) },
-            })
-            return
-          }
-        }),
-      )
 
       return {
         message: 'Update thành công',

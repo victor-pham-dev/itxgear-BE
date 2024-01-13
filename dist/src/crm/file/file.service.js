@@ -43,6 +43,25 @@ class FileService extends S3Service {
             });
         });
     }
+    deleteFileFromS3(bucket, fileName) {
+        const params = {
+            Bucket: bucket,
+            Key: fileName,
+        };
+        return new Promise((resolve, reject) => {
+            this.s3Uploader.deleteObject(params, (error, data) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve({
+                        message: 'Xoá file thành công',
+                        success: true,
+                    });
+                }
+            });
+        });
+    }
 }
 exports.FileService = FileService;
 //# sourceMappingURL=file.service.js.map

@@ -112,11 +112,6 @@ __decorate([
 class CreateProductDto extends ProductDto {
 }
 exports.CreateProductDto = CreateProductDto;
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Array)
-], CreateProductDto.prototype, "configInfo", void 0);
 class UpdateProductDto extends ProductDto {
 }
 exports.UpdateProductDto = UpdateProductDto;
@@ -126,12 +121,6 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateProductDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsArray)(),
-    __metadata("design:type", Array)
-], UpdateProductDto.prototype, "configInfo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),

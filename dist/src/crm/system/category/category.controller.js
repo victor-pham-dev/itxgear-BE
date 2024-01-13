@@ -39,6 +39,9 @@ let CategoryController = class CategoryController {
     async updateFilter(updateFilterDto) {
         return this.service.updateFilters(updateFilterDto);
     }
+    async getAllWithChildren() {
+        return this.service.getAllCategoryWithChildren();
+    }
 };
 exports.CategoryController = CategoryController;
 __decorate([
@@ -111,6 +114,13 @@ __decorate([
     __metadata("design:paramtypes", [category_dto_1.UpdateFilterForCategoryDto]),
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "updateFilter", null);
+__decorate([
+    (0, common_1.Get)('/product/all-with-children'),
+    (0, swagger_1.ApiOperation)({ summary: 'GET ALL CATEGORY WITH CHILDREN' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "getAllWithChildren", null);
 exports.CategoryController = CategoryController = __decorate([
     (0, common_1.Controller)('/api/v1/system/category'),
     (0, swagger_1.ApiTags)('Category'),

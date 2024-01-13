@@ -17,7 +17,7 @@ let ProductService = class ProductService {
         this.prisma = prisma;
     }
     async create(createDto) {
-        const { id, images, overView, name, keywords, configInfo, ...data } = createDto;
+        const { id, images, overView, name, keywords, ...data } = createDto;
         try {
             const result = await this.prisma.product.create({
                 data: {
@@ -25,9 +25,6 @@ let ProductService = class ProductService {
                     keywords,
                     images: JSON.stringify(images),
                     overView: JSON.stringify(overView),
-                    configInfo: {
-                        create: configInfo.map((item) => item),
-                    },
                     searchString: `${name} ${keywords} ${JSON.stringify(overView)}`,
                     ...data,
                 },
@@ -51,7 +48,7 @@ let ProductService = class ProductService {
         }
     }
     async update(updateDto) {
-        const { id, name, images, configInfo, overView, keywords, ...data } = updateDto;
+        const { id, name, images, overView, keywords, ...data } = updateDto;
         try {
             await this.prisma.product.update({
                 where: { id: Number(id) },
@@ -62,31 +59,6 @@ let ProductService = class ProductService {
                     ...data,
                 },
             });
-            const currentConfig = await this.prisma.productConfigInfo.findMany({
-                where: { productId: Number(id) },
-            });
-            const configIdsToRemove = currentConfig.filter((item) => !configInfo?.find((current) => current.id === item.id));
-            await Promise.all(configIdsToRemove.map(async (id) => await this.prisma.productConfigInfo.delete({
-                where: {
-                    id: Number(id),
-                },
-            })));
-            await Promise.all(configInfo.map(async (item) => {
-                const { label, value } = item;
-                if (item?.id) {
-                    await this.prisma.productConfigInfo.update({
-                        where: { id: item.id },
-                        data: { label, value },
-                    });
-                    return;
-                }
-                else {
-                    await this.prisma.productConfigInfo.create({
-                        data: { label, value, productId: Number(id) },
-                    });
-                    return;
-                }
-            }));
             return {
                 message: 'Update thành công',
                 success: true,

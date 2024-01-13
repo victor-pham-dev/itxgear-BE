@@ -70,4 +70,10 @@ export class CategoryController {
   async updateFilter(@Body() updateFilterDto: UpdateFilterForCategoryDto) {
     return this.service.updateFilters(updateFilterDto)
   }
+
+  @Get('/product/all-with-children')
+  @ApiOperation({ summary: 'GET ALL CATEGORY WITH CHILDREN' })
+  async getAllWithChildren() {
+    return this.service.getAllCategoryWithChildren()
+  }
 }

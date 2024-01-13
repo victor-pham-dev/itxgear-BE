@@ -91,10 +91,6 @@ export class ProductDto {
 
 export class CreateProductDto extends ProductDto {
   readonly id?: number
-
-  @ApiProperty()
-  @IsNotEmpty()
-  readonly configInfo: CreateProductConfigDto[]
 }
 
 export class UpdateProductDto extends ProductDto {
@@ -102,11 +98,6 @@ export class UpdateProductDto extends ProductDto {
   @IsNotEmpty()
   @IsNumber()
   readonly id: number
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsArray()
-  readonly configInfo: UpdateProductConfigDto[]
 
   @ApiProperty()
   @IsNotEmpty()

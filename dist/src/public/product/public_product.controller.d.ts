@@ -55,8 +55,8 @@ export declare class PublicProductController {
                     categoryFiltersId: number;
                 };
                 name: string;
-                code: string;
                 categoryId: number;
+                code: string;
                 images: string;
                 price: number;
                 salePrice: number;
@@ -91,8 +91,8 @@ export declare class PublicProductController {
                 categoryFiltersId: number;
             };
             name: string;
-            code: string;
             categoryId: number;
+            code: string;
             status: import(".prisma/client").$Enums.ProductStatus;
             images: string;
             price: number;

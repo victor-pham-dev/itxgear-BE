@@ -28,7 +28,7 @@ export class UserService {
         take: Number(pageSize),
       })
 
-      const totalCount = await this.prisma.userRole.count()
+      const totalCount = await this.prisma.user.count()
 
       return {
         message: 'Thành công',

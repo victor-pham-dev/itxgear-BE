@@ -41,4 +41,24 @@ export class FileService extends S3Service {
       })
     })
   }
+
+  deleteFileFromS3(bucket: string, fileName: string): Promise<any> {
+    const params: S3.DeleteObjectRequest = {
+      Bucket: bucket,
+      Key: fileName,
+    }
+
+    return new Promise((resolve, reject) => {
+      this.s3Uploader.deleteObject(params, (error: any, data: any) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve({
+            message: 'Xoá file thành công',
+            success: true,
+          })
+        }
+      })
+    })
+  }
 }
