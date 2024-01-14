@@ -3,7 +3,7 @@ import { AppModule } from './app.module'
 import { createSwaggerDocument } from 'swagger'
 import { ValidationPipe } from '@nestjs/common'
 import corsOptions from 'configs/cors'
-// import { validationOptions } from 'validation'
+import * as bodyParser from 'body-parser'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,6 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   createSwaggerDocument(app)
 
+  app.use(bodyParser.json({ limit: '50mb' }))
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
   await app.listen(8888)
 }
 bootstrap()
