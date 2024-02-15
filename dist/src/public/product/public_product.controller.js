@@ -32,7 +32,7 @@ let PublicProductController = class PublicProductController {
 };
 exports.PublicProductController = PublicProductController;
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)(':alias'),
     (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL BY ID' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),

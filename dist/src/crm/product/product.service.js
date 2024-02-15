@@ -12,17 +12,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../../services/prisma.service");
+const string_1 = require("../../../helper/string");
 let ProductService = class ProductService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async findAllCategoryIds(id) {
+        let result = [];
+        const category = await this.prisma.category.findUnique({ where: { id } });
+        if (category) {
+            result.push(category.id);
+            if (category.parentId !== null && category.parentId !== 0) {
+                const parentCategoryIds = await this.findAllCategoryIds(category.parentId);
+                result = result.concat(parentCategoryIds);
+            }
+        }
+        return result;
+    }
     async create(createDto) {
         const { id, images, overView, name, keywords, ...data } = createDto;
         try {
+            const categoryIds = await this.findAllCategoryIds(createDto.categoryId);
             const result = await this.prisma.product.create({
                 data: {
                     name,
                     keywords,
+                    categoryIds,
+                    alias: (0, string_1.removeMarkUrl)(name),
                     images: JSON.stringify(images),
                     overView: JSON.stringify(overView),
                     searchString: `${name} ${keywords} ${JSON.stringify(overView)}`,
@@ -43,16 +59,18 @@ let ProductService = class ProductService {
             };
         }
         catch (error) {
-            console.log('🚀 ~ file: product.service.ts:59 ~ ProductService ~ create ~ error:', error);
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async update(updateDto) {
         const { id, name, images, overView, keywords, ...data } = updateDto;
         try {
+            const categoryIds = await this.findAllCategoryIds(updateDto.categoryId);
             await this.prisma.product.update({
                 where: { id: Number(id) },
                 data: {
+                    categoryIds,
+                    alias: (0, string_1.removeMarkUrl)(name),
                     images: JSON.stringify(images),
                     overView: JSON.stringify(overView),
                     searchString: `${name.toLowerCase()} ${keywords.toLowerCase()} ${JSON.stringify(overView).toLowerCase()}`,

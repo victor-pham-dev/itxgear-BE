@@ -2,19 +2,42 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { CreateProductDto, UpdateProductDto } from './product.dto'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
+import { removeMarkUrl } from 'helper/string'
 
 @Injectable()
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findAllCategoryIds(id: number): Promise<number[]> {
+    let result: number[] = []
+
+    const category = await this.prisma.category.findUnique({ where: { id } })
+
+    if (category) {
+      result.push(category.id)
+
+      if (category.parentId !== null && category.parentId !== 0) {
+        const parentCategoryIds = await this.findAllCategoryIds(
+          category.parentId,
+        )
+        result = result.concat(parentCategoryIds)
+      }
+    }
+
+    return result
+  }
+
   async create(createDto: CreateProductDto) {
     const { id, images, overView, name, keywords, ...data } = createDto
 
     try {
+      const categoryIds = await this.findAllCategoryIds(createDto.categoryId)
       const result = await this.prisma.product.create({
         data: {
           name,
           keywords,
+          categoryIds,
+          alias: removeMarkUrl(name),
           images: JSON.stringify(images),
           overView: JSON.stringify(overView),
           searchString: `${name} ${keywords} ${JSON.stringify(overView)}`,
@@ -35,10 +58,6 @@ export class ProductService {
         data: result,
       }
     } catch (error: any) {
-      console.log(
-        '🚀 ~ file: product.service.ts:59 ~ ProductService ~ create ~ error:',
-        error,
-      )
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
@@ -59,9 +78,13 @@ export class ProductService {
     } = updateDto
 
     try {
+      const categoryIds = await this.findAllCategoryIds(updateDto.categoryId)
+
       await this.prisma.product.update({
         where: { id: Number(id) },
         data: {
+          categoryIds,
+          alias: removeMarkUrl(name),
           images: JSON.stringify(images),
           overView: JSON.stringify(overView),
           searchString: `${name.toLowerCase()} ${keywords.toLowerCase()} ${JSON.stringify(

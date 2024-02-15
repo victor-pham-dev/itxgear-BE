@@ -29,6 +29,7 @@ import {
   WarehouseListController,
   WarehouseListService,
 } from './crm/warehouse/warehouseConfig'
+import { PublicControllers, PublicServices } from './public/publicConfig'
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import {
     ...SystemControllers,
     ...AdminControllers,
     ...WarehouseListController,
+    ...PublicControllers,
   ],
   providers: [
     AppService,
@@ -73,6 +75,7 @@ import {
     ...SystemServices,
     ...AdminServices,
     ...WarehouseListService,
+    ...PublicServices,
   ],
 })
 export class AppModule implements NestModule {
@@ -98,6 +101,10 @@ export class AppModule implements NestModule {
         },
         {
           path: '/api/v1/wish',
+          method: RequestMethod.ALL,
+        },
+        {
+          path: '/api/v1/public/(.*)',
           method: RequestMethod.ALL,
         },
       )

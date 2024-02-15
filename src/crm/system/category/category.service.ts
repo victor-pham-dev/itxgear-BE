@@ -12,11 +12,11 @@ import { removeMarkUrl } from 'helper/string'
 export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getSubcategories(parentId: number) {
+  async getSubcategories(parentId: number, getFilter: boolean) {
     const subcategories = await this.prisma.category.findMany({
       where: { parentId: parentId, deleted: false },
       include: {
-        CategoryFilters: true,
+        CategoryFilters: getFilter,
       },
     })
 
@@ -26,7 +26,10 @@ export class CategoryService {
 
     const organizedSubcategories = await Promise.all(
       subcategories.map(async (subcategory) => {
-        const nestedSubcategories = await this.getSubcategories(subcategory.id)
+        const nestedSubcategories = await this.getSubcategories(
+          subcategory.id,
+          getFilter,
+        )
         return {
           ...subcategory,
           children: nestedSubcategories,
@@ -171,7 +174,7 @@ export class CategoryService {
         )
       }
 
-      const children = await this.getSubcategories(root.id)
+      const children = await this.getSubcategories(root.id, true)
 
       return {
         message: 'Thành công',
@@ -269,7 +272,6 @@ export class CategoryService {
   }
 
   async getAllCategoryWithChildren() {
-    console.log('troi oi cuu toi')
     try {
       const rootList = await this.prisma.category.findMany({
         where: {
@@ -280,7 +282,10 @@ export class CategoryService {
 
       const organizedSubcategories = await Promise.all(
         rootList.map(async (category) => {
-          const nestedSubcategories = await this.getSubcategories(category.id)
+          const nestedSubcategories = await this.getSubcategories(
+            category.id,
+            false,
+          )
           return {
             ...category,
             children: nestedSubcategories,

@@ -17,18 +17,18 @@ let CategoryService = class CategoryService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getSubcategories(parentId) {
+    async getSubcategories(parentId, getFilter) {
         const subcategories = await this.prisma.category.findMany({
             where: { parentId: parentId, deleted: false },
             include: {
-                CategoryFilters: true,
+                CategoryFilters: getFilter,
             },
         });
         if (subcategories.length === 0) {
             return [];
         }
         const organizedSubcategories = await Promise.all(subcategories.map(async (subcategory) => {
-            const nestedSubcategories = await this.getSubcategories(subcategory.id);
+            const nestedSubcategories = await this.getSubcategories(subcategory.id, getFilter);
             return {
                 ...subcategory,
                 children: nestedSubcategories,
@@ -145,7 +145,7 @@ let CategoryService = class CategoryService {
             if (!root) {
                 throw new common_1.HttpException('Không tìm thấy danh mục này', common_1.HttpStatus.NOT_FOUND);
             }
-            const children = await this.getSubcategories(root.id);
+            const children = await this.getSubcategories(root.id, true);
             return {
                 message: 'Thành công',
                 success: true,
@@ -222,7 +222,6 @@ let CategoryService = class CategoryService {
         }
     }
     async getAllCategoryWithChildren() {
-        console.log('troi oi cuu toi');
         try {
             const rootList = await this.prisma.category.findMany({
                 where: {
@@ -231,7 +230,7 @@ let CategoryService = class CategoryService {
                 },
             });
             const organizedSubcategories = await Promise.all(rootList.map(async (category) => {
-                const nestedSubcategories = await this.getSubcategories(category.id);
+                const nestedSubcategories = await this.getSubcategories(category.id, false);
                 return {
                     ...category,
                     children: nestedSubcategories,

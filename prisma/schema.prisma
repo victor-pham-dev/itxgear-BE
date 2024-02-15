@@ -47,6 +47,7 @@ model UserRole {
 
 model Product {
   id           Int                 @id @unique @default(autoincrement())
+  alias        String              @unique
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @default(now())
   searchString String

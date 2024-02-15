@@ -7,13 +7,14 @@ export class PublicProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async get(req: Request) {
-    const { id } = req.query
+    const { alias } = req.params
 
     try {
       const result = await this.prisma.product.findUnique({
-        where: { id: Number(id) },
+        where: { alias: String(alias) },
         include: {
           configInfo: true,
+          category: true,
         },
       })
       return {
@@ -96,6 +97,7 @@ export class PublicProductService {
               gt: 0,
             },
           },
+          status: 'STOCKING',
         },
         orderBy: {
           view: 'desc',

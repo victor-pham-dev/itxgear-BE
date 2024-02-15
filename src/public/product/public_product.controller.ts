@@ -8,7 +8,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger'
 export class PublicProductController {
   constructor(private readonly service: PublicProductService) {}
 
-  @Get(':id')
+  @Get(':alias')
   @ApiOperation({ summary: 'GET DETAIL BY ID' })
   async get(@Req() req: Request) {
     return this.service.get(req)

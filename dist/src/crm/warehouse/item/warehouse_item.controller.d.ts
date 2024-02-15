@@ -9,6 +9,7 @@ export declare class WarehouseItemController {
         data: {
             Product: {
                 id: number;
+                alias: string;
                 createdAt: Date;
                 updatedAt: Date;
                 searchString: string;
@@ -45,6 +46,7 @@ export declare class WarehouseItemController {
             dataTable: ({
                 Product: {
                     id: number;
+                    alias: string;
                     createdAt: Date;
                     updatedAt: Date;
                     searchString: string;

@@ -30,6 +30,7 @@ const adminConfig_1 = require("./crm/admin/adminConfig");
 const product_controller_1 = require("./crm/product/product.controller");
 const product_service_1 = require("./crm/product/product.service");
 const warehouseConfig_1 = require("./crm/warehouse/warehouseConfig");
+const publicConfig_1 = require("./public/publicConfig");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -48,6 +49,9 @@ let AppModule = class AppModule {
             method: common_1.RequestMethod.POST,
         }, {
             path: '/api/v1/wish',
+            method: common_1.RequestMethod.ALL,
+        }, {
+            path: '/api/v1/public/(.*)',
             method: common_1.RequestMethod.ALL,
         })
             .forRoutes('*');
@@ -86,6 +90,7 @@ exports.AppModule = AppModule = __decorate([
             ...systemConfig_1.SystemControllers,
             ...adminConfig_1.AdminControllers,
             ...warehouseConfig_1.WarehouseListController,
+            ...publicConfig_1.PublicControllers,
         ],
         providers: [
             app_service_1.AppService,
@@ -98,6 +103,7 @@ exports.AppModule = AppModule = __decorate([
             ...systemConfig_1.SystemServices,
             ...adminConfig_1.AdminServices,
             ...warehouseConfig_1.WarehouseListService,
+            ...publicConfig_1.PublicServices,
         ],
     })
 ], AppModule);

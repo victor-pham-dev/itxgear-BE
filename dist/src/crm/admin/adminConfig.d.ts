@@ -6,5 +6,5 @@ import { UserRoleController } from './user_role/user_role.controller';
 import { UserRoleService } from './user_role/user_role.service';
 import { WhiteListController } from './whitelist/whitelist.controller';
 import { WhiteListService } from './whitelist/whitelist.service';
-export declare const AdminControllers: (typeof RoleController | typeof UserController | typeof UserRoleController | typeof WhiteListController)[];
-export declare const AdminServices: (typeof RoleService | typeof UserService | typeof UserRoleService | typeof WhiteListService)[];
+export declare const AdminControllers: (typeof WhiteListController | typeof RoleController | typeof UserController | typeof UserRoleController)[];
+export declare const AdminServices: (typeof WhiteListService | typeof RoleService | typeof UserService | typeof UserRoleService)[];

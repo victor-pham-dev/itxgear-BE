@@ -9,6 +9,7 @@ export declare class WarehouseItemService {
         data: {
             Product: {
                 id: number;
+                alias: string;
                 createdAt: Date;
                 updatedAt: Date;
                 searchString: string;
@@ -45,6 +46,7 @@ export declare class WarehouseItemService {
             dataTable: ({
                 Product: {
                     id: number;
+                    alias: string;
                     createdAt: Date;
                     updatedAt: Date;
                     searchString: string;

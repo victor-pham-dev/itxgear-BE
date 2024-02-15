@@ -7,4 +7,4 @@ import { CategoryFilterService } from './categoryFilter/categoryFilter.service';
 import { VoucherController } from './voucher/voucher.controller';
 import { VoucherService } from './voucher/voucher.service';
 export declare const SystemControllers: (typeof BannerController | typeof CategoryController | typeof CategoryFilterController | typeof VoucherController)[];
-export declare const SystemServices: (typeof CategoryService | typeof BannerSerivce | typeof CategoryFilterService | typeof VoucherService)[];
+export declare const SystemServices: (typeof BannerSerivce | typeof CategoryService | typeof CategoryFilterService | typeof VoucherService)[];

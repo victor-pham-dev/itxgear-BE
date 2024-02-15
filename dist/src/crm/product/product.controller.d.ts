@@ -9,6 +9,7 @@ export declare class ProductController {
         success: boolean;
         data: {
             id: number;
+            alias: string;
             createdAt: Date;
             updatedAt: Date;
             searchString: string;
@@ -48,6 +49,7 @@ export declare class ProductController {
             }[];
         } & {
             id: number;
+            alias: string;
             createdAt: Date;
             updatedAt: Date;
             searchString: string;
@@ -84,6 +86,7 @@ export declare class ProductController {
                 };
             } & {
                 id: number;
+                alias: string;
                 createdAt: Date;
                 updatedAt: Date;
                 searchString: string;

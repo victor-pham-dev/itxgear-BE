@@ -45,13 +45,6 @@ export declare class UserRoleService {
         success: boolean;
         data: {
             dataTable: ({
-                role: {
-                    id: number;
-                    label: string;
-                    alias: string;
-                    isActive: boolean;
-                    deleted: boolean;
-                };
                 user: {
                     id: number;
                     createdAt: Date;
@@ -60,6 +53,13 @@ export declare class UserRoleService {
                     active: boolean;
                     avatar: string;
                     password: string;
+                };
+                role: {
+                    id: number;
+                    label: string;
+                    alias: string;
+                    isActive: boolean;
+                    deleted: boolean;
                 };
             } & {
                 id: number;

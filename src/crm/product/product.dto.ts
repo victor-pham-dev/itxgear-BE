@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { ProductStatus } from '@prisma/client'
+import { Prisma, ProductStatus } from '@prisma/client'
 import {
   IsArray,
   IsBoolean,

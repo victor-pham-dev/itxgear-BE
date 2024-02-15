@@ -4,11 +4,13 @@ import { PrismaService } from 'services/prisma.service';
 export declare class ProductService {
     private readonly prisma;
     constructor(prisma: PrismaService);
+    findAllCategoryIds(id: number): Promise<number[]>;
     create(createDto: CreateProductDto): Promise<{
         message: string;
         success: boolean;
         data: {
             id: number;
+            alias: string;
             createdAt: Date;
             updatedAt: Date;
             searchString: string;
@@ -48,6 +50,7 @@ export declare class ProductService {
             }[];
         } & {
             id: number;
+            alias: string;
             createdAt: Date;
             updatedAt: Date;
             searchString: string;
@@ -84,6 +87,7 @@ export declare class ProductService {
                 };
             } & {
                 id: number;
+                alias: string;
                 createdAt: Date;
                 updatedAt: Date;
                 searchString: string;

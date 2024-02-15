@@ -7,6 +7,18 @@ export declare class PublicProductService {
         message: string;
         success: boolean;
         data: {
+            category: {
+                id: number;
+                description: string;
+                alias: string;
+                label: string;
+                active: boolean;
+                icon: string;
+                parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
+                categoryFiltersId: number;
+            };
             configInfo: {
                 id: number;
                 label: string;
@@ -15,6 +27,7 @@ export declare class PublicProductService {
             }[];
         } & {
             id: number;
+            alias: string;
             createdAt: Date;
             updatedAt: Date;
             searchString: string;
@@ -42,6 +55,12 @@ export declare class PublicProductService {
         success: boolean;
         data: {
             dataTable: {
+                categoryId: number;
+                name: string;
+                images: string;
+                code: string;
+                price: number;
+                salePrice: number;
                 category: {
                     id: number;
                     description: string;
@@ -54,12 +73,6 @@ export declare class PublicProductService {
                     deleted: boolean;
                     categoryFiltersId: number;
                 };
-                name: string;
-                categoryId: number;
-                code: string;
-                images: string;
-                price: number;
-                salePrice: number;
                 WareHouse: {
                     id: number;
                     productId: number;
@@ -78,6 +91,14 @@ export declare class PublicProductService {
     getOutStandingExams(): Promise<{
         success: boolean;
         data: {
+            status: import(".prisma/client").$Enums.ProductStatus;
+            categoryId: number;
+            name: string;
+            images: string;
+            view: number;
+            code: string;
+            price: number;
+            salePrice: number;
             category: {
                 id: number;
                 description: string;
@@ -90,14 +111,6 @@ export declare class PublicProductService {
                 deleted: boolean;
                 categoryFiltersId: number;
             };
-            name: string;
-            categoryId: number;
-            code: string;
-            status: import(".prisma/client").$Enums.ProductStatus;
-            images: string;
-            price: number;
-            salePrice: number;
-            view: number;
         }[];
     }>;
 }

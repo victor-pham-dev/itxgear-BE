@@ -4,7 +4,7 @@ import { PrismaService } from 'services/prisma.service';
 export declare class CategoryService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    getSubcategories(parentId: number): any;
+    getSubcategories(parentId: number, getFilter: boolean): any;
     create(createDto: CreateCategoryDto): Promise<{
         message: string;
         success: boolean;
