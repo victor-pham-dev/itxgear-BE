@@ -185,6 +185,7 @@ export class CategoryService {
         },
       }
     } catch (error) {
+      console.log('🚀 ~ CategoryService ~ getCategoryDetail ~ error:', error)
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,

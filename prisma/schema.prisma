@@ -46,30 +46,31 @@ model UserRole {
 }
 
 model Product {
-  id           Int                 @id @unique @default(autoincrement())
-  alias        String              @unique
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @default(now())
-  searchString String
-  status       ProductStatus
-  categoryId   Int
-  categoryIds  Int[]               @default([])
-  category     Category?           @relation(fields: [categoryId], references: [id])
-  name         String
-  images       String
-  description  String
-  view         Int                 @default(0)
-  rate         Float               @default(0)
-  code         String              @default("")
-  overView     String
-  seo          String
-  keywords     String
-  configInfo   ProductConfigInfo[]
+  id             Int                 @id @unique @default(autoincrement())
+  alias          String              @unique
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @default(now())
+  searchString   String
+  status         ProductStatus
+  rootCategoryId Int
+  categoryId     Int
+  categoryIds    Int[]               @default([])
+  category       Category?           @relation(fields: [categoryId], references: [id])
+  name           String
+  images         String
+  description    String
+  view           Int                 @default(0)
+  rate           Float               @default(0)
+  code           String              @default("")
+  overView       String
+  seo            String
+  keywords       String
+  configInfo     ProductConfigInfo[]
   // classifications Classification[]
-  price        Int
-  salePrice    Int
-  active       Boolean             @default(true)
-  wareHouseId  Int?                @unique
+  price          Int
+  salePrice      Int
+  active         Boolean             @default(true)
+  wareHouseId    Int?                @unique
 
   properties Json
 

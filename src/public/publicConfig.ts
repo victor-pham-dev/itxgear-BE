@@ -4,15 +4,19 @@ import { PublicOrderController } from './order/public_order.controller'
 import { PublicOrderService } from './order/public_order.service'
 import { PublicProductController } from './product/public_product.controller'
 import { PublicProductService } from './product/public_product.service'
+import { PublicSystemController } from './system/public_system.controller'
+import { PublicSystemService } from './system/public_system.service'
 
 export const PublicControllers = [
   PublicProductController,
   PublicOrderController,
   PublicCategoryController,
+  PublicSystemController,
 ]
 
 export const PublicServices = [
   PublicCategoryService,
   PublicOrderService,
   PublicProductService,
+  PublicSystemService,
 ]

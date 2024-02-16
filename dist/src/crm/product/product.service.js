@@ -38,6 +38,7 @@ let ProductService = class ProductService {
                     name,
                     keywords,
                     categoryIds,
+                    rootCategoryId: categoryIds[categoryIds.length - 1],
                     alias: (0, string_1.removeMarkUrl)(name),
                     images: JSON.stringify(images),
                     overView: JSON.stringify(overView),
@@ -70,6 +71,7 @@ let ProductService = class ProductService {
                 where: { id: Number(id) },
                 data: {
                     categoryIds,
+                    rootCategoryId: categoryIds[categoryIds.length - 1],
                     alias: (0, string_1.removeMarkUrl)(name),
                     images: JSON.stringify(images),
                     overView: JSON.stringify(overView),

@@ -156,6 +156,7 @@ let CategoryService = class CategoryService {
             };
         }
         catch (error) {
+            console.log('🚀 ~ CategoryService ~ getCategoryDetail ~ error:', error);
             throw new common_1.HttpException(error?.message ?? 'Internal Server', error.status ?? common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

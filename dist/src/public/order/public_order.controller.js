@@ -21,17 +21,17 @@ let PublicOrderController = class PublicOrderController {
     constructor(service) {
         this.service = service;
     }
-    async create(createDto) {
-        return this.service.create(createDto);
+    async create(createOrderDto) {
+        return this.service.create(createOrderDto);
     }
 };
 exports.PublicOrderController = PublicOrderController;
 __decorate([
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Create ' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Tạo đơn hàng ' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [public_order_dto_1.CreateDto]),
+    __metadata("design:paramtypes", [public_order_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], PublicOrderController.prototype, "create", null);
 exports.PublicOrderController = PublicOrderController = __decorate([

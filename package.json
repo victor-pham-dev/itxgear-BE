@@ -38,7 +38,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "jose": "^5.1.0",
-    "moment": "^2.29.4",
+    "moment": "^2.30.1",
     "openai": "^4.17.3",
     "prisma": "^5.5.2",
     "reflect-metadata": "^0.1.13",

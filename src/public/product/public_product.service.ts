@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { Request } from 'express'
 import { PrismaService } from 'services/prisma.service'
+import { GetDetailForCartDto, IncrementViewDto } from './public_product.dto'
 
 @Injectable()
 export class PublicProductService {
@@ -15,6 +16,7 @@ export class PublicProductService {
         include: {
           configInfo: true,
           category: true,
+          WareHouse: true,
         },
       })
       return {
@@ -41,6 +43,9 @@ export class PublicProductService {
             contains: lowercaseSearch,
             mode: 'insensitive',
           },
+          status: {
+            not: 'STOP_BUSSINESS',
+          },
           active: true,
         },
 
@@ -53,6 +58,7 @@ export class PublicProductService {
           salePrice: true,
           code: true,
           WareHouse: true,
+          alias: true,
         },
         skip: (Number(page) - 1) * Number(pageSize),
         take: Number(pageSize),
@@ -63,6 +69,9 @@ export class PublicProductService {
           searchString: {
             contains: lowercaseSearch,
             mode: 'insensitive',
+          },
+          status: {
+            not: 'STOP_BUSSINESS',
           },
         },
       })
@@ -113,12 +122,117 @@ export class PublicProductService {
           code: true,
           view: true,
           status: true,
+          alias: true,
         },
         take: 5,
       })
 
       return {
         success: true,
+        data: result,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async incrementView(data: IncrementViewDto) {
+    const { alias } = data
+    try {
+      const result = await this.prisma.product.update({
+        where: { alias },
+        data: {
+          view: {
+            increment: 1,
+          },
+        },
+      })
+
+      return {
+        message: 'Thành công',
+        success: true,
+        data: result.view,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async getRelatedProducts(req: Request) {
+    try {
+      const { rootCategoryId, currentProductId } = req.query
+      const result = await this.prisma.product.findMany({
+        where: {
+          status: {
+            not: 'STOP_BUSSINESS',
+          },
+          categoryIds: {
+            has: Number(rootCategoryId),
+          },
+          NOT: {
+            id: Number(currentProductId),
+          },
+        },
+        orderBy: {
+          view: 'desc',
+        },
+        take: 5,
+        select: {
+          name: true,
+          images: true,
+          categoryId: true,
+          category: true,
+          price: true,
+          salePrice: true,
+          code: true,
+          WareHouse: true,
+          alias: true,
+        },
+      })
+      return {
+        success: true,
+        message: 'Thành công',
+        data: result,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async getDetailForCart(getDetailForCartDto: GetDetailForCartDto) {
+    try {
+      const result = await Promise.all(
+        getDetailForCartDto.ids.map((id) =>
+          this.prisma.product.findUnique({
+            where: { id },
+            select: {
+              id: true,
+              alias: true,
+              images: true,
+              name: true,
+              WareHouse: {
+                select: {
+                  quantity: true,
+                },
+              },
+              salePrice: true,
+              status: true,
+            },
+          }),
+        ),
+      )
+      return {
+        success: true,
+        message: 'Thành công',
         data: result,
       }
     } catch (error) {

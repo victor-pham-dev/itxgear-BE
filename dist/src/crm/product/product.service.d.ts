@@ -15,6 +15,7 @@ export declare class ProductService {
             updatedAt: Date;
             searchString: string;
             status: import(".prisma/client").$Enums.ProductStatus;
+            rootCategoryId: number;
             categoryId: number;
             categoryIds: number[];
             name: string;
@@ -55,6 +56,7 @@ export declare class ProductService {
             updatedAt: Date;
             searchString: string;
             status: import(".prisma/client").$Enums.ProductStatus;
+            rootCategoryId: number;
             categoryId: number;
             categoryIds: number[];
             name: string;
@@ -92,6 +94,7 @@ export declare class ProductService {
                 updatedAt: Date;
                 searchString: string;
                 status: import(".prisma/client").$Enums.ProductStatus;
+                rootCategoryId: number;
                 categoryId: number;
                 categoryIds: number[];
                 name: string;

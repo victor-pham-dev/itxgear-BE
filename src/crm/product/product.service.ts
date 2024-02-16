@@ -37,6 +37,7 @@ export class ProductService {
           name,
           keywords,
           categoryIds,
+          rootCategoryId: categoryIds[categoryIds.length - 1],
           alias: removeMarkUrl(name),
           images: JSON.stringify(images),
           overView: JSON.stringify(overView),
@@ -84,6 +85,7 @@ export class ProductService {
         where: { id: Number(id) },
         data: {
           categoryIds,
+          rootCategoryId: categoryIds[categoryIds.length - 1],
           alias: removeMarkUrl(name),
           images: JSON.stringify(images),
           overView: JSON.stringify(overView),

@@ -16,6 +16,7 @@ exports.PublicProductController = void 0;
 const common_1 = require("@nestjs/common");
 const public_product_service_1 = require("./public_product.service");
 const swagger_1 = require("@nestjs/swagger");
+const public_product_dto_1 = require("./public_product.dto");
 let PublicProductController = class PublicProductController {
     constructor(service) {
         this.service = service;
@@ -29,11 +30,20 @@ let PublicProductController = class PublicProductController {
     async getOutStandingExams() {
         return this.service.getOutStandingExams();
     }
+    async incrementView(data) {
+        return this.service.incrementView(data);
+    }
+    async getRelated(req) {
+        return this.service.getRelatedProducts(req);
+    }
+    async getDetailForCart(getDetailDto) {
+        return this.service.getDetailForCart(getDetailDto);
+    }
 };
 exports.PublicProductController = PublicProductController;
 __decorate([
     (0, common_1.Get)(':alias'),
-    (0, swagger_1.ApiOperation)({ summary: 'GET DETAIL BY ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Tìm kiếm sản phẩm theo alias' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -54,6 +64,42 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PublicProductController.prototype, "getOutStandingExams", null);
+__decorate([
+    (0, common_1.Put)('/increment-view'),
+    (0, swagger_1.ApiOperation)({ summary: 'Tăng lượt view cho sản phẩm' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [public_product_dto_1.IncrementViewDto]),
+    __metadata("design:returntype", Promise)
+], PublicProductController.prototype, "incrementView", null);
+__decorate([
+    (0, common_1.Get)('/detail/related'),
+    (0, swagger_1.ApiOperation)({ summary: 'Lấy danh sách sản phẩm liên quan' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'rootCategoryId',
+        description: 'id danh mục gốc',
+        required: true,
+        type: Number,
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'currentProductId',
+        description: 'id sản phẩm hiện tại cần tìm danh sách liên quan',
+        required: true,
+        type: Number,
+    }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PublicProductController.prototype, "getRelated", null);
+__decorate([
+    (0, common_1.Post)('/detail/cart-items'),
+    (0, swagger_1.ApiOperation)({ summary: 'Lấy thông tin sản phẩm theo ids' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [public_product_dto_1.GetDetailForCartDto]),
+    __metadata("design:returntype", Promise)
+], PublicProductController.prototype, "getDetailForCart", null);
 exports.PublicProductController = PublicProductController = __decorate([
     (0, common_1.Controller)('/api/v1/public/product'),
     (0, swagger_1.ApiTags)('Public / Product'),

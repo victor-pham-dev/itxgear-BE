@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { PrismaService } from 'services/prisma.service';
+import { GetDetailForCartDto, IncrementViewDto } from './public_product.dto';
 export declare class PublicProductService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -25,6 +26,13 @@ export declare class PublicProductService {
                 value: string;
                 productId: number;
             }[];
+            WareHouse: {
+                id: number;
+                productId: number;
+                quantity: number;
+                createdAt: Date;
+                updatedAt: Date;
+            };
         } & {
             id: number;
             alias: string;
@@ -32,6 +40,7 @@ export declare class PublicProductService {
             updatedAt: Date;
             searchString: string;
             status: import(".prisma/client").$Enums.ProductStatus;
+            rootCategoryId: number;
             categoryId: number;
             categoryIds: number[];
             name: string;
@@ -55,6 +64,7 @@ export declare class PublicProductService {
         success: boolean;
         data: {
             dataTable: {
+                alias: string;
                 categoryId: number;
                 name: string;
                 images: string;
@@ -91,6 +101,7 @@ export declare class PublicProductService {
     getOutStandingExams(): Promise<{
         success: boolean;
         data: {
+            alias: string;
             status: import(".prisma/client").$Enums.ProductStatus;
             categoryId: number;
             name: string;
@@ -110,6 +121,58 @@ export declare class PublicProductService {
                 childrenIds: number[];
                 deleted: boolean;
                 categoryFiltersId: number;
+            };
+        }[];
+    }>;
+    incrementView(data: IncrementViewDto): Promise<{
+        message: string;
+        success: boolean;
+        data: number;
+    }>;
+    getRelatedProducts(req: Request): Promise<{
+        success: boolean;
+        message: string;
+        data: {
+            alias: string;
+            categoryId: number;
+            name: string;
+            images: string;
+            code: string;
+            price: number;
+            salePrice: number;
+            category: {
+                id: number;
+                description: string;
+                alias: string;
+                label: string;
+                active: boolean;
+                icon: string;
+                parentId: number;
+                childrenIds: number[];
+                deleted: boolean;
+                categoryFiltersId: number;
+            };
+            WareHouse: {
+                id: number;
+                productId: number;
+                quantity: number;
+                createdAt: Date;
+                updatedAt: Date;
+            };
+        }[];
+    }>;
+    getDetailForCart(getDetailForCartDto: GetDetailForCartDto): Promise<{
+        success: boolean;
+        message: string;
+        data: {
+            alias: string;
+            id: number;
+            status: import(".prisma/client").$Enums.ProductStatus;
+            name: string;
+            images: string;
+            salePrice: number;
+            WareHouse: {
+                quantity: number;
             };
         }[];
     }>;

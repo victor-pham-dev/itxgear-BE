@@ -1,17 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { CreateDto } from './public_order.dto'
-import moment from 'moment'
+import { CreateOrderDto } from './public_order.dto'
+import * as moment from 'moment'
 import { PrismaService } from 'services/prisma.service'
 
 @Injectable()
 export class PublicOrderService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createDto: CreateDto) {
-    const { receiver, payment, items, note } = createDto
+  async create(createOrderDto: CreateOrderDto) {
+    const { receiver, payment, items, note } = createOrderDto
     try {
       let itemsPrice = 0
       let hasPaid = 0
+      // console.log("🚀 ~ PublicOrderService ~ create ~ hasPaid:", hasPaid)
       // for check quantity in warehouse
       let productNameSoldOut: string[] = []
       const mapCheckQuantity = await Promise.all(
@@ -26,7 +27,7 @@ export class PublicOrderService {
               quantity: true,
             },
           })
-          // itemsPrice += quantity * (warehouseItem?.Product?.salePrice ?? 0)
+          itemsPrice += quantity * (warehouseItem?.Product?.salePrice ?? 0)
           if (warehouseItem?.quantity && warehouseItem?.quantity >= quantity) {
             return true
           } else {
@@ -45,9 +46,9 @@ export class PublicOrderService {
 
       // check quantity DONE
 
-      const customerInfo = await this.prisma.orderCustomerInfo.create({
-        data: receiver,
-      })
+      // const customerInfo = await this.prisma.orderCustomerInfo.create({
+      //   data: receiver,
+      // })
 
       // check voucher
       let discountAmount = 0
@@ -82,16 +83,32 @@ export class PublicOrderService {
               HttpStatus.UNPROCESSABLE_ENTITY,
             )
           }
+          await this.prisma.voucher.update({
+            where: {
+              code: payment.voucher,
+            },
+            data: {
+              usageCount: {
+                decrement: 1,
+              },
+            },
+          })
         }
         voucherId = voucherDetail?.id
         discountAmount = voucherDetail?.discount ?? 0
       }
       // check voucher ok
 
-      const newOrder = await this.prisma.order.create({
+      console.log('🚀 ~ PublicOrderService ~ create ~ itemsPrice:', itemsPrice)
+
+      await this.prisma.order.create({
         data: {
           note,
-          voucherId: voucherId as never,
+          Voucher: {
+            connect: {
+              code: payment.voucher,
+            },
+          },
           customerInfo: {
             create: receiver,
           },
@@ -115,6 +132,7 @@ export class PublicOrderService {
         data: true,
       }
     } catch (error: any) {
+      console.log('🚀 ~ PublicOrderService ~ create ~ error:', error)
       throw new HttpException(
         error?.message ?? 'Internal Server',
         error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
