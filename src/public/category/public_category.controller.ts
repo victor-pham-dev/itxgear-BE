@@ -1,6 +1,6 @@
-import { Controller, Post, Body, Get, Req, Put } from '@nestjs/common'
+import { Controller, Post, Body, Get, Req, Put, Param } from '@nestjs/common'
 import { Request } from 'express'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 import { PublicCategoryService } from './public_category.service'
 
 @Controller('/api/v1/public/category')
@@ -12,5 +12,12 @@ export class PublicCategoryController {
   @ApiOperation({ summary: 'Get All category with childrens' })
   async getOutStandingExams() {
     return this.service.getAllCategoryHomepage()
+  }
+
+  @Get('/category-filter/:id')
+  @ApiOperation({ summary: 'Lấy bộ lọc theo id' })
+  @ApiParam({ name: 'id', description: 'ID của bộ lọc', type: 'string' })
+  async getCategoryFilter(@Req() req: Request) {
+    return this.service.getCategoryFilter(req)
   }
 }

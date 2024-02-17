@@ -16,7 +16,37 @@ export class PublicProductService {
         include: {
           configInfo: true,
           category: true,
-          WareHouse: true,
+          WareHouse: {
+            select: {
+              quantity: true,
+            },
+          },
+        },
+      })
+      return {
+        message: 'Thành công',
+        success: true,
+        data: result,
+      }
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+  async getSeo(req: Request) {
+    const { alias } = req.params
+
+    try {
+      const result = await this.prisma.product.findUnique({
+        where: { alias: String(alias) },
+        select: {
+          name: true,
+          alias: true,
+          images: true,
+          seo: true,
+          keywords: true,
         },
       })
       return {
@@ -33,32 +63,60 @@ export class PublicProductService {
   }
 
   async search(req: Request) {
-    const { search, page = 1, pageSize = 10 } = req.query
+    const {
+      search,
+      page = 1,
+      pageSize = 10,
+      category,
+      ...restParams
+    } = req.query
     const lowercaseSearch = search?.toString()?.toLowerCase() ?? ''
+
+    let where: any = {
+      searchString: {
+        contains: lowercaseSearch,
+        mode: 'insensitive',
+      },
+      status: {
+        not: 'STOP_BUSSINESS',
+      },
+      active: true,
+    }
+
+    if (category) {
+      where.categoryIds = {
+        has: Number(category),
+      }
+    }
+
+    if (Object.keys(restParams).length > 0) {
+      where.AND = Object.keys(restParams).map((key) => ({
+        properties: {
+          path: [key],
+          equals: restParams[key],
+        },
+      }))
+    }
 
     try {
       const dataTable = await this.prisma.product.findMany({
-        where: {
-          searchString: {
-            contains: lowercaseSearch,
-            mode: 'insensitive',
-          },
-          status: {
-            not: 'STOP_BUSSINESS',
-          },
-          active: true,
-        },
-
+        where,
         select: {
           name: true,
           images: true,
           categoryId: true,
-          category: true,
           price: true,
           salePrice: true,
           code: true,
-          WareHouse: true,
+          WareHouse: {
+            select: {
+              quantity: true,
+            },
+          },
           alias: true,
+          view: true,
+          active: true,
+          id: true,
         },
         skip: (Number(page) - 1) * Number(pageSize),
         take: Number(pageSize),
@@ -193,6 +251,7 @@ export class PublicProductService {
           code: true,
           WareHouse: true,
           alias: true,
+          view: true,
         },
       })
       return {
@@ -226,6 +285,7 @@ export class PublicProductService {
               },
               salePrice: true,
               status: true,
+              view: true,
             },
           }),
         ),

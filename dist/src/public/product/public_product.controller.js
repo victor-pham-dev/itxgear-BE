@@ -24,6 +24,9 @@ let PublicProductController = class PublicProductController {
     async get(req) {
         return this.service.get(req);
     }
+    async getSeo(req) {
+        return this.service.getSeo(req);
+    }
     async search(req) {
         return this.service.search(req);
     }
@@ -44,11 +47,21 @@ exports.PublicProductController = PublicProductController;
 __decorate([
     (0, common_1.Get)(':alias'),
     (0, swagger_1.ApiOperation)({ summary: 'Tìm kiếm sản phẩm theo alias' }),
+    (0, swagger_1.ApiParam)({ name: 'alias', description: 'Alias sản phẩm', type: 'string' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PublicProductController.prototype, "get", null);
+__decorate([
+    (0, common_1.Get)('/seo/:alias'),
+    (0, swagger_1.ApiOperation)({ summary: 'Lấy thông tin seo sản phẩm' }),
+    (0, swagger_1.ApiParam)({ name: 'alias', description: 'Alias sản phẩm', type: 'string' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PublicProductController.prototype, "getSeo", null);
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'SEARCH' }),

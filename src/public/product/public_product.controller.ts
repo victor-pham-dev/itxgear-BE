@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Get, Req, Put, Query } from '@nestjs/common'
 import { PublicProductService } from './public_product.service'
 import { Request } from 'express'
-import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
 import { GetDetailForCartDto, IncrementViewDto } from './public_product.dto'
 
 @Controller('/api/v1/public/product')
@@ -11,8 +11,16 @@ export class PublicProductController {
 
   @Get(':alias')
   @ApiOperation({ summary: 'Tìm kiếm sản phẩm theo alias' })
+  @ApiParam({ name: 'alias', description: 'Alias sản phẩm', type: 'string' })
   async get(@Req() req: Request) {
     return this.service.get(req)
+  }
+
+  @Get('/seo/:alias')
+  @ApiOperation({ summary: 'Lấy thông tin seo sản phẩm' })
+  @ApiParam({ name: 'alias', description: 'Alias sản phẩm', type: 'string' })
+  async getSeo(@Req() req: Request) {
+    return this.service.getSeo(req)
   }
 
   @Get()

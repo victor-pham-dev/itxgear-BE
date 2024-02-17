@@ -27,11 +27,7 @@ export declare class PublicProductController {
                 productId: number;
             }[];
             WareHouse: {
-                id: number;
-                productId: number;
                 quantity: number;
-                createdAt: Date;
-                updatedAt: Date;
             };
         } & {
             id: number;
@@ -59,36 +55,34 @@ export declare class PublicProductController {
             properties: import(".prisma/client").Prisma.JsonValue;
         };
     }>;
+    getSeo(req: Request): Promise<{
+        message: string;
+        success: boolean;
+        data: {
+            alias: string;
+            name: string;
+            images: string;
+            seo: string;
+            keywords: string;
+        };
+    }>;
     search(req: Request): Promise<{
         message: string;
         success: boolean;
         data: {
             dataTable: {
                 alias: string;
+                id: number;
                 categoryId: number;
                 name: string;
                 images: string;
+                view: number;
                 code: string;
                 price: number;
                 salePrice: number;
-                category: {
-                    id: number;
-                    description: string;
-                    alias: string;
-                    label: string;
-                    active: boolean;
-                    icon: string;
-                    parentId: number;
-                    childrenIds: number[];
-                    deleted: boolean;
-                    categoryFiltersId: number;
-                };
+                active: boolean;
                 WareHouse: {
-                    id: number;
-                    productId: number;
                     quantity: number;
-                    createdAt: Date;
-                    updatedAt: Date;
                 };
             }[];
             paging: {
@@ -137,6 +131,7 @@ export declare class PublicProductController {
             categoryId: number;
             name: string;
             images: string;
+            view: number;
             code: string;
             price: number;
             salePrice: number;
@@ -170,6 +165,7 @@ export declare class PublicProductController {
             status: import(".prisma/client").$Enums.ProductStatus;
             name: string;
             images: string;
+            view: number;
             salePrice: number;
             WareHouse: {
                 quantity: number;

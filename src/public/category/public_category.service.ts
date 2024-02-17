@@ -11,7 +11,11 @@ export class PublicCategoryService {
     const subcategories = await this.prisma.category.findMany({
       where: { parentId: parentId, deleted: false, active: true },
       include: {
-        CategoryFilters: getFilter,
+        CategoryFilters: {
+          select: {
+            filters: getFilter,
+          },
+        },
       },
     })
 
@@ -43,13 +47,20 @@ export class PublicCategoryService {
           parentId: 0,
           active: true,
         },
+        include: {
+          CategoryFilters: {
+            select: {
+              filters: true,
+            },
+          },
+        },
       })
 
       const organizedSubcategories = await Promise.all(
         rootList.map(async (category) => {
           const nestedSubcategories = await this.getSubcategories(
             category.id,
-            false,
+            true,
           )
           return {
             ...category,
@@ -61,6 +72,27 @@ export class PublicCategoryService {
         message: 'Thành công',
         success: true,
         data: organizedSubcategories,
+      }
+    } catch (error) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
+
+  async getCategoryFilter(req: Request) {
+    try {
+      const { id } = req.params
+      const result = await this.prisma.categoryFilters.findUnique({
+        where: {
+          id: Number(id),
+        },
+      })
+      return {
+        success: true,
+        message: 'OK',
+        data: result?.filters ?? [],
       }
     } catch (error) {
       throw new HttpException(
