@@ -80,13 +80,15 @@ let PublicOrderService = class PublicOrderService {
                 discountAmount = voucherDetail?.discount ?? 0;
             }
             console.log('🚀 ~ PublicOrderService ~ create ~ itemsPrice:', itemsPrice);
-            await this.prisma.order.create({
+            const result = await this.prisma.order.create({
                 data: {
                     note,
                     Voucher: {
-                        connect: {
-                            code: payment.voucher,
-                        },
+                        connect: payment.voucher
+                            ? {
+                                code: payment.voucher,
+                            }
+                            : undefined,
                     },
                     customerInfo: {
                         create: receiver,
@@ -107,7 +109,7 @@ let PublicOrderService = class PublicOrderService {
             return {
                 message: 'Tạo thành công',
                 success: true,
-                data: true,
+                data: { id: result.id, amount: hasPaid },
             };
         }
         catch (error) {

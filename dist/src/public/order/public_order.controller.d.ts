@@ -6,6 +6,9 @@ export declare class PublicOrderController {
     create(createOrderDto: CreateOrderDto): Promise<{
         message: string;
         success: boolean;
-        data: boolean;
+        data: {
+            id: number;
+            amount: number;
+        };
     }>;
 }
