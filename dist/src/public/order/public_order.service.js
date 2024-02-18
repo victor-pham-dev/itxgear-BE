@@ -79,7 +79,6 @@ let PublicOrderService = class PublicOrderService {
                 voucherId = voucherDetail?.id;
                 discountAmount = voucherDetail?.discount ?? 0;
             }
-            console.log('🚀 ~ PublicOrderService ~ create ~ itemsPrice:', itemsPrice);
             const result = await this.prisma.order.create({
                 data: {
                     note,

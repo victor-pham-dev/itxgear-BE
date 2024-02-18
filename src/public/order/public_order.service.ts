@@ -99,7 +99,7 @@ export class PublicOrderService {
       }
       // check voucher ok
 
-      console.log('🚀 ~ PublicOrderService ~ create ~ itemsPrice:', itemsPrice)
+      // console.log('🚀 ~ PublicOrderService ~ create ~ itemsPrice:', itemsPrice)
 
       const result = await this.prisma.order.create({
         data: {
