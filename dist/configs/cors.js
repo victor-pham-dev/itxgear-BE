@@ -6,6 +6,7 @@ const allowedOrigins = [
     'http://localhost:8888',
     'https://itxgear-gw.io.vn',
     'https://itxgear.com',
+    'https://www.itxgear.com',
 ];
 const corsOptions = {
     origin: (origin, callback) => {
