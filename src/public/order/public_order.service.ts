@@ -131,7 +131,7 @@ export class PublicOrderService {
       return {
         message: 'Tạo thành công',
         success: true,
-        data: { id: result.id, amount: hasPaid },
+        data: { id: result.id, amount: itemsPrice - discountAmount },
       }
     } catch (error: any) {
       console.log('🚀 ~ PublicOrderService ~ create ~ error:', error)
