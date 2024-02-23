@@ -1,5 +1,7 @@
 import { PublicCategoryController } from './category/public_category.controller'
 import { PublicCategoryService } from './category/public_category.service'
+import { PublicDuckyController } from './ducky/ducky.controller'
+import { PublicDuckyService } from './ducky/ducky.service'
 import { PublicOrderController } from './order/public_order.controller'
 import { PublicOrderService } from './order/public_order.service'
 import { PublicProductController } from './product/public_product.controller'
@@ -12,6 +14,7 @@ export const PublicControllers = [
   PublicOrderController,
   PublicCategoryController,
   PublicSystemController,
+  PublicDuckyController,
 ]
 
 export const PublicServices = [
@@ -19,4 +22,5 @@ export const PublicServices = [
   PublicOrderService,
   PublicProductService,
   PublicSystemService,
+  PublicDuckyService,
 ]

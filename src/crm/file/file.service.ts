@@ -5,8 +5,8 @@ import * as AWS from 'aws-sdk'
 
 export class S3Service {
   s3Uploader = new AWS.S3({
-    accessKeyId: 'Z1XTPE72PATXRGPARAFS',
-    secretAccessKey: 'FpMEAtv0sMneG5B6QyilUkfVtUIJfHmtwa5T3hkh',
+    accessKeyId: '552EY3XAVT9WZ4BE96G7',
+    secretAccessKey: 'LA5C3u44FN2sa4cvKype5zhA2xxDC3FgnMCysq3O',
     endpoint: 's3.cloudfly.vn',
     s3ForcePathStyle: true,
   })

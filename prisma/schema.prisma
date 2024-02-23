@@ -295,3 +295,39 @@ model Wish {
   name    String
   content String
 }
+
+//for ducky website
+model Land {
+  id           Int            @id @unique @default(autoincrement())
+  landId       Int            @unique
+  image        String
+  LandImageLog LandImageLog[]
+  ResultPharse ResultPharse[]
+}
+
+model LandImageLog {
+  id        Int      @id @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  image     String
+  landId    Int
+  Land      Land?    @relation(references: [landId], fields: [landId])
+}
+
+model ResultMember {
+  id              Int           @id @unique @default(autoincrement())
+  createdAt       DateTime      @default(now())
+  address         String
+  total_item_done Int
+  item_type       String
+  token_receive   Int
+  ResultPharse    ResultPharse? @relation(fields: [resultPharseId], references: [id])
+  resultPharseId  Int?
+}
+
+model ResultPharse {
+  id        Int            @id @unique @default(autoincrement())
+  createdAt DateTime       @default(now())
+  receivers ResultMember[]
+  landId    Int
+  Land      Land?          @relation(references: [landId], fields: [landId])
+}

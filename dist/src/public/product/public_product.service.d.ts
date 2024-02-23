@@ -59,8 +59,8 @@ export declare class PublicProductService {
         message: string;
         success: boolean;
         data: {
-            alias: string;
             name: string;
+            alias: string;
             images: string;
             seo: string;
             keywords: string;
@@ -71,16 +71,16 @@ export declare class PublicProductService {
         success: boolean;
         data: {
             dataTable: {
-                alias: string;
-                id: number;
-                categoryId: number;
                 name: string;
-                images: string;
-                view: number;
+                id: number;
+                active: boolean;
+                alias: string;
+                categoryId: number;
                 code: string;
+                images: string;
                 price: number;
                 salePrice: number;
-                active: boolean;
+                view: number;
                 WareHouse: {
                     quantity: number;
                 };
@@ -95,15 +95,6 @@ export declare class PublicProductService {
     getOutStandingExams(): Promise<{
         success: boolean;
         data: {
-            alias: string;
-            status: import(".prisma/client").$Enums.ProductStatus;
-            categoryId: number;
-            name: string;
-            images: string;
-            view: number;
-            code: string;
-            price: number;
-            salePrice: number;
             category: {
                 id: number;
                 description: string;
@@ -116,6 +107,15 @@ export declare class PublicProductService {
                 deleted: boolean;
                 categoryFiltersId: number;
             };
+            name: string;
+            alias: string;
+            categoryId: number;
+            code: string;
+            status: import(".prisma/client").$Enums.ProductStatus;
+            images: string;
+            price: number;
+            salePrice: number;
+            view: number;
         }[];
     }>;
     incrementView(data: IncrementViewDto): Promise<{
@@ -127,14 +127,6 @@ export declare class PublicProductService {
         success: boolean;
         message: string;
         data: {
-            alias: string;
-            categoryId: number;
-            name: string;
-            images: string;
-            view: number;
-            code: string;
-            price: number;
-            salePrice: number;
             category: {
                 id: number;
                 description: string;
@@ -147,6 +139,14 @@ export declare class PublicProductService {
                 deleted: boolean;
                 categoryFiltersId: number;
             };
+            name: string;
+            alias: string;
+            categoryId: number;
+            code: string;
+            images: string;
+            price: number;
+            salePrice: number;
+            view: number;
             WareHouse: {
                 id: number;
                 productId: number;
@@ -160,13 +160,13 @@ export declare class PublicProductService {
         success: boolean;
         message: string;
         data: {
-            alias: string;
-            id: number;
-            status: import(".prisma/client").$Enums.ProductStatus;
             name: string;
+            id: number;
+            alias: string;
+            status: import(".prisma/client").$Enums.ProductStatus;
             images: string;
-            view: number;
             salePrice: number;
+            view: number;
             WareHouse: {
                 quantity: number;
             };
