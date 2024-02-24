@@ -7,6 +7,8 @@ const allowedOrigins = [
   'https://itxgear-gw.io.vn',
   'https://itxgear.com',
   'https://www.itxgear.com',
+  'https://ducky-farm.pro',
+  'https://tshop-mu.vercel.app',
 ]
 
 const corsOptions: CorsOptions = {
